@@ -16,6 +16,7 @@
 
 package io.github.yingzhuo.claude.core.m.user.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User findById(String id) {
 		return userDao.selectById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public User findByUsername(String username) {
+		var wrapper = new LambdaQueryWrapper<User>()
+			.eq(User::getUsername, username);
+		return userDao.selectOne(wrapper);
 	}
 
 	@Override

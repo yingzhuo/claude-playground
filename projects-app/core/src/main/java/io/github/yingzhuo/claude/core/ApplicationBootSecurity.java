@@ -33,7 +33,10 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import static org.springframework.http.HttpMethod.GET;
 
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(
+	prePostEnabled = true,
+	securedEnabled = true
+)
 @Configuration
 public class ApplicationBootSecurity {
 

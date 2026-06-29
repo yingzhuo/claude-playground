@@ -66,6 +66,8 @@ java-claude-app-skeleton
     - 在所有SQL正文后加入 `-- @formatter:on`
 - Swagger具体要求
     - 对于DTO, 每个字段务必指明必要性, 最小长度, 最大长度
+- Controller层具体要求
+    - 所有Restful接口, 最外层模型是 `io.github.yingzhuo.claude.core.webmvc.R`
 
 ## Make 命令快捷方式
 

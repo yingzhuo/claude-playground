@@ -17,6 +17,7 @@
 package io.github.yingzhuo.claude.core.m.user.service;
 
 import io.github.yingzhuo.claude.model.user.entity.User;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -41,6 +42,15 @@ public interface UserService {
 	 * @return 用户，未找到返回 {@code null}
 	 */
 	User findById(String id);
+
+	/**
+	 * 根据用户名查询用户
+	 *
+	 * @param username 用户名
+	 * @return 用户，未找到返回 {@code null}
+	 */
+	@Nullable
+	User findByUsername(String username);
 
 	/**
 	 * 创建用户
