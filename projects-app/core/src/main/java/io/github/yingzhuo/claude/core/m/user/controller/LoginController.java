@@ -18,7 +18,7 @@ package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDto;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
-import io.github.yingzhuo.claude.core.webmvc.R;
+import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

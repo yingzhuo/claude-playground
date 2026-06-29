@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.yingzhuo.claude.core.webmvc;
+package io.github.yingzhuo.claude.model.webmvc;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

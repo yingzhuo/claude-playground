@@ -40,6 +40,7 @@ java-claude-app-skeleton
 +--- Project ':projects-app'
 |    \--- Project ':projects-app:core' - 主程序
 \--- Project ':projects-lib'
+     +--- Project ':projects-lib:addon-common' - 通用工具及杂项
      +--- Project ':projects-lib:addon-model' - 模型
      \--- Project ':projects-lib:addon-security' - 安全相关组件
 ```
@@ -56,7 +57,7 @@ java-claude-app-skeleton
     - 需要放在不同逻辑模块的不同 package 下
     - 使用 MyBatis/MyBatisPlus 相关描述数据库映射的元注释
     - 使用 Lombok 元注释
-    - 必须显式实现 Serializable 接口
+    - 必须显式实现 `java.io.Serializable` 接口
     - 每个property必须要有Java文档注释清晰标记具体用途
     - MyBatisPlus 已配置了所有的表都以 "t_" 开头
 - FlyWay相关数据相关文件放在 `主程序` 工程
@@ -67,7 +68,7 @@ java-claude-app-skeleton
 - Swagger具体要求
     - 对于DTO, 每个字段务必指明必要性, 最小长度, 最大长度
 - Controller层具体要求
-    - 所有Restful接口, 最外层模型是 `io.github.yingzhuo.claude.core.webmvc.R`
+    - 所有Restful接口, 最外层模型是 `io.github.yingzhuo.claude.model.webmvc.R`
 
 ## Make 命令快捷方式
 
