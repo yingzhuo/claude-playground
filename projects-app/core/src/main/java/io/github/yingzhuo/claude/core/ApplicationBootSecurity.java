@@ -85,6 +85,7 @@ public class ApplicationBootSecurity {
 				c.requestMatchers("/error").permitAll()
 					.requestMatchers(GET, "/favicon.ico").permitAll()
 					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health", "/actuator/beans", "/actuator/env").permitAll()
+					.requestMatchers("/swagger-ui.html", "/v3/api-docs", "/swagger-ui/*").permitAll()
 					.requestMatchers("/actuator/shutdown").denyAll()
 					.anyRequest().permitAll()    // 用元注释控制
 			)

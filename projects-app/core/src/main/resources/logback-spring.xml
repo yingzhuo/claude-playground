@@ -23,6 +23,7 @@
 	<logger name="org.jboss.logging" level="warn"/>
 	<logger name="com.zaxxer.hikari" level="info"/>
 	<logger name="com.tngtech" level="info"/>
+	<logger name="io.swagger" level="info"/>
 	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="info"/>
 
 	<springProfile name="dev">

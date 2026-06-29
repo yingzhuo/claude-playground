@@ -130,7 +130,7 @@ application: { }
 # ----------------------------------------------------------------------------------------------------------------------
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
     path: "/v3/api-docs"
   swagger-ui:
     enabled: true
@@ -138,7 +138,7 @@ springdoc:
     display-request-duration: true
     display-operation-id: true
   packages-to-scan:
-    - "io.github.yingzhuo.claude.core"
+    - "io.github.yingzhuo.claude"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # MyBatis / MyBatis-Plus配置

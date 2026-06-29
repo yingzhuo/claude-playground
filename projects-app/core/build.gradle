@@ -32,7 +32,7 @@ dependencies {
 	api 'org.springframework.boot:spring-boot-starter-json'
 	api 'org.springframework.boot:spring-boot-starter-jdbc'
 	api 'org.springframework.boot:spring-boot-starter-flyway'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// spring-modulith
 	api 'org.springframework.modulith:spring-modulith-starter-core'
