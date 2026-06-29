@@ -37,12 +37,12 @@ import java.io.Serializable;
 @Schema(description = "登录请求")
 public class LoginRequestDto implements Serializable {
 
-    @NotBlank
-    @Schema(description = "用户名", required = true, minLength = 1, maxLength = 32)
-    private String username;
+	@NotBlank
+	@Schema(description = "用户名", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)
+	private String username;
 
-    @NotBlank
-    @Schema(description = "密码", required = true, minLength = 1, maxLength = 64)
-    private String password;
+	@NotBlank
+	@Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 64)
+	private String password;
 
 }
