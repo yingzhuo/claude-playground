@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="30 seconds" packagingData="false">
+
+	<springProperty name="LOG_HOME" source="logback.log-home"/>
+	<springProperty name="LOG_NAME" source="logback.log-name"/>
+	<springProperty name="LOG_PATTERN" source="logback.log-pattern"/>
+
+	<!-- 导入logback类型 -->
+	<import class="ch.qos.logback.core.ConsoleAppender"/>
+	<import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+	<import class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"/>
+	<import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+
+	<!-- log精细配置 -->
+	<logger name="io.github.yingzhuo.claude" level="debug"/>
+	<logger name="org.springframework" level="info"/>
+	<logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="debug"/>
+	<logger name="org.springframework.boot.context.ApplicationPidFileWriter" level="off"/>
+	<logger name="org.springframework.security" level="debug"/>
+	<logger name="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl" level="info"/>
+	<logger name="org.springframework.security.config.annotation.web.builders.WebSecurity" level="off"/>
+	<logger name="org.hibernate.validator" level="warn"/>
+	<logger name="org.jboss.logging" level="warn"/>
+	<logger name="com.zaxxer.hikari" level="info"/>
+	<logger name="com.tngtech" level="info"/>
+	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="info"/>
+
+	<springProfile name="dev">
+		<include resource="logback-spring-profile/dev.xml"/>
+	</springProfile>
+
+	<springProfile name="prod">
+		<include resource="logback-spring-profile/prod.xml"/>
+	</springProfile>
+
+</configuration>

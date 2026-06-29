@@ -1,0 +1,25 @@
+plugins {
+	id 'dev.yumi.gradle.licenser'
+}
+
+license {
+	rule(rootProject.file('buildSrc/config/license/template.txt'))
+
+	include(
+		'**/*.java',
+		'**/*.kt',
+		'**/*.scala',
+		'**/*.kotlin'
+	)
+
+	exclude(
+		'**/*.properties',
+		'**/*.xml',
+		'**/*.yaml',
+		'**/*.yml',
+		'**/*.toml',
+		'**/*.conf',
+		'**/*.ini',
+		'**/*.json'
+	)
+}

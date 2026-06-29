@@ -1,0 +1,43 @@
+plugins {
+	id 'buildlogic.java-conventions'
+	id 'buildlogic.check-conventions'
+	id 'buildlogic.license-conventions'
+}
+
+description = '安全相关组件'
+
+dependencies {
+
+	// 本项目BOM
+	api platform(project(':project-bom'))
+	annotationProcessor platform(project(':project-bom'))
+	api project(':projects-lib:addon-common')
+	api project(':projects-lib:addon-model')
+
+	// spring-boot & spring
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
+	compileOnly 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.springframework.boot:spring-boot-starter-security'
+	compileOnly 'org.springframework.boot:spring-boot-starter-logging'
+	compileOnly 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// tools
+	api 'com.google.guava:guava'
+
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// mapstruct
+	compileOnly 'org.mapstruct:mapstruct'
+	annotationProcessor 'org.mapstruct:mapstruct-processor'
+
+	// slf4j
+	api 'org.slf4j:slf4j-api'
+
+	// jwt
+	api 'com.auth0:java-jwt'
+}

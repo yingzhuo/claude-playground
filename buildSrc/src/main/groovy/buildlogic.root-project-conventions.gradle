@@ -1,0 +1,35 @@
+plugins {
+	id 'base'
+}
+
+defaultTasks 'clean'
+
+tasks.named('wrapper') {
+	distributionUrl = gradleWrapperDownloadUrl
+	networkTimeout = 120000
+	validateDistributionUrl = false
+	distributionType = Wrapper.DistributionType.ALL
+}
+
+tasks.register('pushToVcs', Exec) {
+	group = 'other'
+	description = 'Commit and push all codes to the version control system.'
+
+	workingDir("$rootDir")
+	commandLine('bash', "$rootDir/buildSrc/config/vcs/push.sh")
+}
+
+tasks.named('clean') {
+	finalizedBy 'tidy'
+}
+
+tasks.register('tidy', DefaultTask) {
+	group = 'build'
+	description = 'Deletes useless files of the project.'
+
+	doLast {
+		delete fileTree(projectDir) {
+			include('**/.DS_Store', '**/*.log', '**/*.hprof', '**/hs_err_pid*')
+		}
+	}
+}

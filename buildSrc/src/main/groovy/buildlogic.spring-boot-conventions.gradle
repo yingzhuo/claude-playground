@@ -1,0 +1,93 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'com.gorylenko.gradle-git-properties'
+}
+
+tasks.named('jar') {
+	enabled = false
+}
+
+tasks.named('bootJar') {
+	manifest {
+		attributes([
+			'Main-Class': 'org.springframework.boot.loader.launch.PropertiesLauncher'
+		])
+	}
+
+	archiveFileName = "${project.name}-${project.version}.jar"
+
+	includeTools = true
+
+	layered {
+		enabled = true
+
+		application {
+			intoLayer('spring-boot-loader') {
+				include 'org/springframework/boot/loader/**'
+			}
+			intoLayer('application')
+		}
+
+		dependencies {
+			intoLayer('application') {
+				includeProjectDependencies()
+			}
+
+			intoLayer('snapshot-dependencies') {
+				include '*:*:*SNAPSHOT'
+			}
+
+			intoLayer('dependencies')
+		}
+
+		layerOrder = ['dependencies',
+		              'spring-boot-loader',
+		              'snapshot-dependencies',
+		              'application'
+		]
+	}
+
+	excludes = [
+		'**/.gitkeep',
+		'**/.DS_Store',
+		'**/netty-*-macos*.jar',
+		'**/netty-*-osx*.jar'
+	]
+}
+
+tasks.named('bootBuildImage') {
+	enabled = false
+}
+
+tasks.named('bootRun') {
+	var arguments = [
+		'--spring.profiles.active=dev'
+	]
+
+	args(arguments.join(' '))
+}
+
+tasks.named('build') {
+	finalizedBy 'cleanResolveMainClassName'
+}
+
+springBoot {
+	buildInfo {
+		enabled = true
+		excludes = ['artifact', 'name']
+		properties {
+			additional = [
+				'built-by': "Gradle ${gradle.gradleVersion}"
+			]
+		}
+	}
+}
+
+gitProperties {
+	dotGitDirectory = rootProject.layout.projectDirectory.dir('.git/')
+	gitPropertiesName = 'git.properties'
+	keys = ['git.branch', 'git.commit.id', 'git.commit.id.abbrev', 'git.commit.time', 'git.dirty']
+	dateFormat = defaultDatetimeFormat
+	dateFormatTimeZone = defaultTimezone
+	failOnNoGitDirectory = false
+}

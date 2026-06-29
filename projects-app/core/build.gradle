@@ -1,0 +1,78 @@
+plugins {
+	id 'buildlogic.java-conventions'
+	id 'buildlogic.spring-boot-conventions'
+	id 'buildlogic.check-conventions'
+	id 'buildlogic.distribution-conventions'
+	id 'buildlogic.license-conventions'
+}
+
+description = '主程序'
+
+dependencies {
+
+	// 本项目BOM
+	api platform(project(':project-bom'))
+	annotationProcessor platform(project(':project-bom'))
+
+	// 本项目其他子工程
+	api project(':projects-lib:addon-model')
+	api project(':projects-lib:addon-common')
+	api project(':projects-lib:addon-security')
+
+	// spring-boot
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	api 'org.springframework.boot:spring-boot-starter-web'
+	api 'org.springframework.boot:spring-boot-starter-actuator'
+	api 'org.springframework.boot:spring-boot-starter-aspectj'
+	api 'org.springframework.boot:spring-boot-starter-logging'
+	api 'org.springframework.boot:spring-boot-starter-validation'
+	api 'org.springframework.boot:spring-boot-starter-security'
+	api 'org.springframework.boot:spring-boot-starter-json'
+	api 'org.springframework.boot:spring-boot-starter-jdbc'
+	api 'org.springframework.boot:spring-boot-starter-flyway'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// spring-modulith
+	api 'org.springframework.modulith:spring-modulith-starter-core'
+	api 'org.springframework.modulith:spring-modulith-core'
+
+	// spring-framework
+	compileOnly 'org.springframework:spring-context-indexer'
+	annotationProcessor 'org.springframework:spring-context-indexer'
+
+	// spring-security
+	//testImplementation 'org.springframework.security:spring-security-test'
+
+	// swagger
+	api 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
+
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// mapstruct
+	api 'org.mapstruct:mapstruct'
+	annotationProcessor 'org.mapstruct:mapstruct-processor'
+
+	// slf4j
+	api 'org.slf4j:slf4j-api'
+
+	// 通用工具
+	api 'com.google.guava:guava'
+
+	// mybatis-plus
+	api 'com.baomidou:mybatis-plus-spring-boot4-starter'
+	api 'com.baomidou:mybatis-plus-jsqlparser'
+
+	// 数据库连接池
+	api 'com.zaxxer:HikariCP'
+
+	// flyway
+	api 'org.flywaydb:flyway-core'
+	api 'org.flywaydb:flyway-mysql'
+
+	// mysql JDBC驱动
+	api 'com.mysql:mysql-connector-j'
+}

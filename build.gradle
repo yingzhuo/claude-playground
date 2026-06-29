@@ -1,0 +1,25 @@
+plugins {
+	id 'buildlogic.root-project-conventions'
+}
+
+description = '根项目'
+
+ext {
+	// SpringBoot BOM 版本微调
+	// https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
+	// https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html
+}
+
+subprojects {
+	configurations.configureEach {
+		resolutionStrategy {
+			cacheChangingModulesFor(versionCachingHours as Integer, 'hours')
+			cacheDynamicVersionsFor(versionCachingHours as Integer, 'hours')
+		}
+	}
+}
+
+allprojects {
+	group = thisProjectGroup
+	version = thisProjectVersion
+}

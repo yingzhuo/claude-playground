@@ -1,0 +1,90 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+	id 'java'
+	id 'java-library'
+	id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+		mavenBom "org.springframework.modulith:spring-modulith-bom:$springModulithVersion"
+	}
+}
+
+java {
+	var javaVersionInt = jdkVersion as Integer
+	sourceCompatibility = JavaVersion.toVersion(javaVersionInt)
+	targetCompatibility = JavaVersion.toVersion(javaVersionInt)
+
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(javaVersionInt)
+		implementation = JvmImplementation.VENDOR_SPECIFIC
+		//vendor = JvmVendorSpec.ORACLE 不再限制整体团队使用JDK的实现厂商
+	}
+
+	if (providers.gradleProperty('buildWithSourcesAndJavadoc').getOrElse('false').equalsIgnoreCase('true')) {
+		withSourcesJar()
+		withJavadocJar()
+	}
+}
+
+compileJava {
+	options.compilerArgs += [
+		'-Xlint:unchecked',
+		'-Xlint:cast',
+		'-Xlint:rawtypes',
+		'-Xlint:overloads',
+		'-Xlint:divzero',
+		'-Xlint:finally',
+		'-Xlint:static',
+		'-Werror'
+	]
+}
+
+jar {
+	enabled = true
+	archiveFileName = "${project.name}-${project.version}.jar"
+}
+
+javadoc {
+	failOnError = false
+
+	options {
+		locale = defaultLocale
+		encoding = defaultEncoding
+	}
+}
+
+var replaceTokenMap = [
+	'APP_GROUP'         : project.group,
+	'APP_NAME'          : project.name,
+	'APP_VERSION'       : project.version,
+	'APP_GRADLE_VERSION': gradle.gradleVersion
+]
+
+processResources {
+	exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
+
+	from('src/main/java') {
+		include('**/*.pem', '**/*.pfx', '**/*.p12', '**/*.properties')
+	}
+
+	from('src/main/resources') {
+		include('**/*.yaml', '**/*.yml', '**/*.properties', '**/*.xml', '**/banner.txt')
+		filter(ReplaceTokens, 'tokens': replaceTokenMap)
+		filteringCharset = defaultEncoding
+	}
+
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+processTestResources {
+	exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+test {
+	useJUnitPlatform()
+}
