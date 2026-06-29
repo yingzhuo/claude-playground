@@ -38,7 +38,7 @@ import java.io.Serializable;
 public class LoginRequestDto implements Serializable {
 
 	@NotBlank
-	@Schema(description = "用户名", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)
+	@Schema(description = "用户名", required = true, requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)
 	private String username;
 
 	@NotBlank

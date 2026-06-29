@@ -1,6 +1,6 @@
 # 项目名称
 
-java-claude-app-skeleton
+claude-playground
 
 ## 项目概述
 
@@ -48,25 +48,14 @@ java-claude-app-skeleton
 有具体要求如下:
 
 - 逻辑模块化治理非常重要
-    - 如一个模块顶层为 `xxx` 包
-        - `dao` 为数据访问层接口和实现类
-        - `service` 为服务层接口和实现类
-        - `controller` 为Web暴露层
-        - `utility` 为模块内部使用utility类和MapStruct工具
 - 数据库相关实体类放在 `模型` 工程
     - 需要放在不同逻辑模块的不同 package 下
     - 使用 MyBatis/MyBatisPlus 相关描述数据库映射的元注释
     - 使用 Lombok 元注释
-    - 必须显式实现 `java.io.Serializable` 接口
     - 每个property必须要有Java文档注释清晰标记具体用途
     - MyBatisPlus 已配置了所有的表都以 "t_" 开头
-- FlyWay相关数据相关文件放在 `主程序` 工程
-    - 新建表之前要尝试删除: `drop table if exists t_xxx`
-    - 不要添加版权声明
-    - 在所有SQL正文前加入 `-- @formatter:off`
-    - 在所有SQL正文后加入 `-- @formatter:on`
 - Swagger具体要求
-    - 对于DTO/VO/BO, 每个字段务必指明必要性, 最小长度, 最大长度
+
 - Spring `Controller` 层具体要求
     - 所有Restful接口, 最外层模型是 `io.github.yingzhuo.claude.model.webmvc.R`
 
@@ -85,8 +74,6 @@ java-claude-app-skeleton
 
 - 禁止直接引入未在 BOM 子项目中管理的第三方依赖
 - 使用 Lombok @Slf4j, @Data, @Builder
-- DTO, VO, BO 不允许使用 Record
-- DTO, VO, BO 等POJO 必须实现 `java.io.Serializable` 接口
 - 数据库访问用 MyBatis-Plus, 不使用 Spring Data JPA
 - 单元测试用 JUnit 5 + AssertJ + Mockito,不使用 TestNG
 

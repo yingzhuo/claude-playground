@@ -48,7 +48,7 @@ public class ApplicationBootSwagger {
 		return new OpenAPI()
 			.info(new Info()
 				.title(applicationName)
-				.description("RESTful API documentation.")
+				.description("Claude Playground")
 				.version("v" + applicationVersion)
 			);
 	}

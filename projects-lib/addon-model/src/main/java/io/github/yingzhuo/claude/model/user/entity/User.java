@@ -20,7 +20,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +32,6 @@ import java.time.LocalDateTime;
  *
  * @author 应卓
  */
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

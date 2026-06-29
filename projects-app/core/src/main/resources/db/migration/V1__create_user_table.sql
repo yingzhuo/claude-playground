@@ -3,8 +3,6 @@
 -- ------------------------------------------------------------------------------------------------------------------
 
 -- @formatter:off
-
-drop table if exists `t_user`;
 create table if not exists `t_user`
 (
     `id`         char(32)    not null comment '数据库ID',
