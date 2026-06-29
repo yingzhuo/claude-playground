@@ -15,7 +15,7 @@ java-claude-app-skeleton
 
 ## 基础环境
 
-- JDK 17, 优先使用用 Pattern Matching、Text Blocks 等现代语法, 但不允许使用 Records
+- JDK 21, 优先使用用 Pattern Matching、Text Blocks 等现代语法, 但不允许使用 Records
 - Gradle 8.14+, 使用 Groovy DSL, 禁用 Kotlin DSL
 - 默认使用 IntelliJ IDEA, 启用 Save Actions 自动格式化
 
@@ -66,8 +66,8 @@ java-claude-app-skeleton
     - 在所有SQL正文前加入 `-- @formatter:off`
     - 在所有SQL正文后加入 `-- @formatter:on`
 - Swagger具体要求
-    - 对于DTO, 每个字段务必指明必要性, 最小长度, 最大长度
-- Controller层具体要求
+    - 对于DTO/VO/BO, 每个字段务必指明必要性, 最小长度, 最大长度
+- Spring `Controller` 层具体要求
     - 所有Restful接口, 最外层模型是 `io.github.yingzhuo.claude.model.webmvc.R`
 
 ## Make 命令快捷方式
