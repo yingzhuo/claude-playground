@@ -19,13 +19,6 @@ claude-playground
 - Gradle 8.14+, 使用 Groovy DSL, 禁用 Kotlin DSL
 - 默认使用 IntelliJ IDEA, 启用 Save Actions 自动格式化
 
-## 编码风格
-
-- 遵循 Google Java Style Guide（使用 google-java-format）
-- 缩进 4 空格, 行宽 100
-- 禁止使用 tab, 禁止尾随空格
-- 导入顺序：static → java* → javax* → org* → com* → 其他
-
 ## 核心技术栈
 
 - SpringBoot: 核心框架
