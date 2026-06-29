@@ -13,6 +13,10 @@ version: 1.0
 - 禁止 `java.util.Date` / `java.util.Calendar`，统一 `java.time.*`
 - 当不影响可读性时 局部变量优先使用 `var` 关键字
 
+## Jar 依赖
+
+- 禁止直接引入未在 BOM 子项目中管理的第三方依赖
+
 ## 命名
 
 - 类名 UpperCamelCase，方法/变量 lowerCamelCase
@@ -28,6 +32,15 @@ version: 1.0
 
 - DTO, VO, BO 不允许使用 Record
 - DTO, VO, BO 等POJO 必须显示实现 `java.io.Serializable` 接口
+
+## Entity (DB相关)
+
+- 数据库相关实体类放在 `模型` 工程
+- 需要放在不同逻辑模块的不同 package 下
+- 使用 MyBatis/MyBatisPlus 相关描述数据库映射的元注释
+- 使用 Lombok 元注释
+- 每个property必须要有Java文档注释清晰标记具体用途
+- MyBatisPlus 已配置了所有的表都以 "t_" 开头
 
 ## 返回值
 
