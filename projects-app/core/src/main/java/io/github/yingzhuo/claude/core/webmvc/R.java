@@ -15,6 +15,7 @@
  */
 package io.github.yingzhuo.claude.core.webmvc;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +27,20 @@ import java.io.Serializable;
  * API统一返回格式
  *
  * @author 应卓
- * @since 2026-01-31
  */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Schema(description = "API统一返回格式")
 public final class R<T> implements Serializable {
 
+	@Schema(description = "结果码", example = "200")
 	private final String code;
 
+	@Schema(description = "结果消息", example = "操作成功")
 	private final String msg;
 
 	@Nullable
+	@Schema(description = "数据")
 	private final T data;
 
 	public static <T> R<@Nullable T> ok(@Nullable T data) {
