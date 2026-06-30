@@ -57,5 +57,4 @@ claude-playground
 
 ## 项目负责人
 
-- name: 应卓
-  email: yingzhor@gmail.com
+- 应卓 [yingzhor@gmail.com](mailto:yingzhor@gmail.com)
