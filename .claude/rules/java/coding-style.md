@@ -21,6 +21,18 @@ version: 1.0
 
 - 禁止直接引入未在 BOM 子项目中管理的第三方依赖
 
+## 文档注释
+
+- 所有公共方法（含 protected）必须写 JavaDoc，含 `@param` 和 `@return`
+- JavaDoc 应描述"外部可见的行为"（什么场景触发、返回什么），而非"内部如何实现"
+- 禁止在 JavaDoc 中记录修改历史、作者、日期（用 git）
+- Controller 层的方法例外，不要 JavaDoc，用 Swagger `@Operation` 说明接口功能
+- Controller Advice 的方法需要 JavaDoc，说明触发条件、异常类型和响应结构
+- 功能简单的私有方法不要 JavaDoc
+- `@Bean` 方法：JavaDoc 说明该 Bean 的用途和配置属性来源
+- Service 接口方法必须 JavaDoc，实现类可以 `{@inheritDoc}` 复用
+- DTO/VO/BO 字段：`@Schema` 已覆盖字段说明，不需额外 JavaDoc
+
 ## 命名
 
 - 类名 UpperCamelCase，方法/变量 lowerCamelCase
@@ -49,7 +61,7 @@ version: 1.0
 ## 返回值
 
 - 集合返回 empty-list等，禁止返回 null
-- 单值可能不存在 → Optional<T>，但禁止字段类型用 Optional、禁止方法参数用 Optional
+- 单值可能不存在 → Optional<T>，但禁止字段类型用 Optional、禁止方法参数用 Optional<T>
 
 ## 避免NPE
 

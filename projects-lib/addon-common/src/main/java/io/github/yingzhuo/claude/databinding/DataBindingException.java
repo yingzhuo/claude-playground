@@ -24,6 +24,7 @@ import org.springframework.validation.ObjectError;
 
 import java.util.*;
 
+@Deprecated(forRemoval = true)
 @RequiredArgsConstructor
 public class DataBindingException extends IllegalArgumentException implements MultiMessageSourceResolvable {
 
