@@ -19,10 +19,10 @@ package io.github.yingzhuo.claude.core.m.user.controller;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDto;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
+import io.github.yingzhuo.claude.security.annotation.PermitAll;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +44,7 @@ public class LoginController {
 	private final JwtCreator jwtCreator;
 
 	@PostMapping("/login")
-	@PreAuthorize("permitAll()")
+	@PermitAll
 	public R<?> login(@RequestBody @Valid LoginRequestDto request) {
 		var user = userService.findByUsername(request.getUsername());
 
