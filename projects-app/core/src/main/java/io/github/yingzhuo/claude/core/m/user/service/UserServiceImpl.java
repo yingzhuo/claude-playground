@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
 		var wrapper = new LambdaQueryWrapper<User>()
-				.eq(User::getUsername, username);
+			.eq(User::getUsername, username);
 		return userDao.selectOne(wrapper);
 	}
 

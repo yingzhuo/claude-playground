@@ -16,7 +16,7 @@
 
 package io.github.yingzhuo.claude.core.m.user.controller.dto;
 
-import io.github.yingzhuo.claude.jsr380.Password;
+import io.github.yingzhuo.claude.jsr380.PasswordStrength;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -34,7 +34,7 @@ public class ChangePasswordRequestDto implements Serializable {
 
     @NotBlank
     @Size(min = 8, max = 32)
-    @Password
+    @PasswordStrength
     @Schema(description = "新密码 (8-32位，必须包含字母、数字和特殊字符)", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 8, maxLength = 32)
     private String newPassword;
 }

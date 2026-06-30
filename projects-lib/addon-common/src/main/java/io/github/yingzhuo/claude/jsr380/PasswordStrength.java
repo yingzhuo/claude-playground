@@ -42,8 +42,8 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordValidator.class)
-public @interface Password {
+@Constraint(validatedBy = PasswordStrengthValidator.class)
+public @interface PasswordStrength {
 
     String message() default "密码必须包含字母、数字和特殊字符";
 
