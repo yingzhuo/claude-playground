@@ -21,10 +21,12 @@ import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * 用户业务实现
@@ -36,7 +38,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,32}$";
+	private static final Pattern PASSWORD_REGEX = Pattern.compile(PASSWORD_PATTERN);
+
 	private final UserDao userDao;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -74,5 +80,29 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void deleteById(String id) {
 		userDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public void changePassword(String userId, String oldPassword, String newPassword) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new IllegalArgumentException("用户不存在");
+		}
+
+		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+			throw new IllegalArgumentException("旧密码错误");
+		}
+
+		if (oldPassword.equals(newPassword)) {
+			throw new IllegalArgumentException("新密码不能与旧密码相同");
+		}
+
+		if (!PASSWORD_REGEX.matcher(newPassword).matches()) {
+			throw new IllegalArgumentException("密码必须包含字母、数字和特殊字符");
+		}
+
+		user.setPassword(passwordEncoder.encode(newPassword));
+		userDao.updateById(user);
 	}
 }
