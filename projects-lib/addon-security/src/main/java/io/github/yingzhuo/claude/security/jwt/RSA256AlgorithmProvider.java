@@ -22,11 +22,15 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 import static io.github.yingzhuo.claude.utility.PemUtils.getPrivateKey;
 import static io.github.yingzhuo.claude.utility.PemUtils.getPublicKeyFromCertificate;
 
 /**
  * @author 应卓
+ * @see AlgorithmProvider
  */
 @Builder
 public class RSA256AlgorithmProvider implements AlgorithmProvider, InitializingBean {
@@ -37,8 +41,8 @@ public class RSA256AlgorithmProvider implements AlgorithmProvider, InitializingB
 	@Override
 	public Algorithm get() {
 		return Algorithm.RSA256(
-			getPublicKeyFromCertificate(pemLocation),
-			getPrivateKey(pemLocation, keyPassword)
+			(RSAPublicKey) getPublicKeyFromCertificate(pemLocation),
+			(RSAPrivateKey) getPrivateKey(pemLocation, keyPassword)
 		);
 	}
 

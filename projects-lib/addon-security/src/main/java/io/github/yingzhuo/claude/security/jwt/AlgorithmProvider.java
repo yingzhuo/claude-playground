@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ * @see RSA256AlgorithmProvider
  */
 @FunctionalInterface
 public interface AlgorithmProvider extends Supplier<Algorithm> {
