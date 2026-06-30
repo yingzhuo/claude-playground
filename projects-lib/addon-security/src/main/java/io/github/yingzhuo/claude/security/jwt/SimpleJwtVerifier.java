@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * @author 应卓
+ * @see JwtVerifier
  */
 public class SimpleJwtVerifier implements JwtVerifier {
 

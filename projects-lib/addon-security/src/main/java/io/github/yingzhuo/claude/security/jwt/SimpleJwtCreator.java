@@ -27,6 +27,7 @@ import java.util.Date;
 
 /**
  * @author 应卓
+ * @see JwtCreator
  */
 @RequiredArgsConstructor
 public class SimpleJwtCreator implements JwtCreator {
@@ -34,7 +35,7 @@ public class SimpleJwtCreator implements JwtCreator {
 	private final AlgorithmProvider algorithmProvider;
 
 	@Override
-	public String apply(User user) {
+	public String create(User user) {
 		Assert.notNull(user, "User must not be null");
 
 		var algorithm = algorithmProvider.get();

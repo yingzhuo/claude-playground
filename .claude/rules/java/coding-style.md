@@ -16,6 +16,7 @@ version: 1.0
 - 缩进 4 空格, 行宽 100
 - 禁止使用 tab, 禁止尾随空格
 - 导入顺序: static → java* → javax* → org* → com* → 其他
+- 标记型接口要使用 `@FunctionalInterface`
 
 ## Jar 依赖
 

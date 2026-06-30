@@ -22,7 +22,16 @@ import java.util.function.Function;
 
 /**
  * @author 应卓
+ * @see SimpleJwtCreator
  */
 @FunctionalInterface
 public interface JwtCreator extends Function<User, String> {
+
+	public String create(User user);
+
+	@Override
+	public default String apply(User user) {
+		return create(user);
+	}
+
 }
