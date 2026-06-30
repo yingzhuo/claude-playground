@@ -21,9 +21,9 @@ version: 1.0
 
 ## 访问控制
 
-- 使用 `io.github.yingzhuo.claude.security.annotation` 包下的元注释进行访问控制（Controller / Service 层均可使用）
-  - `@PermitAll` — 允许所有用户访问
-  - `@DenyAll` — 拒绝所有用户访问
-  - `@IsAuthenticated` — 要求用户已登录（认证通过）
-  - `@IsFullyAuthenticated` — 要求完全认证（非 Remember-Me）
-  - `@IsAnonymous` — 允许匿名用户访问
+- 使用 `io.github.yingzhuo.claude.security.annotation` 包下的元注释进行访问控制(Controller / Service 层均可使用)
+  - `@PermitAll` - 允许所有用户访问
+  - `@DenyAll` - 拒绝所有用户访问
+  - `@IsAuthenticated` - 要求用户已登录(认证通过)
+  - `@IsFullyAuthenticated` - 要求完全认证(非 Remember-Me)
+  - `@IsAnonymous` - 允许匿名用户访问
