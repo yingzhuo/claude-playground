@@ -1,7 +1,6 @@
 ---
 description: 逻辑模块治理
 paths: "**/*.java"
-version: 1.0
 ---
 
 # 逻辑模块治理

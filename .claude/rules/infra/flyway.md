@@ -1,7 +1,6 @@
 ---
 description: 数据迁移
 paths: "**/db/migration/*.sql"
-version: 1.0
 ---
 
 # 数据迁移

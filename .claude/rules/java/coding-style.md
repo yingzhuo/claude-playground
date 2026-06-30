@@ -1,7 +1,6 @@
 ---
 description: 编码风格
 paths: "**/*.java"
-version: 1.0
 ---
 
 # 编码风格

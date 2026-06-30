@@ -1,7 +1,6 @@
 ---
 description: Java 测试规范（JUnit 5 + Mockito + AssertJ）
 paths: "**/*Test.java,**/*IT.java,**/*Tests.java,**/*IntegrationTest.java"
-version: 1.0
 ---
 
 # Java测试规范

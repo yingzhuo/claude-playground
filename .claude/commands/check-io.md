@@ -1,5 +1,5 @@
 ---
-description: IO资源泄露实践
+description: IO资源泄露检查
 ---
 
 ## 确保没有资源泄露的风险

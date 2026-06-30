@@ -1,7 +1,6 @@
 ---
 description: swagger
 paths: "**/*.java"
-version: 1.0
 ---
 
 # swagger

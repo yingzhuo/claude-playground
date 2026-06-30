@@ -1,7 +1,6 @@
 ---
 description: 安全
 paths: "**/*.java"
-version: 1.0
 ---
 
 # 安全
@@ -27,3 +26,6 @@ version: 1.0
     - `@IsAuthenticated` - 要求用户已登录(认证通过)
     - `@IsFullyAuthenticated` - 要求完全认证(非 Remember-Me)
     - `@IsAnonymous` - 允许匿名用户访问
+    - `@CurrentUserId` - 获取安全上下文中的用户ID
+    - `@CurrentUsername` - 获取安全上下文中的用户名称
+    - `@CurrentRoles` - 获取安全上下文中的用户角色

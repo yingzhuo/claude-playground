@@ -1,7 +1,6 @@
 ---
 description: Spring规约
 paths: "**/*.java"
-version: 1.0
 ---
 
 # Spring规约
