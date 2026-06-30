@@ -21,11 +21,11 @@ claude-playground
 
 ## 核心技术栈
 
-- SpringBoot: 核心框架
-- SpringSecurity: Web安全框架
-- SpringModulith: 逻辑模块化治理框架
-- MyBatisPlus: ORM框架
-- Swagger: API文档化工具
+- SpringBoot 4.1.x: 核心框架
+- SpringSecurity 4.1.x: Web安全框架
+- SpringModulith 2.1.x: 逻辑模块化治理框架
+- MyBatisPlus 3.5.x: ORM框架
+- Swagger 2.2.x: API文档化工具
 
 ## 项目结构及具体要求
 
