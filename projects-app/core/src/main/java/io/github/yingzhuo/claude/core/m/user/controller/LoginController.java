@@ -21,6 +21,8 @@ import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.PermitAll;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
+@Tag(name = "用户认证", description = "登录相关接口")
 public class LoginController {
 
 	private final UserService userService;
@@ -45,6 +48,7 @@ public class LoginController {
 
 	@PostMapping("/login")
 	@PermitAll
+	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回 JWT token")
 	public R<?> login(@RequestBody @Valid LoginRequestDto request) {
 		var user = userService.findByUsername(request.getUsername());
 
