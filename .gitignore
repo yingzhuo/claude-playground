@@ -49,6 +49,7 @@ target/
 # CLAUDE CODE
 # --------------------------------------
 .claude/settings.local.json
+docs/superpowers/
 
 # --------------------------------------
 # 构建产物等
