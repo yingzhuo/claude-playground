@@ -17,6 +17,7 @@
 package io.github.yingzhuo.claude.core;
 
 import io.github.yingzhuo.claude.security.ex.SecurityExceptionHandler;
+import io.github.yingzhuo.claude.security.util.RequestMatcherFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -30,10 +31,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
-import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.http.HttpMethod.GET;
@@ -85,7 +82,7 @@ public class ApplicationBootSecurity {
 		var exceptionHandler = new SecurityExceptionHandler(objectMapper);
 
 		return http
-			.securityMatcher(createRequestMatcher())
+			.securityMatcher(RequestMatcherFactories.createDefault())
 			.anonymous(Customizer.withDefaults())
 			.sessionManagement(c ->
 				c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -113,16 +110,6 @@ public class ApplicationBootSecurity {
 					.anyRequest().permitAll()
 			)
 			.build();
-	}
-
-	private RequestMatcher createRequestMatcher() {
-		// 估计放掉Swagger相关的东西
-		return new AndRequestMatcher(
-			PathPatternRequestMatcher.pathPattern("/**"),
-			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/swagger-ui.html")),
-			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/v3/api-docs/**")),
-			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/swagger-ui/**"))
-		);
 	}
 
 }
