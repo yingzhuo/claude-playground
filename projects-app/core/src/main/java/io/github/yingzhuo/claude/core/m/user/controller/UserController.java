@@ -47,11 +47,7 @@ public class UserController {
 	@IsAuthenticated
 	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证")
 	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDto request, @CurrentUserId String userId) {
-		try {
-			userService.changePassword(userId, request.getOldPassword(), request.getNewPassword());
-			return R.ok();
-		} catch (IllegalArgumentException e) {
-			return R.error400(e.getMessage());
-		}
+		userService.changePassword(userId, request.getOldPassword(), request.getNewPassword());
+		return R.ok();
 	}
 }

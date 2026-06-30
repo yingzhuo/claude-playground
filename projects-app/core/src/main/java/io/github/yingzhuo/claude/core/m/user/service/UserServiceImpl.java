@@ -18,6 +18,7 @@ package io.github.yingzhuo.claude.core.m.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
+import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,19 +88,19 @@ public class UserServiceImpl implements UserService {
 	public void changePassword(String userId, String oldPassword, String newPassword) {
 		var user = userDao.selectById(userId);
 		if (user == null) {
-			throw new IllegalArgumentException("用户不存在");
+			throw new BusinessException("用户不存在");
 		}
 
 		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-			throw new IllegalArgumentException("旧密码错误");
+			throw new BusinessException("旧密码错误");
 		}
 
 		if (oldPassword.equals(newPassword)) {
-			throw new IllegalArgumentException("新密码不能与旧密码相同");
+			throw new BusinessException("新密码不能与旧密码相同");
 		}
 
 		if (!PASSWORD_REGEX.matcher(newPassword).matches()) {
-			throw new IllegalArgumentException("密码必须包含字母、数字和特殊字符");
+			throw new BusinessException("密码必须包含字母、数字和特殊字符");
 		}
 
 		user.setPassword(passwordEncoder.encode(newPassword));

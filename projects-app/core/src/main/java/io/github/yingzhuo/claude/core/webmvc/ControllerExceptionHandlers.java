@@ -16,6 +16,7 @@
 
 package io.github.yingzhuo.claude.core.webmvc;
 
+import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
@@ -234,6 +235,36 @@ public class ControllerExceptionHandlers {
 	public R<Void> handleTypeMismatch(MethodArgumentTypeMismatchException e) {
 		log.warn("参数类型不匹配: name={}, requiredType={}", e.getName(), e.getRequiredType());
 		return R.error400("参数类型不匹配: " + e.getName());
+	}
+
+	/**
+	 * 处理 {@link BusinessException} 类型的业务异常。
+	 * <p>
+	 * 当 Service 层检测到业务规则冲突（如旧密码错误、密码不满足复杂度要求等）时抛出。
+	 * 所有业务异常统一返回 400 Bad Request，消息内容来自异常创建时指定的描述。
+	 * </p>
+	 *
+	 * <table border="1" summary="响应说明">
+	 *   <caption>响应说明</caption>
+	 *   <thead>
+	 *     <tr><th>属性</th><th>值</th></tr>
+	 *   </thead>
+	 *   <tbody>
+	 *     <tr><td>HTTP Status</td><td>400 Bad Request</td></tr>
+	 *     <tr><td>code</td><td>400</td></tr>
+	 *     <tr><td>msg</td><td>异常消息原文</td></tr>
+	 *   </tbody>
+	 * </table>
+	 *
+	 * @param e 业务异常实例
+	 * @return 包含错误信息的 {@link R} 响应体
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(BusinessException.class)
+	public R<Void> handleBusinessException(BusinessException e) {
+		log.warn("业务异常: {}", e.getMessage());
+		return R.error400(e.getMessage());
 	}
 
 	/**
