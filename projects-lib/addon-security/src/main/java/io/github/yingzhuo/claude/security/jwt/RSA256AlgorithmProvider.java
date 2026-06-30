@@ -17,7 +17,7 @@
 package io.github.yingzhuo.claude.security.jwt;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import lombok.Setter;
+import lombok.Builder;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -28,25 +28,23 @@ import static io.github.yingzhuo.claude.utility.PemUtils.getPublicKeyFromCertifi
 /**
  * @author 应卓
  */
-@Setter
+@Builder
 public class RSA256AlgorithmProvider implements AlgorithmProvider, InitializingBean {
 
-	private String certPemLocation;
-	private String keyPemLocation;
+	private String pemLocation;
 	private @Nullable String keyPassword;
 
 	@Override
 	public Algorithm get() {
 		return Algorithm.RSA256(
-			getPublicKeyFromCertificate(certPemLocation),
-			getPrivateKey(keyPemLocation, keyPassword)
+			getPublicKeyFromCertificate(pemLocation),
+			getPrivateKey(pemLocation, keyPassword)
 		);
 	}
 
 	@Override
 	public void afterPropertiesSet() {
-		Assert.notNull(certPemLocation, "cert pem location is required");
-		Assert.notNull(keyPemLocation, "key pem location is required");
+		Assert.notNull(pemLocation, "cert pem location is required");
 	}
 
 }

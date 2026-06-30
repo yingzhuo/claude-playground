@@ -40,10 +40,10 @@ public class JwtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public AlgorithmProvider algorithmProvider() {
-		var provider = new RSA256AlgorithmProvider();
-		provider.setCertPemLocation("classpath:jwt-key/RSA256.pem");
-		provider.setKeyPemLocation("classpath:jwt-key/RSA256.pem");
-		return provider;
+		return RSA256AlgorithmProvider.builder()
+			.pemLocation("classpath:/jwt-key/RSA256.pem")
+			.keyPassword(null)
+			.build();
 	}
 
 	@Bean
