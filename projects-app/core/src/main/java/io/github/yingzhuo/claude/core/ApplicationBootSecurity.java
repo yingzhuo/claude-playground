@@ -16,7 +16,7 @@
 
 package io.github.yingzhuo.claude.core;
 
-import org.springframework.context.ApplicationContext;
+import io.github.yingzhuo.claude.security.ex.SecurityExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -30,6 +30,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.http.HttpMethod.GET;
 
@@ -53,12 +54,8 @@ public class ApplicationBootSecurity {
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChainDefault(HttpSecurity http) {
-		var applicationContext = http.getSharedObject(ApplicationContext.class);
-
-
-		// 错误处理器
-//		var exceptionHandler = new SecurityExceptionHandler();
+	public SecurityFilterChain securityFilterChainDefault(HttpSecurity http, ObjectMapper objectMapper) {
+		var exceptionHandler = new SecurityExceptionHandler(objectMapper);
 
 		return http
 			.securityMatcher("/**")
@@ -67,28 +64,29 @@ public class ApplicationBootSecurity {
 				c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			)
 			.cors(Customizer.withDefaults())
-			.csrf(AbstractHttpConfigurer::disable) // 禁用
-			.httpBasic(AbstractHttpConfigurer::disable) // 禁用
-			.jee(AbstractHttpConfigurer::disable) // 禁用
-			.formLogin(AbstractHttpConfigurer::disable) // 禁用
-			.logout(AbstractHttpConfigurer::disable) // 禁用
-			.passwordManagement(AbstractHttpConfigurer::disable) // 禁用
-			.rememberMe(AbstractHttpConfigurer::disable) // 禁用
-			.requestCache(RequestCacheConfigurer::disable) // 禁用
+			.csrf(AbstractHttpConfigurer::disable)
+			.httpBasic(AbstractHttpConfigurer::disable)
+			.jee(AbstractHttpConfigurer::disable)
+			.formLogin(AbstractHttpConfigurer::disable)
+			.logout(AbstractHttpConfigurer::disable)
+			.passwordManagement(AbstractHttpConfigurer::disable)
+			.rememberMe(AbstractHttpConfigurer::disable)
+			.requestCache(RequestCacheConfigurer::disable)
 			.headers(Customizer.withDefaults())
 			.cors(Customizer.withDefaults())
-//			.exceptionHandling(c ->
-//				c.authenticationEntryPoint(exceptionHandler)
-//					.accessDeniedHandler(exceptionHandler)
-//			)
+			.exceptionHandling(c ->
+				c.authenticationEntryPoint(exceptionHandler)
+					.accessDeniedHandler(exceptionHandler)
+			)
 			.authorizeHttpRequests(c ->
 				c.requestMatchers("/error").permitAll()
 					.requestMatchers(GET, "/favicon.ico").permitAll()
 					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health", "/actuator/beans", "/actuator/env").permitAll()
 					.requestMatchers("/swagger-ui.html", "/v3/api-docs", "/swagger-ui/*").permitAll()
 					.requestMatchers("/actuator/shutdown").denyAll()
-					.anyRequest().permitAll()    // 用元注释控制
+					.anyRequest().permitAll()
 			)
 			.build();
 	}
+
 }

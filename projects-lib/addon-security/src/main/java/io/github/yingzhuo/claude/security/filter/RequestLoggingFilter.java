@@ -16,11 +16,7 @@
 
 package io.github.yingzhuo.claude.security.filter;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,47 +38,47 @@ import java.util.Map;
 @Slf4j
 public class RequestLoggingFilter implements Filter {
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+	private static Map<String, String> extractParams(HttpServletRequest request) {
+		var map = new LinkedHashMap<String, String>();
+		var paramNames = request.getParameterNames();
+		while (paramNames.hasMoreElements()) {
+			var name = paramNames.nextElement();
+			map.put(name, String.join(",", request.getParameterValues(name)));
+		}
+		return Collections.unmodifiableMap(map);
+	}
 
-        var httpRequest = (HttpServletRequest) request;
-        var timestamp = Instant.now();
+	private static Map<String, String> extractHeaders(HttpServletRequest request) {
+		var map = new LinkedHashMap<String, String>();
+		var headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+			var name = headerNames.nextElement();
+			map.put(name, String.join(",", Collections.list(request.getHeaders(name))));
+		}
+		return Collections.unmodifiableMap(map);
+	}
 
-        var method = httpRequest.getMethod();
-        var path = httpRequest.getRequestURI();
-        var queryString = httpRequest.getQueryString();
-        var params = extractParams(httpRequest);
-        var headers = extractHeaders(httpRequest);
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+		throws IOException, ServletException {
 
-        log.info("request method={} path={}{} params={} headers={}",
-                method,
-                path,
-                queryString != null ? "?" + queryString : "",
-                params,
-                headers);
+		var httpRequest = (HttpServletRequest) request;
+		var timestamp = Instant.now();
 
-        chain.doFilter(request, response);
-    }
+		var method = httpRequest.getMethod();
+		var path = httpRequest.getRequestURI();
+		var queryString = httpRequest.getQueryString();
+		var params = extractParams(httpRequest);
+		var headers = extractHeaders(httpRequest);
 
-    private static Map<String, String> extractParams(HttpServletRequest request) {
-        var map = new LinkedHashMap<String, String>();
-        var paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            var name = paramNames.nextElement();
-            map.put(name, String.join(",", request.getParameterValues(name)));
-        }
-        return Collections.unmodifiableMap(map);
-    }
+		log.info("request method={} path={}{} params={} headers={}",
+			method,
+			path,
+			queryString != null ? "?" + queryString : "",
+			params,
+			headers);
 
-    private static Map<String, String> extractHeaders(HttpServletRequest request) {
-        var map = new LinkedHashMap<String, String>();
-        var headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            var name = headerNames.nextElement();
-            map.put(name, String.join(",", Collections.list(request.getHeaders(name))));
-        }
-        return Collections.unmodifiableMap(map);
-    }
+		chain.doFilter(request, response);
+	}
 
 }

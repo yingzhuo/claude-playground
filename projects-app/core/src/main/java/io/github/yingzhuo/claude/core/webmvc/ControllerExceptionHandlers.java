@@ -53,6 +53,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ControllerExceptionHandlers {
 
+	private static String collectErrors(BindingResult bindingResult) {
+		return bindingResult.getFieldErrors().stream()
+			.map(FieldError::getDefaultMessage)
+			.collect(Collectors.joining(";"));
+	}
+
 	/**
 	 * 处理 {@link MethodArgumentNotValidException} 类型的请求体校验异常。
 	 * <p>
@@ -362,12 +368,6 @@ public class ControllerExceptionHandlers {
 	public R<Void> handleThrowable(Throwable e, HttpServletRequest request) {
 		log.error("服务器内部错误 [{} {}]", request.getMethod(), request.getRequestURI(), e);
 		return R.error500("服务器内部错误");
-	}
-
-	private static String collectErrors(BindingResult bindingResult) {
-		return bindingResult.getFieldErrors().stream()
-			.map(FieldError::getDefaultMessage)
-			.collect(Collectors.joining(";"));
 	}
 
 }
