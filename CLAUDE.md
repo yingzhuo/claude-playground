@@ -54,3 +54,8 @@ claude-playground
 
 - 不要在方法内写超过 80 行的逻辑
 - 不要用 if-else 嵌套超过 3 层,优先卫语句或策略模式
+
+## 项目负责人
+
+- name: 应卓
+  email: yingzhor@gmail.com
