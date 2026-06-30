@@ -76,7 +76,7 @@ public final class ResourceUtils {
 		try {
 			return loadResource(location).getContentAsByteArray();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 

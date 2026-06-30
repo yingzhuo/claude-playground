@@ -31,7 +31,7 @@ public class SimpleJwtVerifier implements JwtVerifier {
 
 	public SimpleJwtVerifier(AlgorithmProvider algorithmProvider) {
 		this.innerVerifier = JWT.require(algorithmProvider.get())
-			.withIssuer("claude-playground")
+			.withIssuer(JwtConstants.ISSUER)
 			.build();
 	}
 

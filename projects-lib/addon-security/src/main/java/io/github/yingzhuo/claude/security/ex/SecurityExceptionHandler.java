@@ -49,6 +49,9 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class SecurityExceptionHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
 
+	private static final String UNAUTHORIZED_MESSAGE = "未认证";
+	private static final String FORBIDDEN_MESSAGE = "权限不足";
+
 	private final ObjectMapper objectMapper;
 
 	public SecurityExceptionHandler(ObjectMapper objectMapper) {
@@ -59,14 +62,14 @@ public class SecurityExceptionHandler implements AuthenticationEntryPoint, Acces
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 	                     AuthenticationException authException) throws IOException, ServletException {
 		log.warn("认证失败: {}", authException.getMessage());
-		writeJsonResponse(response, HttpStatus.UNAUTHORIZED, R.error401("未认证"));
+		writeJsonResponse(response, HttpStatus.UNAUTHORIZED, R.error401(UNAUTHORIZED_MESSAGE));
 	}
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 	                   AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		log.warn("授权失败: {}", accessDeniedException.getMessage());
-		writeJsonResponse(response, HttpStatus.FORBIDDEN, R.error403("权限不足"));
+		writeJsonResponse(response, HttpStatus.FORBIDDEN, R.error403(FORBIDDEN_MESSAGE));
 	}
 
 	private void writeJsonResponse(HttpServletResponse response, HttpStatus status, R<Void> body)
@@ -77,7 +80,7 @@ public class SecurityExceptionHandler implements AuthenticationEntryPoint, Acces
 		try {
 			objectMapper.writeValue(response.getOutputStream(), body);
 			response.flushBuffer();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			log.error("写入认证/授权错误响应失败", e);
 		}
 	}

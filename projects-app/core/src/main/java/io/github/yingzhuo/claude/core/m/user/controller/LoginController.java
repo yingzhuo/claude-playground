@@ -42,6 +42,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "用户认证", description = "登录相关接口")
 public class LoginController {
 
+	private static final String INVALID_CREDENTIALS = "用户名或密码错误";
+
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
@@ -53,7 +55,7 @@ public class LoginController {
 		var user = userService.findByUsername(request.getUsername());
 
 		if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-			return R.error401("用户名或密码错误");
+			return R.error401(INVALID_CREDENTIALS);
 		}
 
 		var token = jwtCreator.apply(user);

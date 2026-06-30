@@ -30,7 +30,6 @@ import org.springframework.util.Assert;
 
 import java.util.Objects;
 
-@SuppressWarnings("unchecked")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SpringUtils {
 
@@ -49,6 +48,7 @@ public final class SpringUtils {
 		return Objects.requireNonNull(applicationContext).getBean(beanName, clazz);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T extends Environment> T getEnvironment() {
 		Assert.notNull(environment, "environment must not be null");
 		return (T) SpringUtils.environment;

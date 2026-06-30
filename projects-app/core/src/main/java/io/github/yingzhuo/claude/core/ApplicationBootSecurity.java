@@ -41,6 +41,11 @@ import static org.springframework.http.HttpMethod.GET;
 @Configuration
 public class ApplicationBootSecurity {
 
+	/**
+	 * 配置 {@link HttpFirewall}，允许 URL 中包含分号。
+	 *
+	 * @return HttpFirewall 实例
+	 */
 	@Bean
 	public HttpFirewall httpFirewall() {
 		var bean = new StrictHttpFirewall();
@@ -48,11 +53,28 @@ public class ApplicationBootSecurity {
 		return bean;
 	}
 
+	/**
+	 * 配置 {@link WebSecurityCustomizer}，关闭 Debug 模式。
+	 *
+	 * @param environment Spring 环境
+	 * @return WebSecurityCustomizer 实例
+	 */
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer(Environment environment) {
 		return web -> web.debug(false);
 	}
 
+	/**
+	 * 配置默认的 {@link SecurityFilterChain}。
+	 * <p>
+	 * 弃用所有默认过滤器，仅保留匿名认证和 CORS 配置，开启无状态会话管理。
+	 * 自定义异常处理由 {@link SecurityExceptionHandler} 处理。
+	 * </p>
+	 *
+	 * @param http          HttpSecurity
+	 * @param objectMapper  ObjectMapper
+	 * @return SecurityFilterChain 实例
+	 */
 	@Bean
 	public SecurityFilterChain securityFilterChainDefault(HttpSecurity http, ObjectMapper objectMapper) {
 		var exceptionHandler = new SecurityExceptionHandler(objectMapper);

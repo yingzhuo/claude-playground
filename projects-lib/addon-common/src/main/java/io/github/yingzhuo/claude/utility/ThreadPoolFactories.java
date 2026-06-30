@@ -34,7 +34,7 @@ public final class ThreadPoolFactories {
 		Assert.isTrue(corePoolSize > 0, "corePoolSize must be positive");
 		Assert.isTrue(queueCapacity > 0, "queueCapacity must be positive");
 		Assert.notNull(keepAliveTime, "keepAliveTime must not be null");
-		return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime.getSeconds(), TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity));
+		return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime.toNanos(), TimeUnit.NANOSECONDS, new ArrayBlockingQueue<>(queueCapacity));
 	}
 
 }

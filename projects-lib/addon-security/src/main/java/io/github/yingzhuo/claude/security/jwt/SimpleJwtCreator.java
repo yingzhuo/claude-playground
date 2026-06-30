@@ -40,7 +40,7 @@ public class SimpleJwtCreator implements JwtCreator {
 		var algorithm = algorithmProvider.get();
 
 		return JWT.create()
-			.withIssuer("claude-playground")
+			.withIssuer(JwtConstants.ISSUER)
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
 			.withExpiresAt(Date.from(LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.UTC))) // 有效期一天

@@ -47,7 +47,7 @@ public final class R<T> implements Serializable {
 		return new R<>("200", "操作成功", data);
 	}
 
-	public static <Void> R<Void> ok() {
+	public static R<Void> ok() {
 		return new R<>("200", "操作成功", null);
 	}
 
