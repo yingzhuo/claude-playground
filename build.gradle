@@ -13,8 +13,8 @@ ext {
 subprojects {
 	configurations.configureEach {
 		resolutionStrategy {
-			cacheChangingModulesFor(versionCachingHours as Integer, 'hours')
-			cacheDynamicVersionsFor(versionCachingHours as Integer, 'hours')
+			cacheChangingModulesFor(versionCachingInHour as Integer, 'hours')
+			cacheDynamicVersionsFor(versionCachingInHour as Integer, 'hours')
 		}
 	}
 }
