@@ -21,14 +21,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * @author 应卓
  */
-public interface JwtInfo extends Serializable, Authentication {
+public interface JwtInfo extends Authentication {
 
 	public String getUserId();
 
@@ -45,35 +44,34 @@ public interface JwtInfo extends Serializable, Authentication {
 
 	@Override
 	@Nullable
-	default Object getCredentials() {
+	public default Object getCredentials() {
 		return null;
 	}
 
 	@Override
 	@Nullable
-	default Object getDetails() {
+	public default Object getDetails() {
 		return null;
 	}
 
 	@Override
 	@Nullable
-	default Object getPrincipal() {
+	public default Object getPrincipal() {
 		return null;
 	}
 
 	@Override
-	default boolean isAuthenticated() {
-		return false;
+	public default boolean isAuthenticated() {
+		return true;
 	}
 
 	@Override
-	default void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+	public default void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
 		// noop
 	}
 
 	@Override
-	default String getName() {
+	public default String getName() {
 		return getUsername();
 	}
-
 }

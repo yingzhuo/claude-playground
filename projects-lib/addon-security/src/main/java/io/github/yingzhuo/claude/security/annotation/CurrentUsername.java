@@ -25,12 +25,12 @@ import java.lang.annotation.*;
  * 获取安全上下文中当前用户ID
  *
  * @author 应卓
- * @see JwtInfo#getUserId()
+ * @see JwtInfo#getUsername()
  */
 @Inherited
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@CurrentSecurityContext(expression = "authentication.userId")
-public @interface CurrentUserId {
+@CurrentSecurityContext(expression = "authentication.username")
+public @interface CurrentUsername {
 }
