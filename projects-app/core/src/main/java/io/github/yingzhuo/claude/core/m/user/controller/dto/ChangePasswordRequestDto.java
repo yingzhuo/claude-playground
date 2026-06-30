@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ChangePasswordRequestDto implements Serializable {
 
     @NotBlank
-    @Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 128)
     private String oldPassword;
 
     @NotBlank
