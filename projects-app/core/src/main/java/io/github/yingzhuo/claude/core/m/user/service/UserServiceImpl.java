@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * 用户业务实现
@@ -38,9 +37,6 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
-	private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,32}$";
-	private static final Pattern PASSWORD_REGEX = Pattern.compile(PASSWORD_PATTERN);
 
 	private final UserDao userDao;
 	private final PasswordEncoder passwordEncoder;
@@ -61,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
 		var wrapper = new LambdaQueryWrapper<User>()
-			.eq(User::getUsername, username);
+				.eq(User::getUsername, username);
 		return userDao.selectOne(wrapper);
 	}
 
@@ -97,10 +93,6 @@ public class UserServiceImpl implements UserService {
 
 		if (oldPassword.equals(newPassword)) {
 			throw new BusinessException("新密码不能与旧密码相同");
-		}
-
-		if (!PASSWORD_REGEX.matcher(newPassword).matches()) {
-			throw new BusinessException("密码必须包含字母、数字和特殊字符");
 		}
 
 		user.setPassword(passwordEncoder.encode(newPassword));
