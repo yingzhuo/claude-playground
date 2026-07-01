@@ -4,8 +4,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.utility.PemUtils;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.Assert;
 
 import java.util.function.Supplier;
 
@@ -13,7 +11,7 @@ import java.util.function.Supplier;
 public interface AlgorithmProvider extends Supplier<Algorithm> {
 
 	@Builder
-	public class RSA256AlgorithmProvider implements AlgorithmProvider, InitializingBean {
+	class RSA256 implements AlgorithmProvider {
 
 		private String pemLocation;
 		private @Nullable String keyPassword;
@@ -25,11 +23,5 @@ public interface AlgorithmProvider extends Supplier<Algorithm> {
 				PemUtils.getPrivateKey(pemLocation, keyPassword)
 			);
 		}
-
-		@Override
-		public void afterPropertiesSet() {
-			Assert.notNull(pemLocation, "cert pem location is required");
-		}
-
 	}
 }

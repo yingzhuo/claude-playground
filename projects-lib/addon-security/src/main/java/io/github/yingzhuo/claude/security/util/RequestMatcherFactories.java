@@ -16,7 +16,8 @@ public final class RequestMatcherFactories {
 			PathPatternRequestMatcher.pathPattern("/**"),
 			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/v3/api-docs/**")),
 			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/swagger-ui.html")),
-			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/swagger-ui/**"))
+			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/swagger-ui/**")),
+			new NegatedRequestMatcher(PathPatternRequestMatcher.pathPattern("/**/favicon.ico"))
 		);
 	}
 

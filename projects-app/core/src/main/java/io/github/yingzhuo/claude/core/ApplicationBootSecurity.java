@@ -63,7 +63,6 @@ public class ApplicationBootSecurity {
 			)
 			.authorizeHttpRequests(c ->
 				c.requestMatchers("/error").permitAll()
-					.requestMatchers(GET, "/favicon.ico").permitAll()
 					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health", "/actuator/beans", "/actuator/env").permitAll()
 					.requestMatchers("/actuator/shutdown").denyAll()
 					.anyRequest().permitAll()

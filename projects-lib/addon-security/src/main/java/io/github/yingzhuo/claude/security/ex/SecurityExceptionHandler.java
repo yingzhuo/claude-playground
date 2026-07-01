@@ -1,9 +1,9 @@
 package io.github.yingzhuo.claude.security.ex;
 
 import io.github.yingzhuo.claude.model.webmvc.R;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
+@RequiredArgsConstructor
 public class SecurityExceptionHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
 
 	private static final String UNAUTHORIZED_MESSAGE = "未认证";
@@ -24,26 +25,21 @@ public class SecurityExceptionHandler implements AuthenticationEntryPoint, Acces
 
 	private final ObjectMapper objectMapper;
 
-	public SecurityExceptionHandler(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
-
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-	                     AuthenticationException authException) throws IOException, ServletException {
+	                     AuthenticationException authException) {
 		log.warn("认证失败: {}", authException.getMessage());
 		writeJsonResponse(response, HttpStatus.UNAUTHORIZED, R.error401(UNAUTHORIZED_MESSAGE));
 	}
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-	                   AccessDeniedException accessDeniedException) throws IOException, ServletException {
+	                   AccessDeniedException accessDeniedException) {
 		log.warn("授权失败: {}", accessDeniedException.getMessage());
 		writeJsonResponse(response, HttpStatus.FORBIDDEN, R.error403(FORBIDDEN_MESSAGE));
 	}
 
-	private void writeJsonResponse(HttpServletResponse response, HttpStatus status, R<Void> body)
-		throws IOException {
+	private void writeJsonResponse(HttpServletResponse response, HttpStatus status, R<Void> body) {
 		response.setStatus(status.value());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
