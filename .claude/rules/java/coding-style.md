@@ -23,7 +23,7 @@ paths: "**/*.java"
 
 ## 版权声明策略
 
-- 禁止在任何源码文件中添加版权声明, 许可证头部注释
+- 禁止在任何文件中添加版权声明, 许可证头部注释
 - 禁止模仿项目已有文件中的版权声明样式
 - 项目合规信息统一放在根目录 LICENSE.txt 文件，不分散到每个源文件
 
@@ -73,4 +73,3 @@ paths: "**/*.java"
 
 - 确保每个package都有`package-info.java`, 使用`org.jspecify.annotations.NullMarked`元注释
 - 确保 `org.jspecify.annotations.Nullable` 被使用, 不使用其他变体
-- `org.jspecify.annotations.NonNull` 不要显示使用
