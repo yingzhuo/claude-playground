@@ -31,8 +31,8 @@ public class ApplicationBootSecurity {
 	}
 
 	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer(Environment environment) {
-		var dev = environment.matchesProfiles("dev");
+	public WebSecurityCustomizer webSecurityCustomizer(Environment env) {
+		var dev = env.matchesProfiles("dev");
 		return web -> web.debug(dev);
 	}
 

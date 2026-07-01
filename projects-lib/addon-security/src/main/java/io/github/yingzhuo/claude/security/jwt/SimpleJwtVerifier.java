@@ -3,6 +3,7 @@ package io.github.yingzhuo.claude.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import io.github.yingzhuo.claude.security.auth.Auth;
 
 import java.util.List;
 
@@ -17,26 +18,16 @@ public class SimpleJwtVerifier implements JwtVerifier {
 	}
 
 	@Override
-	public JwtInfo verify(String token) throws BadTokenException {
+	public Auth verify(String token) throws BadTokenException {
 		try {
 			final var decoded = innerVerifier.verify(token);
 
-			return new JwtInfo() {
-				@Override
-				public String getUserId() {
-					return decoded.getClaim("id").asString();
-				}
-
-				@Override
-				public String getUsername() {
-					return decoded.getClaim("username").asString();
-				}
-
-				@Override
-				public List<String> getRoles() {
-					return List.of(); // TODO
-				}
-			};
+			return Auth.builder()
+				.authenticated(true)
+				.userId(decoded.getClaim("id").asString())
+				.username(decoded.getClaim("username").asString())
+				.authorities(List.of()) // TODO
+				.build();
 
 		} catch (JWTVerificationException e) {
 			throw new BadTokenException();

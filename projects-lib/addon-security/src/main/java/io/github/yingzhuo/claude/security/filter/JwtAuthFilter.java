@@ -9,10 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -38,12 +40,20 @@ public class JwtAuthFilter extends AbstractJwtAuthFilter {
 
 			log.trace("接卸出令牌: {}", token);
 
-			var jwtInfo = jwtVerifier.verify(token);
-			super.setAuthentication(jwtInfo);
+			var auth = jwtVerifier.verify(token);
+			auth.setToken(token);
+			auth.setDetails(new WebAuthenticationDetails(request));
+			super.setAuthentication(auth);
 
-			log.trace("认证 id: {}", jwtInfo.getUserId());
-			log.trace("认证 username: {}", jwtInfo.getUsername());
-			log.trace("认证 roles: {}", String.join(",", jwtInfo.getRoles()));
+			if (log.isTraceEnabled()) {
+				log.trace("认证成功 id: {}", auth.getUserId());
+				log.trace("认证成功 username: {}", auth.getUsername());
+				log.trace("认证成功 authorities: {}",
+					auth.getAuthorities()
+						.stream()
+						.map(Object::toString)
+						.collect(Collectors.joining(",")));
+			}
 
 		} catch (JwtVerifier.BadTokenException | AuthenticationException e) {
 			log.debug(e.getMessage(), e);
