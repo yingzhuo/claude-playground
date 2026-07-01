@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.security.pwd;
+package io.github.yingzhuo.claude.security.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

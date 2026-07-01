@@ -10,10 +10,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class LogbackConfig {
 
-	@NotBlank(message = "'logback.log-home' 没有配置")
+	@NotBlank
 	private String logHome;
 
-	@NotBlank(message = "'logback.log-home' 没有配置")
+	@NotBlank
 	private String logName;
 
 }

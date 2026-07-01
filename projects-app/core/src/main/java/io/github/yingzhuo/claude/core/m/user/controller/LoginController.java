@@ -21,20 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "用户认证", description = "登录相关接口")
 public class LoginController {
 
-	private static final String INVALID_CREDENTIALS = "用户名或密码错误";
-
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
 
 	@PostMapping("/login")
 	@PermitAll
-	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回 JWT token")
+	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token")
 	public R<?> login(@RequestBody @Valid LoginRequestDto request) {
 		var user = userService.findByUsername(request.getUsername());
 
 		if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-			return R.error401(INVALID_CREDENTIALS);
+			return R.error401("用户名或密码错误");
 		}
 
 		var token = jwtCreator.apply(user);

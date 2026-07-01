@@ -8,8 +8,6 @@ spring:
     version: "@APP_VERSION@"
   profiles:
     default: "dev"
-  config:
-    import: [ ]
   autoconfigure:
     exclude:
       - "org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration"
@@ -25,12 +23,6 @@ spring:
     cloud-platform: none
     lazy-initialization: false
     register-shutdown-hook: true
-    sources:
-      - "classpath:/META-INF/spring/beans.xml"
-      - "classpath:/META-INF/spring/security.xml"
-  banner:
-    location: "classpath:/META-INF/banner.txt"
-    charset: "utf-8"
   jackson:
     default-property-inclusion: non_null
     read:
@@ -110,20 +102,6 @@ management:
       base-path: "/actuator"
       exposure:
         include: [ "health", "info", "metrics", "env", "beans" ]
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Actuator - info
-# ----------------------------------------------------------------------------------------------------------------------
-info:
-  authors:
-    - name: "应卓"
-      email: "yingzhor@gmail.com"
-
-# ----------------------------------------------------------------------------------------------------------------------
-# 本应用配置
-# ----------------------------------------------------------------------------------------------------------------------
-application: { }
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Swagger配置

@@ -2,8 +2,8 @@ package io.github.yingzhuo.claude.security.autoconfig;
 
 import io.github.yingzhuo.claude.security.autoconfig.properties.JwtAlgProperties;
 import io.github.yingzhuo.claude.security.jwt.*;
-import io.github.yingzhuo.claude.security.pwd.PasswordEncoderFactories;
 import io.github.yingzhuo.claude.security.token.TokenResolver;
+import io.github.yingzhuo.claude.security.util.PasswordEncoderFactories;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
