@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.spring;
+package io.github.yingzhuo.claude.utility;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

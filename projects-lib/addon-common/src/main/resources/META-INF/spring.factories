@@ -1,4 +1,4 @@
 org.springframework.boot.EnvironmentPostProcessor=\
-io.github.yingzhuo.claude.spring.SpringUtils.Hook
+io.github.yingzhuo.claude.utility.SpringUtils.Hook
 org.springframework.context.ApplicationListener=\
-io.github.yingzhuo.claude.spring.SpringUtils.Hook
+io.github.yingzhuo.claude.utility.SpringUtils.Hook

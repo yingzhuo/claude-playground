@@ -23,7 +23,9 @@ public final class PemUtils {
 	public static <T extends X509Certificate> T getCertificate(String resourceLocation) {
 		try (var inputStream = RESOURCE_LOADER.getResource(resourceLocation).getInputStream()) {
 			var content = PemContent.load(inputStream);
-			return (T) content.getCertificates().get(0);
+			var certList = content.getCertificates();
+			Assert.notEmpty(certList, "Certificate list is empty");
+			return (T) certList.getFirst();
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
