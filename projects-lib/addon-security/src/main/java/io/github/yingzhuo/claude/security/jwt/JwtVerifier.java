@@ -1,6 +1,6 @@
 package io.github.yingzhuo.claude.security.jwt;
 
-import io.github.yingzhuo.claude.security.auth.Auth;
+import io.github.yingzhuo.claude.security.Auth;
 
 @FunctionalInterface
 public interface JwtVerifier {

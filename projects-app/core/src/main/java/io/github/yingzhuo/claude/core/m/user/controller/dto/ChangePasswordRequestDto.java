@@ -6,11 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
 @Schema(description = "修改密码请求")
-public class ChangePasswordRequestDto implements Serializable {
+public class ChangePasswordRequestDto {
 
 	@NotBlank
 	@Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 128)

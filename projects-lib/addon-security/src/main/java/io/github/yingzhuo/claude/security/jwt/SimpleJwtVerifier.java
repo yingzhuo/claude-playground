@@ -3,7 +3,7 @@ package io.github.yingzhuo.claude.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import io.github.yingzhuo.claude.security.auth.Auth;
+import io.github.yingzhuo.claude.security.Auth;
 
 import java.util.List;
 

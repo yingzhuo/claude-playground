@@ -7,14 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "登录请求")
-public class LoginRequestDto implements Serializable {
+public class LoginRequestDto {
 
 	@NotBlank
 	@Schema(description = "用户名", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)

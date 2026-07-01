@@ -38,7 +38,7 @@ public class JwtAuthFilter extends AbstractJwtAuthFilter {
 				return;
 			}
 
-			log.trace("接卸出令牌: {}", token);
+			log.trace("解析出令牌: {}", token);
 
 			var auth = jwtVerifier.verify(token);
 			auth.setToken(token);

@@ -9,7 +9,7 @@ paths: "**/*.java"
 
 - Java 21, 禁止使用 preview 特性(除非项目明确开启)
 - 禁止 raw type,必须带泛型参数
-- 禁止 `java.util.Date` / `java.util.Calendar`,统一 `java.time.*`
+- 禁止 `java.util.Date` / `java.util.Calendar`, 统一使用 `java.time.*`
 - 当不影响可读性时 局部变量优先使用 `var` 关键字
 - 遵循 Google Java Style Guide(使用 google-java-format)
 - 缩进 4 空格, 行宽 100
@@ -23,7 +23,7 @@ paths: "**/*.java"
 
 ## 版权声明策略
 
-- 禁止在任何源码文件中添加版权声明, 许可证头部注释 (包括但不限于 Apache 2.0、MIT、GPL 等)
+- 禁止在任何源码文件中添加版权声明, 许可证头部注释
 - 禁止模仿项目已有文件中的版权声明样式
 - 项目合规信息统一放在根目录 LICENSE.txt 文件，不分散到每个源文件
 
@@ -53,7 +53,7 @@ paths: "**/*.java"
 ## POJO
 
 - DTO, VO, BO 不允许使用 Record
-- DTO, VO, BO 等POJO 必须显示实现 `java.io.Serializable` 接口
+- 使用 Lombok 元注释
 
 ## Entity (DB相关)
 

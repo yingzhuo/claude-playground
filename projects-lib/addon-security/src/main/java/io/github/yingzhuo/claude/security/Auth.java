@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.security.auth;
+package io.github.yingzhuo.claude.security;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class Auth implements Authentication {
 	private String userId;
 	private String username;
 	private @Nullable List<String> authorities;
-	private String token;
+	private @Nullable String token;
 	private @Nullable Object details;
 	private boolean authenticated;
 
