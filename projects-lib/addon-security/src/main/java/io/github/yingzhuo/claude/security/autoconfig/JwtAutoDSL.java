@@ -10,11 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 
-/**
- * @author 应卓
- */
 public class JwtAutoDSL extends AbstractHttpConfigurer<JwtAutoDSL, HttpSecurity> {
-
 
 	@Override
 	public void configure(HttpSecurity http) {

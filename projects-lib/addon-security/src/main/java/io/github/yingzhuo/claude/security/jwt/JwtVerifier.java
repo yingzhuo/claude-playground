@@ -1,8 +1,5 @@
 package io.github.yingzhuo.claude.security.jwt;
 
-/**
- * @author 应卓
- */
 @FunctionalInterface
 public interface JwtVerifier {
 

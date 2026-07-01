@@ -14,9 +14,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import java.io.IOException;
 
-/**
- * @author 应卓
- */
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthFilter extends AbstractJwtAuthFilter {

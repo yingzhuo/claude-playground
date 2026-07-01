@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import java.util.function.Supplier;
 
 /**
- * @author 应卓
  * @see RSA256AlgorithmProvider
  */
 @FunctionalInterface

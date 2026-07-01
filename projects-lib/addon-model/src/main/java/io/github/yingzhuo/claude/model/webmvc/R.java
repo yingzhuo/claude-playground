@@ -11,7 +11,6 @@ import java.io.Serializable;
 /**
  * API统一返回格式
  *
- * @author 应卓
  */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

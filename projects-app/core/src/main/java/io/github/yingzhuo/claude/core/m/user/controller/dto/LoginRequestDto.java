@@ -12,7 +12,6 @@ import java.io.Serializable;
 /**
  * 登录请求
  *
- * @author 应卓
  */
 @Builder
 @Data

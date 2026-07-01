@@ -5,9 +5,6 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
-/**
- * @author 应卓
- */
 public class DefaultTokenResolver implements TokenResolver {
 
 	private static final String[] HEADERS = {

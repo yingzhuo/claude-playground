@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 /**
  * JWT 相关常量
  *
- * @author 应卓
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JwtConstants {

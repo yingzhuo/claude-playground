@@ -27,14 +27,6 @@ public class ApplicationBootSwagger {
 	@ApplicationVersion
 	private String applicationVersion;
 
-	/**
-	 * 配置 {@link OpenAPI} 实例，设置 API 标题、描述和版本信息。
-	 * <p>
-	 * 标题和版本分别从 {@link ApplicationName} 和 {@link ApplicationVersion} 注入。
-	 * </p>
-	 *
-	 * @return OpenAPI 实例
-	 */
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()

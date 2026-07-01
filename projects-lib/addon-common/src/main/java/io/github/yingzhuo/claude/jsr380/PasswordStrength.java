@@ -5,20 +5,6 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-/**
- * 密码强度校验注解。
- * <p>
- * 校验字符串是否符合密码强度要求：
- * <ul>
- *   <li>长度 8-32 位</li>
- *   <li>必须包含至少一个字母</li>
- *   <li>必须包含至少一个数字</li>
- *   <li>必须包含至少一个特殊字符</li>
- * </ul>
- * </p>
- *
- * @author 应卓
- */
 @Documented
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)

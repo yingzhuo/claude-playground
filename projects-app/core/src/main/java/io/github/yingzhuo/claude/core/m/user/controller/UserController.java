@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 用户信息控制器
- *
- * @author 应卓
- */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")

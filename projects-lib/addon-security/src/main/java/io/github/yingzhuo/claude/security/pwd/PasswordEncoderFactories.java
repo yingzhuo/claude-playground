@@ -7,9 +7,6 @@ import org.springframework.security.crypto.password.*;
 
 import java.util.HashMap;
 
-/**
- * @author 应卓
- */
 @SuppressWarnings("deprecation")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PasswordEncoderFactories {

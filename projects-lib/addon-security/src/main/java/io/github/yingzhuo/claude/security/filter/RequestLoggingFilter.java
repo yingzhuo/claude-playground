@@ -10,15 +10,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * 请求日志过滤器。
- * <p>
- * 记录每个入站请求的 method, path, query params, timestamp, headers。
- * 放在 Spring Security 过滤器链的靠前位置，确保在认证/授权之前记录。
- * </p>
- *
- * @author 应卓
- */
 @Slf4j
 public class RequestLoggingFilter implements Filter {
 

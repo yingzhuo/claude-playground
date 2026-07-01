@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 /**
  * 用户实体
  *
- * @author 应卓
  */
 @Data
 @NoArgsConstructor

@@ -5,7 +5,6 @@ import io.github.yingzhuo.claude.model.user.entity.User;
 import java.util.function.Function;
 
 /**
- * @author 应卓
  * @see SimpleJwtCreator
  */
 @FunctionalInterface

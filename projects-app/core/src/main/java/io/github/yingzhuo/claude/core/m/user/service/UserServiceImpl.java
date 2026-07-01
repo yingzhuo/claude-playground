@@ -12,11 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * 用户业务实现
- *
- * @author 应卓
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor

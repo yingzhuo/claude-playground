@@ -16,9 +16,6 @@ import java.security.cert.X509Certificate;
 
 import static org.springframework.util.ClassUtils.getDefaultClassLoader;
 
-/**
- * @author 应卓
- */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PemUtils {
 

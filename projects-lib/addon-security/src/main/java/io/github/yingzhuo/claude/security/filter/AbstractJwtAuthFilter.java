@@ -9,9 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-/**
- * @author 应卓
- */
 public abstract class AbstractJwtAuthFilter extends OncePerRequestFilter {
 
 	@Setter

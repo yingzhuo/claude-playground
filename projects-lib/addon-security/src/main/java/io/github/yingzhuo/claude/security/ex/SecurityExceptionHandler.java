@@ -16,20 +16,6 @@ import tools.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Spring Security 认证/授权异常处理器。
- * <p>
- * 同时实现 {@link AuthenticationEntryPoint} 和 {@link AccessDeniedHandler}，
- * 统一返回 {@link R} 格式的 JSON 响应。
- * </p>
- *
- * <ul>
- *   <li>未认证（无 token 或 token 无效）→ 401 + {@link R#error401(String)}</li>
- *   <li>已认证但权限不足 → 403 + {@link R#error403(String)}</li>
- * </ul>
- *
- * @author 应卓
- */
 @Slf4j
 public class SecurityExceptionHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
 

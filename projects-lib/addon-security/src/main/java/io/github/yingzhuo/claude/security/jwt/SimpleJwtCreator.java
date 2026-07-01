@@ -10,7 +10,6 @@ import java.time.ZoneOffset;
 import java.util.Date;
 
 /**
- * @author 应卓
  * @see JwtCreator
  */
 @RequiredArgsConstructor

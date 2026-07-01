@@ -8,9 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author 应卓
- */
 public interface JwtInfo extends Authentication {
 
 	public String getUserId();
