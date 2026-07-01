@@ -9,9 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.modulith.Modulith;
 import org.springframework.modulith.core.ApplicationModules;
 
-/**
- * 启动类
- */
 @Slf4j
 @Modulith(
 	systemName = "claude-playground",
