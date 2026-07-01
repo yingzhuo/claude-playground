@@ -69,5 +69,4 @@ hs_err_pid*
 .gitignore
 .gitattributes
 .editorconfig
-LICENSE
-LICENSE.txt
+LICENSE*
