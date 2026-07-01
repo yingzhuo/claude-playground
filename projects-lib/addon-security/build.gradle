@@ -1,7 +1,6 @@
 plugins {
 	id 'buildlogic.java-conventions'
 	id 'buildlogic.check-conventions'
-	id 'buildlogic.license-conventions'
 }
 
 description = '安全相关组件'

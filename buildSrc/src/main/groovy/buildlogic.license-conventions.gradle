@@ -1,25 +1,28 @@
-plugins {
-	id 'dev.yumi.gradle.licenser'
-}
+// 在源文件上使用大段版权声明会导致大量token消耗
+// 本文件已启用!!!
 
-license {
-	rule(rootProject.file('buildSrc/config/license/template.txt'))
-
-	include(
-		'**/*.java',
-		'**/*.kt',
-		'**/*.scala',
-		'**/*.kotlin'
-	)
-
-	exclude(
-		'**/*.properties',
-		'**/*.xml',
-		'**/*.yaml',
-		'**/*.yml',
-		'**/*.toml',
-		'**/*.conf',
-		'**/*.ini',
-		'**/*.json'
-	)
-}
+//plugins {
+//	id 'dev.yumi.gradle.licenser'
+//}
+//
+//license {
+//	rule(rootProject.file('buildSrc/config/license/template.txt'))
+//
+//	include(
+//		'**/*.java',
+//		'**/*.kt',
+//		'**/*.scala',
+//		'**/*.groovy'
+//	)
+//
+//	exclude(
+//		'**/*.properties',
+//		'**/*.xml',
+//		'**/*.yaml',
+//		'**/*.yml',
+//		'**/*.toml',
+//		'**/*.conf',
+//		'**/*.ini',
+//		'**/*.json'
+//	)
+//}

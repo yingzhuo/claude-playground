@@ -14,7 +14,7 @@ plugins {
 	id 'io.spring.dependency-management' version "$dependencyManagementPluginVersion" apply false
 	id 'org.springframework.boot' version "$springBootVersion" apply false
 	id 'com.gorylenko.gradle-git-properties' version "$gitPluginVersion" apply false
-	id 'dev.yumi.gradle.licenser' version "$licensePluginVersion" apply false
+	id 'dev.yumi.gradle.licenser' version "$licensePluginVersion" apply false // 已弃用
 }
 
 dependencyResolutionManagement {

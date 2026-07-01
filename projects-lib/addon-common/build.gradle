@@ -1,7 +1,6 @@
 plugins {
 	id 'buildlogic.java-conventions'
 	id 'buildlogic.check-conventions'
-	id 'buildlogic.license-conventions'
 }
 
 description = '通用工具及杂项'

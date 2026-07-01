@@ -11,7 +11,7 @@ endif
 .PHONY: usage \
 	clean purge rebuild-build-logic \
 	update-dependencies compile build rebuild check test \
-	update-gradle-wrapper update-license-header \
+	update-gradle-wrapper \
 	push-to-vcs
 
 .SILENT:
@@ -30,7 +30,6 @@ usage:
 	echo 'check                          : 检查代码风格'
 	echo 'update-gradle-wrapper          : 设置gradle-wrapper'
 	echo 'stop-gradle-daemon             : 停止gradle-daemon'
-	echo 'update-license-header          : 添加代码的许可证头'
 	echo 'push-to-vcs                    : 提交文件'
 	echo '=============================================================================================================='
 
@@ -69,8 +68,8 @@ update-gradle-wrapper:
 stop-gradle-daemon:
 	$(GRADLEW) --stop -q > /dev/null
 
-update-license-header:
-	$(GRADLEW) "applyLicenses" -q
+#update-license-header:
+#	$(GRADLEW) "applyLicenses" -q
 
-push-to-vcs: update-license-header
+push-to-vcs:
 	$(GRADLEW) 'pushToVcs' -q
