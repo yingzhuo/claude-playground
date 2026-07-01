@@ -21,8 +21,7 @@ description = '构建逻辑'
 	}
 
 dependencies {
-	implementation "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:$dependencyManagementPluginVersion"
-	implementation "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-	implementation "com.gorylenko.gradle-git-properties:gradle-git-properties:$gitPluginVersion"
-	implementation "dev.yumi.gradle.licenser:dev.yumi.gradle.licenser.gradle.plugin:$licensePluginVersion"
+	//implementation "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:$dependencyManagementPluginVersion"
+	//implementation "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+	//implementation "com.gorylenko.gradle-git-properties:gradle-git-properties:$gitPluginVersion"
 }

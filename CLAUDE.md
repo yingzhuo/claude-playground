@@ -43,11 +43,11 @@ claude-playground
 
 项目提供 makefile，可通过 make 快速执行常见操作：
 
+- `make compile` — 编译
 - `make build` — 打包（跳过测试和检查）
 - `make rebuild` — 清理并重新构建
 - `make test` — 运行测试
 - `make check` — 代码风格检查
-- `make compile` — 编译
 - `make update-dependencies` — 刷新依赖
 
 ## 我不喜欢的写法
