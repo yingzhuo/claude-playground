@@ -19,10 +19,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.http.HttpMethod.GET;
 
-@EnableMethodSecurity(
-	prePostEnabled = true,
-	securedEnabled = true
-)
+@EnableMethodSecurity(securedEnabled = true)
 @Configuration
 public class ApplicationBootSecurity {
 

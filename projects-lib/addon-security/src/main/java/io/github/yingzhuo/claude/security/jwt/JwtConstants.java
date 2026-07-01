@@ -3,10 +3,6 @@ package io.github.yingzhuo.claude.security.jwt;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-/**
- * JWT 相关常量
- *
- */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JwtConstants {
 

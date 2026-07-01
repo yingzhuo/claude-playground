@@ -8,10 +8,6 @@ import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
 
-/**
- * API统一返回格式
- *
- */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Schema(description = "API统一返回格式")
@@ -27,7 +23,7 @@ public final class R<T> implements Serializable {
 	@Schema(description = "数据")
 	private final T data;
 
-	public static <T> R<@Nullable T> ok(@Nullable T data) {
+	public static <T> R<T> ok(@Nullable T data) {
 		return new R<>("200", "操作成功", data);
 	}
 

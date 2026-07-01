@@ -5,11 +5,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration
+@MapperScan(basePackages = "io.github.yingzhuo.claude", annotationClass = Mapper.class)
 @EnableTransactionManagement
-@MapperScan(
-	basePackages = "io.github.yingzhuo.claude",
-	annotationClass = Mapper.class
-)
+@Configuration
 public class ApplicationBootMyBatis {
 }

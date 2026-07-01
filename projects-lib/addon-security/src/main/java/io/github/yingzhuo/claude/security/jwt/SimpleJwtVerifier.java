@@ -6,9 +6,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import java.util.List;
 
-/**
- * @see JwtVerifier
- */
 public class SimpleJwtVerifier implements JwtVerifier {
 
 	private final JWTVerifier innerVerifier;

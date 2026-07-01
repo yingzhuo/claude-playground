@@ -2,7 +2,6 @@ package io.github.yingzhuo.claude.security.autoconfig;
 
 import io.github.yingzhuo.claude.security.jwt.*;
 import io.github.yingzhuo.claude.security.pwd.PasswordEncoderFactories;
-import io.github.yingzhuo.claude.security.token.DefaultTokenResolver;
 import io.github.yingzhuo.claude.security.token.TokenResolver;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,7 +20,7 @@ public class JwtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public AlgorithmProvider algorithmProvider() {
-		return RSA256AlgorithmProvider.builder()
+		return AlgorithmProvider.RSA256AlgorithmProvider.builder()
 			.pemLocation("classpath:/jwt-key/RSA256.pem")
 			.keyPassword(null)
 			.build();
@@ -42,7 +41,7 @@ public class JwtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public TokenResolver tokenResolver() {
-		return new DefaultTokenResolver();
+		return TokenResolver.getDefault();
 	}
 
 }

@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 import tools.jackson.databind.SerializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * @see JsonMapper
- */
 @Component
 @RequiredArgsConstructor
 public class JsonMapperCustomizer implements JsonMapperBuilderCustomizer {

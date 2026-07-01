@@ -10,10 +10,7 @@ import org.springframework.modulith.Modulith;
 import org.springframework.modulith.core.ApplicationModules;
 
 @Slf4j
-@Modulith(
-	systemName = "claude-playground",
-	useFullyQualifiedModuleNames = false
-)
+@Modulith(systemName = "claude-playground")
 @SpringBootApplication
 @RequiredArgsConstructor
 public class ApplicationBoot implements ApplicationRunner {

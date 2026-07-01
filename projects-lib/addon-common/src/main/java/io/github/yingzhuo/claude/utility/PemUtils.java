@@ -14,12 +14,10 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 
-import static org.springframework.util.ClassUtils.getDefaultClassLoader;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PemUtils {
 
-	private static final ResourceLoader RESOURCE_LOADER = ApplicationResourceLoader.get(getDefaultClassLoader());
+	private static final ResourceLoader RESOURCE_LOADER = ApplicationResourceLoader.get();
 
 	@SuppressWarnings("unchecked")
 	public static <T extends X509Certificate> T getCertificate(String resourceLocation) {
@@ -34,10 +32,6 @@ public final class PemUtils {
 	@SuppressWarnings("unchecked")
 	public static <T extends PublicKey> T getPublicKeyFromCertificate(String resourceLocation) {
 		return (T) getCertificate(resourceLocation).getPublicKey();
-	}
-
-	public static <T extends PrivateKey> T getPrivateKey(String resourceLocation) {
-		return getPrivateKey(resourceLocation, null);
 	}
 
 	@SuppressWarnings("unchecked")

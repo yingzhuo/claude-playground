@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @AutoConfiguration
-@EnableConfigurationProperties({
-	LogbackConfig.class
-})
+@EnableConfigurationProperties(LogbackConfig.class)
 public class LogbackAutoConfiguration {
 }

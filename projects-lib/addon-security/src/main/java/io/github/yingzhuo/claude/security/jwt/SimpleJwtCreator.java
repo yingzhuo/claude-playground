@@ -9,9 +9,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 
-/**
- * @see JwtCreator
- */
 @RequiredArgsConstructor
 public class SimpleJwtCreator implements JwtCreator {
 
