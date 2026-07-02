@@ -11,9 +11,9 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PasswordMatchValidator.class)
 public @interface PasswordMatch {
 
-    String message() default "两次输入的密码不一致";
+	String message() default "两次输入的密码不一致";
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 }

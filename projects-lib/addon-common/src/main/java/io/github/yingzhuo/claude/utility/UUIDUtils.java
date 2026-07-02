@@ -9,10 +9,12 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UUIDUtils {
 
+	@Deprecated(forRemoval = true)
 	public static String randomUUID32() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
+	@Deprecated(forRemoval = true)
 	public static String randomUUID36() {
 		return UUID.randomUUID().toString();
 	}
