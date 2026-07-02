@@ -8,13 +8,12 @@ import org.springframework.web.context.request.WebRequest;
 @FunctionalInterface
 public interface TokenResolver {
 
-	public static TokenResolver getDefault() {
+	static TokenResolver getDefault() {
 		return new DefaultTokenResolver();
 	}
 
 	@Nullable
-	public String resolve(WebRequest request);
-
+	String resolve(WebRequest request);
 
 	class DefaultTokenResolver implements TokenResolver {
 
@@ -33,6 +32,5 @@ public interface TokenResolver {
 			}
 			return null;
 		}
-
 	}
 }
