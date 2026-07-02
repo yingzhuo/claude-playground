@@ -33,4 +33,15 @@ public interface UserService {
 	 * @param dob      出生日期（为 {@code null} 则不修改）
 	 */
 	void updateProfile(String userId, @Nullable String nickname, @Nullable Gender gender, @Nullable LocalDate dob);
+
+	/**
+	 * 用户注册
+	 *
+	 * @param username 用户名
+	 * @param password 密码
+	 * @param gender   性别
+	 * @param dob      出生日期
+	 * @return 注册成功的用户ID
+	 */
+	String register(String username, String password, Gender gender, @Nullable LocalDate dob);
 }

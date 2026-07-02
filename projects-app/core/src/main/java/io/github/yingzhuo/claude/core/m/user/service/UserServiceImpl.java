@@ -5,6 +5,7 @@ import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.entity.Gender;
 import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.utility.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -100,5 +102,24 @@ public class UserServiceImpl implements UserService {
 		}
 
 		userDao.updateById(user);
+	}
+
+	@Override
+	@Transactional
+	public String register(String username, String password, Gender gender, @Nullable LocalDate dob) {
+		if (userDao.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username)) != null) {
+			throw new BusinessException("用户名已存在");
+		}
+
+		var user = new User();
+		user.setId(UUIDUtils.randomUUID32());
+		user.setUsername(username);
+		user.setPassword(passwordEncoder.encode(password));
+		user.setGender(gender);
+		user.setDob(dob);
+		user.setCreatedAt(LocalDateTime.now());
+
+		userDao.insert(user);
+		return user.getId();
 	}
 }
