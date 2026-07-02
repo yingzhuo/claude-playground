@@ -91,3 +91,8 @@ gitProperties {
 	dateFormatTimeZone = defaultTimezone
 	failOnNoGitDirectory = false
 }
+
+// sourcesJar 通过 allSource 会包含 generateGitProperties 生成的资源目录
+tasks.matching { it.name == 'sourcesJar' }.configureEach {
+	dependsOn(tasks.named('generateGitProperties'))
+}
