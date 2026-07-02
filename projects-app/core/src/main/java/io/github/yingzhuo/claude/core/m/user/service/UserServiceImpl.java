@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		var user = new User();
-		user.setId(UUIDUtils.randomUUID32());
+		user.setId(UUIDUtils.randomUUIDv7());
 		user.setUsername(username);
 		user.setPassword(passwordEncoder.encode(password));
 		user.setGender(gender);

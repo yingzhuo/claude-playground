@@ -22,6 +22,7 @@ dependencies {
 
 	// tools
 	api 'com.google.guava:guava'
+	api 'com.fasterxml.uuid:java-uuid-generator'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
