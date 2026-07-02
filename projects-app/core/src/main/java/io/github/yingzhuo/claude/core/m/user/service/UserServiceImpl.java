@@ -3,13 +3,16 @@ package io.github.yingzhuo.claude.core.m.user.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.exception.BusinessException;
+import io.github.yingzhuo.claude.model.user.entity.Gender;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -75,6 +78,24 @@ public class UserServiceImpl implements UserService {
 		}
 
 		user.setPassword(passwordEncoder.encode(newPassword));
+		userDao.updateById(user);
+	}
+
+	@Override
+	@Transactional
+	public void updateProfile(String userId, @Nullable Gender gender, @Nullable LocalDate dob) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new BusinessException("用户不存在");
+		}
+
+		if (gender != null) {
+			user.setGender(gender);
+		}
+		if (dob != null) {
+			user.setDob(dob);
+		}
+
 		userDao.updateById(user);
 	}
 }

@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordRequestDto;
+import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDto;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
@@ -27,6 +28,14 @@ public class UserController {
 	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证")
 	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDto request, @CurrentUserId String userId) {
 		userService.changePassword(userId, request.getOldPassword(), request.getNewPassword());
+		return R.ok();
+	}
+
+	@PostMapping("/profile")
+	@IsAuthenticated
+	@Operation(summary = "修改个人信息", description = "修改当前登录用户的性别和出生日期，仅更新传入的字段")
+	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDto request, @CurrentUserId String userId) {
+		userService.updateProfile(userId, request.getGender(), request.getDob());
 		return R.ok();
 	}
 }
