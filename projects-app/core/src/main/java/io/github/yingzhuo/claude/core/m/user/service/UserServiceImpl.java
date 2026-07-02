@@ -83,12 +83,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void updateProfile(String userId, @Nullable Gender gender, @Nullable LocalDate dob) {
+	public void updateProfile(String userId, @Nullable String nickname, @Nullable Gender gender, @Nullable LocalDate dob) {
 		var user = userDao.selectById(userId);
 		if (user == null) {
 			throw new BusinessException("用户不存在");
 		}
 
+		if (nickname != null) {
+			user.setNickname(nickname);
+		}
 		if (gender != null) {
 			user.setGender(gender);
 		}

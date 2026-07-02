@@ -35,7 +35,7 @@ public class UserController {
 	@IsAuthenticated
 	@Operation(summary = "修改个人信息", description = "修改当前登录用户的性别和出生日期，仅更新传入的字段")
 	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDto request, @CurrentUserId String userId) {
-		userService.updateProfile(userId, request.getGender(), request.getDob());
+		userService.updateProfile(userId, request.getNickname(), request.getGender(), request.getDob());
 		return R.ok();
 	}
 }

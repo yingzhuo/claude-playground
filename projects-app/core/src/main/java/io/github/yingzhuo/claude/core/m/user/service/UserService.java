@@ -27,9 +27,10 @@ public interface UserService {
 	/**
 	 * 修改个人信息
 	 *
-	 * @param userId 用户ID
-	 * @param gender 性别（为 {@code null} 则不修改）
-	 * @param dob    出生日期（为 {@code null} 则不修改）
+	 * @param userId   用户ID
+	 * @param nickname 昵称（为 {@code null} 则不修改）
+	 * @param gender   性别（为 {@code null} 则不修改）
+	 * @param dob      出生日期（为 {@code null} 则不修改）
 	 */
-	void updateProfile(String userId, @Nullable Gender gender, @Nullable LocalDate dob);
+	void updateProfile(String userId, @Nullable String nickname, @Nullable Gender gender, @Nullable LocalDate dob);
 }
