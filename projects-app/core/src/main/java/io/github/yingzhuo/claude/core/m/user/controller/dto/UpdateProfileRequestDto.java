@@ -15,13 +15,13 @@ import java.time.LocalDate;
 @Schema(description = "修改个人信息请求")
 public class UpdateProfileRequestDto {
 
-    @Schema(description = "昵称（不传则不修改）")
-    private String nickname;
+	@Schema(description = "昵称（不传则不修改）")
+	private String nickname;
 
-    @Schema(description = "性别（不传则不修改）")
-    private Gender gender;
+	@Schema(description = "性别（不传则不修改）")
+	private Gender gender;
 
-    @PastOrPresent
-    @Schema(description = "出生日期（不传则不修改）")
-    private LocalDate dob;
+	@PastOrPresent
+	@Schema(description = "出生日期（不传则不修改）")
+	private LocalDate dob;
 }

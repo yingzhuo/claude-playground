@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.security.token;
+package io.github.yingzhuo.claude.security.jwt;
 
 import io.github.yingzhuo.claude.misc.SwaggerConstants;
 import org.jspecify.annotations.Nullable;

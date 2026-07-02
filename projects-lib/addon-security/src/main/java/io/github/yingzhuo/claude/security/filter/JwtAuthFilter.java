@@ -1,7 +1,7 @@
 package io.github.yingzhuo.claude.security.filter;
 
 import io.github.yingzhuo.claude.security.jwt.JwtVerifier;
-import io.github.yingzhuo.claude.security.token.TokenResolver;
+import io.github.yingzhuo.claude.security.jwt.TokenResolver;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

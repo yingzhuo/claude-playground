@@ -3,7 +3,7 @@ package io.github.yingzhuo.claude.security.autoconfig;
 import io.github.yingzhuo.claude.security.filter.JwtAuthFilter;
 import io.github.yingzhuo.claude.security.filter.RequestLoggingFilter;
 import io.github.yingzhuo.claude.security.jwt.JwtVerifier;
-import io.github.yingzhuo.claude.security.token.TokenResolver;
+import io.github.yingzhuo.claude.security.jwt.TokenResolver;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
