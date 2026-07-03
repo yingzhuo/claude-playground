@@ -3,6 +3,7 @@ package io.github.yingzhuo.claude.security.jwt;
 import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.utility.KeyStoreResource;
 import lombok.Builder;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -14,7 +15,7 @@ public interface AlgorithmProvider extends Supplier<Algorithm> {
 
 		private KeyStoreResource keyStoreResource;
 		private String alias;
-		private String keyPassword;
+		private @Nullable String keyPassword;
 
 		@Override
 		public Algorithm get() {

@@ -13,19 +13,18 @@ import java.util.Date;
 public class SimpleJwtCreator implements JwtCreator {
 
 	private final AlgorithmProvider algorithmProvider;
+	private final long expirationInHours;
 
 	@Override
 	public String create(User user) {
 		Assert.notNull(user, "User must not be null");
 
-		var algorithm = algorithmProvider.get();
-
 		return JWT.create()
 			.withIssuer(JwtConstants.ISSUER)
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
-			.withExpiresAt(Date.from(LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.UTC))) // 有效期一天
-			.sign(algorithm);
+			.withExpiresAt(Date.from(LocalDateTime.now().plusHours(expirationInHours).toInstant(ZoneOffset.UTC)))
+			.sign(algorithmProvider.get());
 	}
 
 }

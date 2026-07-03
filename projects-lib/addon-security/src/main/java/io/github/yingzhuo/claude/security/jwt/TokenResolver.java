@@ -1,6 +1,5 @@
 package io.github.yingzhuo.claude.security.jwt;
 
-import io.github.yingzhuo.claude.misc.SwaggerConstants;
 import org.jspecify.annotations.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
@@ -18,7 +17,7 @@ public interface TokenResolver {
 	class DefaultTokenResolver implements TokenResolver {
 
 		private static final String[] HEADERS = {
-			SwaggerConstants.X_AUTH_TOKEN,
+			"X-Auth-Token",
 			"X-Token"
 		};
 
