@@ -21,8 +21,7 @@ purge:
 	rm -rf $(MAKEFILE_PATH)/buildSrc/.gradle
 
 rebuild-build-logic:
-	$(GRADLEW) ':buildSrc:clean' -q
-	$(GRADLEW) ':buildSrc:jar' -q
+	$(GRADLEW) ':buildSrc:clean' ':buildSrc:jar' -q
 
 compile:
 	$(GRADLEW) 'classes'
@@ -40,6 +39,3 @@ test:
 
 update-gradle-wrapper:
 	$(GRADLEW) ':wrapper' -q
-
-stop-gradle-daemon:
-	$(GRADLEW) --stop -q > /dev/null
