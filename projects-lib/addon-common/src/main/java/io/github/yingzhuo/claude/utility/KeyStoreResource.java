@@ -2,11 +2,9 @@ package io.github.yingzhuo.claude.utility;
 
 import lombok.Getter;
 import org.jspecify.annotations.Nullable;
-import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.security.KeyPair;
 import java.security.KeyStore;
@@ -18,9 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class KeyStoreResource extends AbstractResource {
-
-	private final Resource delegatingResource;
+public class KeyStoreResource extends AbstractSecurityResource {
 
 	@Getter
 	private final String storePass;
@@ -36,7 +32,7 @@ public class KeyStoreResource extends AbstractResource {
 	}
 
 	public KeyStoreResource(Resource delegatingResource, String storePass, KeyStoreType keyStoreType) {
-		this.delegatingResource = delegatingResource;
+		super(delegatingResource);
 		this.storePass = storePass;
 		this.keyStoreType = keyStoreType;
 
@@ -48,16 +44,6 @@ public class KeyStoreResource extends AbstractResource {
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
-	}
-
-	@Override
-	public String getDescription() {
-		return this.toString();
-	}
-
-	@Override
-	public InputStream getInputStream() throws IOException {
-		return delegatingResource.getInputStream();
 	}
 
 	@SuppressWarnings("unchecked")

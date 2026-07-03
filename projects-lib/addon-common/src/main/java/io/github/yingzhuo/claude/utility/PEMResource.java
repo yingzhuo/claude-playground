@@ -2,11 +2,9 @@ package io.github.yingzhuo.claude.utility;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.boot.ssl.pem.PemContent;
-import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -16,9 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class PEMResource extends AbstractResource {
-
-	private final Resource delegatingResource;
+public class PEMResource extends AbstractSecurityResource {
 
 	@Nullable
 	private final String password;
@@ -26,7 +22,7 @@ public class PEMResource extends AbstractResource {
 	private final PemContent pemContent;
 
 	public PEMResource(Resource delegatingResource, @Nullable String password) {
-		this.delegatingResource = delegatingResource;
+		super(delegatingResource);
 		this.password = password;
 
 		try (var in = delegatingResource.getInputStream()) {
@@ -36,16 +32,6 @@ public class PEMResource extends AbstractResource {
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		}
-	}
-
-	@Override
-	public String getDescription() {
-		return this.toString();
-	}
-
-	@Override
-	public InputStream getInputStream() throws IOException {
-		return delegatingResource.getInputStream();
 	}
 
 	@SuppressWarnings("unchecked")
