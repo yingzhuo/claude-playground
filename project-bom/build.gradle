@@ -1,0 +1,32 @@
+plugins {
+	id 'java-platform'
+}
+
+description = '物料清单(BOM)'
+
+javaPlatform {
+}
+
+dependencies {
+	constraints {
+		// 通用工具
+		api 'com.google.guava:guava:33.6.0-jre'
+
+		// mapstruct
+		api 'org.mapstruct:mapstruct:1.6.3'
+		api 'org.mapstruct:mapstruct-processor:1.6.3'
+
+		// swagger
+		api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
+
+		// mybatis-plus
+		api 'com.baomidou:mybatis-plus-spring-boot4-starter:3.5.16'
+		api 'com.baomidou:mybatis-plus-jsqlparser:3.5.16'
+
+		// jwt
+		api 'com.auth0:java-jwt:4.5.2'
+
+		// uuid
+		api 'com.fasterxml.uuid:java-uuid-generator:5.2.0'
+	}
+}

@@ -1,0 +1,2 @@
+org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer=\
+io.github.yingzhuo.claude.security.autoconfig.JwtAutoDSL

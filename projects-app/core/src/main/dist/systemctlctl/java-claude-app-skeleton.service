@@ -1,0 +1,16 @@
+[Unit]
+Description=My Great Application
+Documentation=https://app.java-claude-app-skeleton.org
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment="JAVA_HOME=/opt/java-home-17"
+ExecStart=/path/to/java-claude-app-skeleton/startup.sh
+KillSignal=15
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
