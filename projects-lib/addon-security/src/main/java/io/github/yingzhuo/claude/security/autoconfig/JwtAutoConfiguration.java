@@ -33,8 +33,8 @@ public class JwtAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JwtCreator jwtCreator(AlgorithmProvider provider) {
-		return new SimpleJwtCreator(provider);
+	public JwtCreator jwtCreator(AlgorithmProvider provider, JwtAlgProperties props) {
+		return new SimpleJwtCreator(provider, props.getExpirationInHours());
 	}
 
 	@Bean

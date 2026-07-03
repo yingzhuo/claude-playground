@@ -7,10 +7,10 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface JwtCreator extends Function<User, String> {
 
-	public String create(User user);
+	String create(User user);
 
 	@Override
-	public default String apply(User user) {
+	default String apply(User user) {
 		return create(user);
 	}
 
