@@ -1,11 +1,11 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		maven { name = '阿里云'; url = 'https://maven.aliyun.com/repository/public/' }
+		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		gradlePluginPortal()
-		maven { name = 'Spring (Release)'; url = 'https://repo.spring.io/release' }
-		maven { name = 'Spring (Milestone)'; url = 'https://repo.spring.io/milestone' }
-		maven { name = 'Spring (Snapshot)'; url = 'https://repo.spring.io/snapshot' }
+		maven { url = 'https://repo.spring.io/release' }
+		maven { url = 'https://repo.spring.io/milestone' }
+		maven { url = 'https://repo.spring.io/snapshot' }
 		mavenCentral()
 	}
 }
@@ -20,12 +20,12 @@ dependencyResolutionManagement {
 
 	repositories {
 		mavenLocal()
-		maven { name = '阿里云'; url = 'https://maven.aliyun.com/repository/public/' }
+		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		mavenCentral()
 		gradlePluginPortal()
-		maven { name = 'Spring (Release)'; url = 'https://repo.spring.io/release' }
-		maven { name = 'Spring (Milestone)'; url = 'https://repo.spring.io/milestone' }
-		maven { name = 'Spring (Snapshot)'; url = 'https://repo.spring.io/snapshot' }
+		maven { url = 'https://repo.spring.io/release' }
+		maven { url = 'https://repo.spring.io/milestone' }
+		maven { url = 'https://repo.spring.io/snapshot' }
 	}
 
 	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
