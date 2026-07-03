@@ -3,4 +3,5 @@ io.github.yingzhuo.claude.utility.SpringUtils.Hook
 org.springframework.context.ApplicationListener=\
 io.github.yingzhuo.claude.utility.SpringUtils.Hook
 org.springframework.core.io.ProtocolResolver=\
-io.github.yingzhuo.claude.utility.KeyStoreResourceProtocolResolver
+io.github.yingzhuo.claude.utility.KeyStoreResourceProtocolResolver,\
+io.github.yingzhuo.claude.utility.PEMResourceProtocolResolver
