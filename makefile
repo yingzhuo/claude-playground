@@ -8,7 +8,7 @@ endif
 
 .DEFAULT_GOAL := clean
 
-.PHONY: clean purge rebuild-build-logic compile build rebuild check test update-gradle-wrapper push-to-vcs
+.PHONY: clean purge rebuild-build-logic compile build rebuild check test update-gradle-wrapper
 
 .SILENT:
 
@@ -43,6 +43,3 @@ update-gradle-wrapper:
 
 stop-gradle-daemon:
 	$(GRADLEW) --stop -q > /dev/null
-
-push-to-vcs:
-	$(GRADLEW) 'pushToVcs' -q
