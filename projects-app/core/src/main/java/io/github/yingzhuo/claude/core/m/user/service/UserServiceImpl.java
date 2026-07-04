@@ -140,6 +140,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
+	public void reactivateAccount(String userId) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new BusinessException("用户不存在");
+		}
+		if (user.getCancelledAt() == null) {
+			return;
+		}
+		user.setCancelledAt(null);
+		userDao.updateById(user);
+		log.debug("用户账户已恢复（取消注销）: userId={}", userId);
+	}
+
+	@Override
+	@Transactional
 	public int purgeCancelledAccounts() {
 		var deadline = LocalDateTime.now().minusWeeks(1);
 		var wrapper = new LambdaQueryWrapper<User>()
