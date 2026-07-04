@@ -4,7 +4,6 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDto;
 import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
-import io.github.yingzhuo.claude.security.annotation.PermitAll;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,7 +28,6 @@ public class LoginController {
 	private final ApplicationEventPublisher eventPublisher;
 
 	@PostMapping("/login")
-	@PermitAll
 	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token")
 	public R<?> login(@RequestBody @Valid LoginRequestDto request) {
 		var user = userService.findByUsername(request.getUsername());

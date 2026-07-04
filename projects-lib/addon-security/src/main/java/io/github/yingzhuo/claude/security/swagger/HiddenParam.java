@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.security.annotation;
+package io.github.yingzhuo.claude.security.swagger;
 
 import io.swagger.v3.oas.annotations.Parameter;
 
