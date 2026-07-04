@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class KeyStoreResourceProtocolResolverTest {
 
 	private final KeyStoreResourceProtocolResolver resolver = new KeyStoreResourceProtocolResolver();
-
 	private final DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
 
 	@Test
@@ -19,7 +18,7 @@ class KeyStoreResourceProtocolResolverTest {
 
 	@Test
 	void matchingPrefixWithPass_shouldReturnKeyStoreResource() {
-		var result = resolver.resolve("keystore:classpath:test.p12?pass=changeit", resourceLoader);
+		var result = resolver.resolve("keystore:classpath:test.p12?storepass=changeit", resourceLoader);
 		assertInstanceOf(KeyStoreResource.class, result);
 	}
 
@@ -31,19 +30,19 @@ class KeyStoreResourceProtocolResolverTest {
 
 	@Test
 	void withTypeParameter_shouldReturnKeyStoreResource() {
-		var result = resolver.resolve("keystore:classpath:test.p12?pass=changeit&type=PKCS12", resourceLoader);
+		var result = resolver.resolve("keystore:classpath:test.p12?storepass=changeit&type=PKCS12", resourceLoader);
 		assertInstanceOf(KeyStoreResource.class, result);
 	}
 
 	@Test
 	void invalidType_shouldThrowRuntimeException() {
 		assertThrows(RuntimeException.class,
-			() -> resolver.resolve("keystore:classpath:test.p12?pass=changeit&type=INVALID", resourceLoader));
+			() -> resolver.resolve("keystore:classpath:test.p12?storepass=changeit&type=INVALID", resourceLoader));
 	}
 
 	@Test
 	void keyStoreResourceShouldContainCertificate() {
-		var result = resolver.resolve("keystore:classpath:test.p12?pass=changeit", resourceLoader);
+		var result = resolver.resolve("keystore:classpath:test.p12?storepass=changeit", resourceLoader);
 		var ksResource = (KeyStoreResource) result;
 		assertNotNull(ksResource.getCertificate("test"));
 	}

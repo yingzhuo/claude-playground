@@ -13,7 +13,7 @@ public abstract class AbstractSecurityResourceProtocolResolver implements Protoc
 	protected abstract String getPrefix();
 
 	@Override
-	public @Nullable Resource resolve(String location, ResourceLoader resourceLoader) {
+	public final @Nullable Resource resolve(String location, ResourceLoader resourceLoader) {
 		var prefix = getPrefix();
 		if (!location.startsWith(prefix)) {
 			return null;

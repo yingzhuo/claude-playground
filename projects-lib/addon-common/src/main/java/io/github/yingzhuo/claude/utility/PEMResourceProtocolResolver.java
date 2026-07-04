@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class PEMResourceProtocolResolver extends AbstractSecurityResourceProtocolResolver {
 
+	private static final String PARAM_KEYPASS = "keypass";
+
 	@Override
 	protected String getPrefix() {
 		return "pem:";
@@ -13,7 +15,8 @@ public class PEMResourceProtocolResolver extends AbstractSecurityResourceProtoco
 
 	@Override
 	protected Resource createResource(Resource delegatingResource, Map<String, String> queryParams) {
-		var password = queryParams.get("password");
+		var password = queryParams.get(PARAM_KEYPASS);
 		return new PEMResource(delegatingResource, password);
 	}
+
 }

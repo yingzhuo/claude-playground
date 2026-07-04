@@ -15,12 +15,13 @@ public abstract class AbstractSecurityResource extends AbstractResource {
 	}
 
 	@Override
-	public String getDescription() {
+	public final String getDescription() {
 		return this.toString();
 	}
 
 	@Override
-	public InputStream getInputStream() throws IOException {
+	public final InputStream getInputStream() throws IOException {
 		return delegatingResource.getInputStream();
 	}
+
 }
