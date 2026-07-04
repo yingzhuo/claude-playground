@@ -25,7 +25,7 @@ class PEMResourceProtocolResolverTest {
 
 	@Test
 	void withPasswordParameter_shouldReturnPEMResource() {
-		var result = resolver.resolve("pem:classpath:test.pem?password=secret", resourceLoader);
+		var result = resolver.resolve("pem:classpath:test.pem?keypass=secret", resourceLoader);
 		assertInstanceOf(PEMResource.class, result);
 	}
 
