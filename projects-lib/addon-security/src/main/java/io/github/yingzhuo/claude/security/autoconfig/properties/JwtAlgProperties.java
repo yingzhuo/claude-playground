@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 public class JwtAlgProperties {
 
 	@NotBlank
-	private String pfxLocation = "keystore:classpath:META-INF/jwt.pfx?pass=changeme&type=pkcs12";
+	private String pfxLocation = "keystore:classpath:META-INF/jwt.pfx?storepass=changeme&type=pkcs12";
 
 	@NotBlank
 	private String alias = "jwt";
