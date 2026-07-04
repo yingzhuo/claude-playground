@@ -62,4 +62,14 @@ public interface UserService {
 	 * @return 删除的记录数
 	 */
 	int purgeCancelledAccounts();
+
+	/**
+	 * 恢复已注销的账户
+	 * <p>
+	 * 将 {@code cancelledAt} 设置为 {@code null}，表示用户撤销注销操作。
+	 * </p>
+	 *
+	 * @param userId 用户ID
+	 */
+	void reactivateAccount(String userId);
 }

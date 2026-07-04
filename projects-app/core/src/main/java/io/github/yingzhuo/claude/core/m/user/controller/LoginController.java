@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDto;
+import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.PermitAll;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ public class LoginController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@PostMapping("/login")
 	@PermitAll
@@ -34,6 +37,8 @@ public class LoginController {
 		if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
 			return R.error401("用户名或密码错误");
 		}
+
+		eventPublisher.publishEvent(new UserLoginSuccessEvent(user.getId()));
 
 		var token = jwtCreator.apply(user);
 		return R.ok(token);
