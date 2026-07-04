@@ -18,7 +18,7 @@ public class JwtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDefaults();
+		return PasswordEncoderFactories.createDefault();
 	}
 
 	@Bean

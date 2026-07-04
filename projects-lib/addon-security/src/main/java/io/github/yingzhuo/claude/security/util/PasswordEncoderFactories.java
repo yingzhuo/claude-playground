@@ -1,26 +1,27 @@
 package io.github.yingzhuo.claude.security.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
+import java.util.Map;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@SuppressWarnings("deprecation")
 public final class PasswordEncoderFactories {
 
-	@SuppressWarnings("deprecation")
-	public static PasswordEncoder createDefaults() {
-		final var encodingId = "bcrypt";
-		final var encoders = new HashMap<String, PasswordEncoder>();
-		encoders.put(encodingId, new BCryptPasswordEncoder());
-		encoders.put("noop", NoOpPasswordEncoder.getInstance());
+	private static final Map<String, PasswordEncoder> ENCODERS;
 
-		var encoder = new DelegatingPasswordEncoder(encodingId, encoders);
-		encoder.setDefaultPasswordEncoderForMatches(NoOpPasswordEncoder.getInstance());
+	static {
+		ENCODERS = Map.of(
+			"bcrypt", new BCryptPasswordEncoder(),
+			"noop", NoOpPasswordEncoder.getInstance()
+		);
+	}
+
+	public static PasswordEncoder createDefault() {
+		var encoder = new DelegatingPasswordEncoder("bcrypt", ENCODERS);
+		encoder.setDefaultPasswordEncoderForMatches(ENCODERS.get("noop"));
 		return encoder;
 	}
 
