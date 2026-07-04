@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("denyAll()")
+@Deprecated(forRemoval = true)
 public @interface DenyAll {
 }

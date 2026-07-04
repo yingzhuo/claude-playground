@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("isAnonymous()")
+@Deprecated(forRemoval = true)
 public @interface IsAnonymous {
 }

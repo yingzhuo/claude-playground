@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("isFullyAuthenticated()")
+@Deprecated(forRemoval = true)
 public @interface IsFullyAuthenticated {
 }

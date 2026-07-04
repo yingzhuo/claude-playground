@@ -6,9 +6,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequest
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
-import io.github.yingzhuo.claude.security.annotation.HiddenParam;
-import io.github.yingzhuo.claude.security.annotation.IsAuthenticated;
-import io.github.yingzhuo.claude.security.annotation.PermitAll;
+import io.github.yingzhuo.claude.security.swagger.HiddenParam;
 import io.github.yingzhuo.claude.security.swagger.MySecurityRequirement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +26,6 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/password")
-	@IsAuthenticated
 	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证")
 	@MySecurityRequirement
 	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDto request, @HiddenParam @CurrentUserId String userId) {
@@ -37,7 +34,6 @@ public class UserController {
 	}
 
 	@PostMapping("/profile")
-	@IsAuthenticated
 	@MySecurityRequirement
 	@Operation(summary = "修改个人信息", description = "修改当前登录用户的性别和出生日期，仅更新传入的字段")
 	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDto request, @HiddenParam @CurrentUserId String userId) {
@@ -46,7 +42,6 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	@PermitAll
 	@Operation(summary = "用户注册", description = "注册新用户，用户名、密码、性别为必填，出生日期可选")
 	public R<String> register(@RequestBody @Valid RegisterRequestDto request) {
 		var userId = userService.register(request.getUsername(), request.getPassword(), request.getGender(), request.getDob());
@@ -54,7 +49,6 @@ public class UserController {
 	}
 
 	@PostMapping("/cancel")
-	@IsAuthenticated
 	@MySecurityRequirement
 	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态。账户不会立即删除，系统将在注销满 7 天后自动清理。")
 	public R<?> cancelAccount(@HiddenParam @CurrentUserId String userId) {
