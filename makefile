@@ -17,8 +17,13 @@ clean:
 
 purge:
 	$(GRADLEW) 'clean' ':buildSrc:clean' -q
+ifeq ($(OS), Windows_NT)
+	if exist $(MAKEFILE_PATH)\.gradle rmdir /s /q $(MAKEFILE_PATH)\.gradle
+	if exist $(MAKEFILE_PATH)\buildSrc\.gradle rmdir /s /q $(MAKEFILE_PATH)\buildSrc\.gradle
+else
 	rm -rf $(MAKEFILE_PATH)/.gradle
 	rm -rf $(MAKEFILE_PATH)/buildSrc/.gradle
+endif
 
 rebuild-build-logic:
 	$(GRADLEW) ':buildSrc:clean' ':buildSrc:jar' -q
