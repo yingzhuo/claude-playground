@@ -24,7 +24,7 @@ public class JwtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public AlgorithmProvider algorithmProvider(JwtAlgProperties props, ResourceLoader resourceLoader) {
-		return AlgorithmProvider.RSA256.builder()
+		return AlgorithmProvider.ECDSA256.builder()
 			.keyStoreResource((KeyStoreResource) resourceLoader.getResource(props.getPfxLocation()))
 			.alias(props.getAlias())
 			.keyPassword(props.getKeyPassword())

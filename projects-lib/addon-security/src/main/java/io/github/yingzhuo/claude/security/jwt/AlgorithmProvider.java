@@ -12,8 +12,7 @@ import java.util.function.Supplier;
 public interface AlgorithmProvider extends Supplier<Algorithm> {
 
 	@Builder
-	class RSA256 implements AlgorithmProvider {
-
+	class ECDSA256 implements AlgorithmProvider {
 		private KeyStoreResource keyStoreResource;
 		private String alias;
 		private @Nullable String keyPassword;
@@ -22,7 +21,7 @@ public interface AlgorithmProvider extends Supplier<Algorithm> {
 		public Algorithm get() {
 			Assert.notNull(keyStoreResource, "keyStoreResource must not be null");
 			Assert.hasText(alias, "alias must not be empty");
-			return Algorithm.RSA256(keyStoreResource.getPublicKey(alias), keyStoreResource.getPrivateKey(alias, keyPassword));
+			return Algorithm.ECDSA256(keyStoreResource.getPublicKey(alias), keyStoreResource.getPrivateKey(alias, keyPassword));
 		}
 	}
 
