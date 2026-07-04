@@ -15,7 +15,12 @@ paths: "**/*.java"
 
 - 从上到下分为 `Controller` `Service` `Dao` 层
 - 禁止同一层次相互注入
+- 逻辑层中日志使用 `debug` 级别
 
 ## Controller
 
 - 统一错误处理类 `ControllerExceptionHandlers`
+
+## 定时调度任务
+
+- 调度任务响应Bean日志统一使用 `debug` 级别

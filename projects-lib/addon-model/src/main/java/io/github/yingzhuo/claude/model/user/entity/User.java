@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.jspecify.annotations.Nullable;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -64,5 +66,12 @@ public class User implements Serializable {
 	 */
 	@Schema(description = "记录创建时间")
 	private LocalDateTime createdAt;
+
+	/**
+	 * 注销时间（为空表示未注销）
+	 */
+	@Schema(description = "注销时间（为空表示未注销）")
+	@Nullable
+	private LocalDateTime cancelledAt;
 
 }

@@ -122,4 +122,43 @@ public class UserServiceImpl implements UserService {
 		userDao.insert(user);
 		return user.getId();
 	}
+
+	@Override
+	@Transactional
+	public void cancelAccount(String userId) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new BusinessException("用户不存在");
+		}
+		if (user.getCancelledAt() != null) {
+			throw new BusinessException("账户已注销");
+		}
+		user.setCancelledAt(LocalDateTime.now());
+		userDao.updateById(user);
+		log.debug("用户账户已标记为注销: userId={}", userId);
+	}
+
+	@Override
+	@Transactional
+	public int purgeCancelledAccounts() {
+		var deadline = LocalDateTime.now().minusWeeks(1);
+		var wrapper = new LambdaQueryWrapper<User>()
+			.isNotNull(User::getCancelledAt)
+			.le(User::getCancelledAt, deadline);
+
+		var expiredUsers = userDao.selectList(wrapper);
+
+		if (expiredUsers.isEmpty()) {
+			return 0;
+		}
+
+		log.debug("发现 {} 个已过一周注销等待期的用户账户，开始清理", expiredUsers.size());
+
+		for (var user : expiredUsers) {
+			userDao.deleteById(user.getId());
+			log.debug("已永久删除已注销用户: userId={}, cancelledAt={}", user.getId(), user.getCancelledAt());
+		}
+
+		return expiredUsers.size();
+	}
 }
