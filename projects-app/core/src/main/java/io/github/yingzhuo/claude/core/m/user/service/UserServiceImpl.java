@@ -161,19 +161,11 @@ public class UserServiceImpl implements UserService {
 			.isNotNull(User::getCancelledAt)
 			.le(User::getCancelledAt, deadline);
 
-		var expiredUsers = userDao.selectList(wrapper);
-
-		if (expiredUsers.isEmpty()) {
-			return 0;
+		var count = userDao.delete(wrapper);
+		if (count > 0) {
+			log.debug("已清理 {} 个已注销超过一周的用户", count);
 		}
 
-		log.debug("发现 {} 个已过一周注销等待期的用户账户，开始清理", expiredUsers.size());
-
-		for (var user : expiredUsers) {
-			userDao.deleteById(user.getId());
-			log.debug("已永久删除已注销用户: userId={}, cancelledAt={}", user.getId(), user.getCancelledAt());
-		}
-
-		return expiredUsers.size();
+		return count;
 	}
 }
