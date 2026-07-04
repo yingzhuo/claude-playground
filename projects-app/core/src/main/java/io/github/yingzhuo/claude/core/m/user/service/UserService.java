@@ -44,4 +44,22 @@ public interface UserService {
 	 * @return 注册成功的用户ID
 	 */
 	String register(String username, String password, Gender gender, @Nullable LocalDate dob);
+
+	/**
+	 * 注销当前登录用户账户
+	 * <p>
+	 * 将当前用户的 {@code cancelledAt} 字段设置为当前时间，标记为"已注销"。
+	 * 账户不会立即删除，系统会在注销满 7 天后自动清理。
+	 * </p>
+	 *
+	 * @param userId 用户ID
+	 */
+	void cancelAccount(String userId);
+
+	/**
+	 * 物理删除已注销超过一周的用户
+	 *
+	 * @return 删除的记录数
+	 */
+	int purgeCancelledAccounts();
 }

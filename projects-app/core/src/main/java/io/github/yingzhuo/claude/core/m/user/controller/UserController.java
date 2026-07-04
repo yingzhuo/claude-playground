@@ -48,4 +48,12 @@ public class UserController {
 		var userId = userService.register(request.getUsername(), request.getPassword(), request.getGender(), request.getDob());
 		return R.ok(userId);
 	}
+
+	@PostMapping("/cancel")
+	@IsAuthenticated
+	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态。账户不会立即删除，系统将在注销满 7 天后自动清理。")
+	public R<?> cancelAccount(@CurrentUserId String userId) {
+		userService.cancelAccount(userId);
+		return R.ok();
+	}
 }
