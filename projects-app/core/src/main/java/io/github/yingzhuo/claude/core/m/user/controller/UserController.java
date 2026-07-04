@@ -6,11 +6,11 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequest
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
+import io.github.yingzhuo.claude.security.annotation.HiddenParam;
 import io.github.yingzhuo.claude.security.annotation.IsAuthenticated;
 import io.github.yingzhuo.claude.security.annotation.PermitAll;
 import io.github.yingzhuo.claude.security.annotation.SecurityRequirement;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UserController {
 	@IsAuthenticated
 	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证")
 	@SecurityRequirement
-	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDto request, @Parameter(hidden = true) @CurrentUserId String userId) {
+	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDto request, @HiddenParam @CurrentUserId String userId) {
 		userService.changePassword(userId, request.getOldPassword(), request.getNewPassword());
 		return R.ok();
 	}
@@ -40,7 +40,7 @@ public class UserController {
 	@IsAuthenticated
 	@SecurityRequirement
 	@Operation(summary = "修改个人信息", description = "修改当前登录用户的性别和出生日期，仅更新传入的字段")
-	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDto request, @Parameter(hidden = true) @CurrentUserId String userId) {
+	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDto request, @HiddenParam @CurrentUserId String userId) {
 		userService.updateProfile(userId, request.getNickname(), request.getGender(), request.getDob());
 		return R.ok();
 	}
@@ -57,7 +57,7 @@ public class UserController {
 	@IsAuthenticated
 	@SecurityRequirement
 	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态。账户不会立即删除，系统将在注销满 7 天后自动清理。")
-	public R<?> cancelAccount(@Parameter(hidden = true) @CurrentUserId String userId) {
+	public R<?> cancelAccount(@HiddenParam @CurrentUserId String userId) {
 		userService.cancelAccount(userId);
 		return R.ok();
 	}
