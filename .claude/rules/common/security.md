@@ -29,3 +29,8 @@ paths: "**/*.java"
     - `@CurrentUserId` - 获取安全上下文中的用户ID
     - `@CurrentUsername` - 获取安全上下文中的用户名称
     - `@CurrentRoles` - 获取安全上下文中的用户角色
+
+## Security 与 Swagger的集成
+
+- 非 `@PermitAll` 的方法要以 `io.github.yingzhuo.claude.security.annotation.SecurityRequirement` 说明
+- Controller的参数，如果是从SpringSecurity安全上下文中获取的对象 要以 `@Parameter(hidden = true)` 说明
