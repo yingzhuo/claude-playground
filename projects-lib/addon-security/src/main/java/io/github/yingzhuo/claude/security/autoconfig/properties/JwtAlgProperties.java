@@ -18,7 +18,7 @@ public class JwtAlgProperties {
 	private String pfxLocation = "keystore:classpath:META-INF/jwt.pfx?storepass=changeme&type=pkcs12";
 
 	@NotBlank
-	private String alias = "jwt";
+	private String alias = "ecdsa";
 
 	@Nullable
 	private String keyPassword = "changeme";

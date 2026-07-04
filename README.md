@@ -4,7 +4,8 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 
 ## 开发环境
 
-- Claude Code 2.1.*
+- Claude Code 2.1.201
+    - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade CC
 - deepseek-v4-pro
 
 ## 已安装 ClaudeCode 插件
@@ -15,3 +16,7 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 ## License
 
 - [Apache 2.0](./LICENSE.txt)
+
+## 联系我
+
+- [应卓](mailto:yingzhor@gmail.com)

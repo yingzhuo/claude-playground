@@ -1,28 +1,27 @@
 package io.github.yingzhuo.claude.security.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.*;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PasswordEncoderFactories {
 
-	public static PasswordEncoder createDefaults() {
-		final var encodingId = "bcrypt";
-		final var encoders = new HashMap<String, PasswordEncoder>();
-		encoders.put(encodingId, new BCryptPasswordEncoder());
-		encoders.put("MD4", new Md4PasswordEncoder());
-		encoders.put("MD5", new MessageDigestPasswordEncoder("MD5"));
-		encoders.put("noop", NoOpPasswordEncoder.getInstance());
-		encoders.put("SHA-1", new MessageDigestPasswordEncoder("SHA-1"));
-		encoders.put("SHA-256", new MessageDigestPasswordEncoder("SHA-256"));
+	private static final Map<String, PasswordEncoder> ENCODERS;
 
-		var encoder = new DelegatingPasswordEncoder(encodingId, encoders);
-		encoder.setDefaultPasswordEncoderForMatches(NoOpPasswordEncoder.getInstance());
+	static {
+		ENCODERS = Map.of(
+			"bcrypt", new BCryptPasswordEncoder(),
+			"noop", NoOpPasswordEncoder.getInstance()
+		);
+	}
+
+	public static PasswordEncoder createDefault() {
+		var encoder = new DelegatingPasswordEncoder("bcrypt", ENCODERS);
+		encoder.setDefaultPasswordEncoderForMatches(ENCODERS.get("noop"));
 		return encoder;
 	}
 
