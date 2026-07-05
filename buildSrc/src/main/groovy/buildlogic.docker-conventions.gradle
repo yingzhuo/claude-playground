@@ -1,0 +1,32 @@
+plugins {
+	id 'com.google.cloud.tools.jib'
+}
+
+jib {
+	from {
+		image = 'docker.m.daocloud.io/eclipse-temurin:21-jre'
+	}
+
+	to {
+		image = "${project.group}/claude-playground/${project.name}:${project.version}"
+		tags = [
+			"${project.version}",
+			'latest'
+		]
+	}
+
+	container {
+		jvmFlags = [
+			'-Dfile.encoding=UTF-8',
+			'-Duser.timezone=Asia/Shanghai',
+			'-Duser.language=zh',
+			'-Duser.country=CN',
+			'-XX:+UseZGC',
+			'-XX:ZCollectionInterval=30',
+			'-XX:ZFragmentationLimit=10',
+			'-XX:+ExitOnOutOfMemoryError'
+		]
+		ports = ['8080']
+		creationTime = 'USE_CURRENT_TIMESTAMP'
+	}
+}
