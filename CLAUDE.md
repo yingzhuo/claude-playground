@@ -48,7 +48,11 @@ claude-playground
 - `make rebuild` — 清理并重新构建
 - `make test` — 运行测试
 - `make check` — 代码风格检查
-- `make update-dependencies` — 刷新依赖
+- `make update-gradle-wrapper` — 刷新 Gradle Wrapper
+- `make docker-build` — 构建 Docker 镜像（jibDockerBuild）
+- `make docker-push` — 推送 Docker 镜像到仓库（jib）
+- `make docker-compose-up` — 启动 docker-compose
+- `make docker-compose-down` — 停止 docker-compose
 
 ## 我不喜欢的写法
 

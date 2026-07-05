@@ -8,7 +8,7 @@ endif
 
 .DEFAULT_GOAL := clean
 
-.PHONY: clean purge rebuild-build-logic compile build rebuild check test update-gradle-wrapper
+.PHONY: clean purge rebuild-build-logic compile build rebuild check test update-gradle-wrapper docker-build docker-push docker-compose-up docker-compose-down
 
 .SILENT:
 
@@ -44,3 +44,15 @@ test:
 
 update-gradle-wrapper:
 	$(GRADLEW) ':wrapper' -q
+
+docker-build:
+	$(GRADLEW) ':projects-app:core:jibDockerBuild' -q
+
+docker-push:
+	$(GRADLEW) ':projects-app:core:jib' -q
+
+docker-compose-up:
+	docker compose up -d
+
+docker-compose-down:
+	docker compose down
