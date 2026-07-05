@@ -8,7 +8,7 @@ jib {
 	}
 
 	to {
-		image = "${project.group}/claude-playground/${project.name}:${project.version}"
+		image = "${project.group}/${rootProject.name}/${project.name}:${project.version}"
 		tags = [
 			"${project.version}",
 			'latest'
