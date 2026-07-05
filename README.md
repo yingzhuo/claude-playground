@@ -13,10 +13,10 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 - [ponytail](https://github.com/DietrichGebert/ponytail)
 - [superpowers](https://github.com/obra/superpowers)
 
+## 已安装的 ClaudeCode MCP
+
+- @benborla29/mcp-server-mysql: `sudo npm install -g @benborla29/mcp-server-mysql`
+
 ## License
 
 - [Apache 2.0](./LICENSE.txt)
-
-## 联系我
-
-- [应卓](mailto:yingzhor@gmail.com)
