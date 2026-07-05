@@ -152,6 +152,50 @@ class UserServiceImplTest {
 	}
 
 	@Test
+	void should_refresh_token_successfully() {
+		var registerDTO = RegisterRequestDTO.builder()
+			.username("refresh_user")
+			.password("Passw0rd!")
+			.confirmPassword("Passw0rd!")
+			.nickname("测试")
+			.gender(Gender.MALE)
+			.build();
+
+		var userId = userService.register(registerDTO);
+
+		var vo = userService.refreshToken(userId);
+		assertThat(vo).isNotNull();
+		assertThat(vo.getToken()).isNotBlank();
+		assertThat(vo.getUserId()).isEqualTo(userId);
+		assertThat(vo.getUsername()).isEqualTo("refresh_user");
+	}
+
+	@Test
+	void should_throw_when_refresh_token_with_non_existent_user() {
+		assertThatThrownBy(() -> userService.refreshToken("non_existent_id"))
+			.isInstanceOf(BusinessException.class)
+			.hasMessage("用户不存在");
+	}
+
+	@Test
+	void should_throw_when_refresh_token_with_cancelled_account() {
+		var registerDTO = RegisterRequestDTO.builder()
+			.username("cancelled_refresh_user")
+			.password("Passw0rd!")
+			.confirmPassword("Passw0rd!")
+			.nickname("测试")
+			.gender(Gender.FEMALE)
+			.build();
+
+		var userId = userService.register(registerDTO);
+		userService.cancelAccount(userId);
+
+		assertThatThrownBy(() -> userService.refreshToken(userId))
+			.isInstanceOf(BusinessException.class)
+			.hasMessage("账户已注销");
+	}
+
+	@Test
 	void should_throw_when_register_duplicate_username() {
 		var registerDTO = RegisterRequestDTO.builder()
 			.username("duplicate_user")

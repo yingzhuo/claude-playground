@@ -5,6 +5,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
+import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
 import io.github.yingzhuo.claude.model.user.entity.User;
 
 public interface UserService {
@@ -82,4 +83,16 @@ public interface UserService {
 	 * @param userId 用户ID
 	 */
 	void reactivateAccount(String userId);
+
+	/**
+	 * 刷新JWT令牌
+	 * <p>
+	 * 基于当前用户重新生成JWT token，旧token过期后仍可使用本接口获取新token。
+	 * </p>
+	 *
+	 * @param userId 用户ID
+	 * @return 令牌刷新响应（含新JWT token、用户ID、用户名）
+	 * @throws io.github.yingzhuo.claude.exception.BusinessException 用户不存在或已注销
+	 */
+	RefreshTokenVO refreshToken(String userId);
 }
