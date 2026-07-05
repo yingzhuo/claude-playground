@@ -15,13 +15,13 @@ import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import io.github.yingzhuo.claude.utility.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -34,42 +34,11 @@ public class UserServiceImpl implements UserService {
 	private final ApplicationEventPublisher eventPublisher;
 	private final UserMapper userMapper;
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<User> findAll() {
-		return userDao.selectList(null);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public User findById(String id) {
-		return userDao.selectById(id);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public User findByUsername(String username) {
+	@Nullable
+	private User findByUsername(String username) {
 		var wrapper = new LambdaQueryWrapper<User>()
 			.eq(User::getUsername, username);
 		return userDao.selectOne(wrapper);
-	}
-
-	@Override
-	@Transactional
-	public void create(User user) {
-		userDao.insert(user);
-	}
-
-	@Override
-	@Transactional
-	public void update(User user) {
-		userDao.updateById(user);
-	}
-
-	@Override
-	@Transactional
-	public void deleteById(String id) {
-		userDao.deleteById(id);
 	}
 
 	@Override
