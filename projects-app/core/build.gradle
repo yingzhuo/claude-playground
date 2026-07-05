@@ -3,6 +3,7 @@ plugins {
 	id 'buildlogic.spring-boot-conventions'
 	id 'buildlogic.check-conventions'
 	id 'buildlogic.distribution-conventions'
+	id 'buildlogic.docker-conventions'
 }
 
 description = '主程序'
