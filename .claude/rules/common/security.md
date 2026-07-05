@@ -7,30 +7,14 @@ paths: "**/*.java"
 
 ## SQL 注入
 
-- SQL 语句必须使用 MyBatis XML/MyBatis Annotation/MyBatis Criteria API, 禁止拼接字符串
+- 禁止拼接 SQL，使用 MyBatis XML/Annotation/Criteria API
 
 ## 密码密钥
 
-- 密码/密钥使用环境变量等, 禁止硬编码
-
-## 密码持久化
-
-- 数据禁止存储用户密码明文
-- 密码比较时应实用 `org.springframework.security.crypto.password.PasswordEncoder`
+- 密码和密钥使用环境变量注入，禁止硬编码
+- 禁止明文存储密码，使用 `PasswordEncoder` 比较
 
 ## 访问控制
 
-- 使用 `io.github.yingzhuo.claude.security.annotation` 包下的元注释进行访问控制(Controller / Service 层均可使用)
-    - `@PermitAll` - 允许所有用户访问
-    - `@DenyAll` - 拒绝所有用户访问
-    - `@IsAuthenticated` - 要求用户已登录(认证通过)
-    - `@IsFullyAuthenticated` - 要求完全认证(非 Remember-Me)
-    - `@IsAnonymous` - 允许匿名用户访问
-    - `@CurrentUserId` - 获取安全上下文中的用户ID
-    - `@CurrentUsername` - 获取安全上下文中的用户名称
-    - `@CurrentRoles` - 获取安全上下文中的用户角色
-
-## Security 与 Swagger的集成
-
-- 非 `@PermitAll` 的方法要以 `io.github.yingzhuo.claude.security.swagger.MySecurityRequirement` 说明
-- Controller的参数，如果是从SpringSecurity安全上下文中获取的对象 要以 `@Parameter(hidden = true)` 说明
+- 使用 `io.github.yingzhuo.claude.security.annotation` 包下的注解：
+  - `@CurrentUserId` / `@CurrentUsername` / `@CurrentRoles` — 获取安全上下文信息
