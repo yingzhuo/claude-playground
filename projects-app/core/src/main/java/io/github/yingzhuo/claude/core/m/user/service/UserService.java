@@ -6,6 +6,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
+import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.entity.User;
 
 public interface UserService {
@@ -27,7 +28,7 @@ public interface UserService {
 	 *
 	 * @param userId 用户ID
 	 * @param dto    修改密码请求（含旧密码、新密码）
-	 * @throws io.github.yingzhuo.claude.exception.BusinessException 用户不存在、旧密码错误或新旧密码相同
+	 * @throws BusinessException 用户不存在、旧密码错误或新旧密码相同
 	 */
 	void changePassword(String userId, ChangePasswordRequestDTO dto);
 
@@ -44,7 +45,7 @@ public interface UserService {
 	 *
 	 * @param dto 登录请求
 	 * @return 登录响应（含 JWT token、用户ID、用户名）
-	 * @throws io.github.yingzhuo.claude.exception.BusinessException 用户名或密码错误
+	 * @throws BusinessException 用户名或密码错误
 	 */
 	LoginVO login(LoginRequestDTO dto);
 
@@ -92,7 +93,7 @@ public interface UserService {
 	 *
 	 * @param userId 用户ID
 	 * @return 令牌刷新响应（含新JWT token、用户ID、用户名）
-	 * @throws io.github.yingzhuo.claude.exception.BusinessException 用户不存在或已注销
+	 * @throws BusinessException 用户不存在或已注销
 	 */
 	RefreshTokenVO refreshToken(String userId);
 }

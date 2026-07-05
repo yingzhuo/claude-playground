@@ -7,6 +7,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import io.github.yingzhuo.claude.security.Auth;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 public class SimpleJwtVerifier implements JwtVerifier {
@@ -29,6 +31,8 @@ public class SimpleJwtVerifier implements JwtVerifier {
 				.authenticated(true)
 				.userId(decoded.getClaim("id").asString())
 				.username(decoded.getClaim("username").asString())
+				.tokenJti(decoded.getId())
+				.tokenExpiresAt(LocalDateTime.ofInstant(decoded.getExpiresAt().toInstant(), ZoneOffset.UTC))
 				.authorities(List.of())
 				.build();
 

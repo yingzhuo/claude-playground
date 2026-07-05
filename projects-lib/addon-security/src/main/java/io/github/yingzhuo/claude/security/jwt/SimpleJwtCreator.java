@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class SimpleJwtCreator implements JwtCreator {
@@ -23,6 +24,7 @@ public class SimpleJwtCreator implements JwtCreator {
 
 		return JWT.create()
 			.withIssuer(JwtConstants.ISSUER)
+				.withJWTId(UUID.randomUUID().toString())
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
 			.withClaim("roles", List.<String>of()) // TODO
