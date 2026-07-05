@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.security.jwt;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
@@ -8,11 +9,12 @@ import org.springframework.util.Assert;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class SimpleJwtCreator implements JwtCreator {
 
-	private final AlgorithmProvider algorithmProvider;
+	private final Algorithm algorithm;
 	private final long expirationInHours;
 
 	@Override
@@ -23,8 +25,9 @@ public class SimpleJwtCreator implements JwtCreator {
 			.withIssuer(JwtConstants.ISSUER)
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
+			.withClaim("roles", List.<String>of()) // TODO
 			.withExpiresAt(Date.from(LocalDateTime.now().plusHours(expirationInHours).toInstant(ZoneOffset.UTC)))
-			.sign(algorithmProvider.get());
+			.sign(this.algorithm);
 	}
 
 }

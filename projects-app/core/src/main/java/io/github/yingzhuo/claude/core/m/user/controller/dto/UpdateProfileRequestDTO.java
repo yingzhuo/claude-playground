@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 import java.time.LocalDate;
 
@@ -15,12 +16,15 @@ import java.time.LocalDate;
 @Schema(description = "修改个人信息请求")
 public class UpdateProfileRequestDTO {
 
+	@Nullable
 	@Schema(description = "昵称（不传则不修改）")
 	private String nickname;
 
+	@Nullable
 	@Schema(description = "性别（不传则不修改）")
 	private Gender gender;
 
+	@Nullable
 	@PastOrPresent
 	@Schema(description = "出生日期（不传则不修改）")
 	private LocalDate dob;

@@ -17,6 +17,24 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 
 - @benborla29/mcp-server-mysql: `sudo npm install -g @benborla29/mcp-server-mysql`
 
+```bash
+claude mcp add mysql-local \
+  -e MYSQL_HOST="localhost" \
+  -e MYSQL_PORT="3306" \
+  -e MYSQL_USER="root" \
+  -e MYSQL_PASS="root" \
+  -e MYSQL_DB="claude_playground" \
+  -e ALLOW_INSERT_OPERATION="false" \
+  -e ALLOW_UPDATE_OPERATION="false" \
+  -e ALLOW_DELETE_OPERATION="false" \
+  --scope project \
+  -- npx @benborla29/mcp-server-mysql
+```
+
 ## License
 
 - [Apache 2.0](./LICENSE.txt)
+
+## 联系我
+
+- [yingzhuo](mailto:yingzhor@gmail.com)
