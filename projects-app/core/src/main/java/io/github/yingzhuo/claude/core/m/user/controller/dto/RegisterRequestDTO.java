@@ -40,8 +40,8 @@ public class RegisterRequestDTO {
 	private String confirmPassword;
 
 	@NotBlank
-	@Size(max = 10)
-	@Schema(description = "昵称", requiredMode = RequiredMode.REQUIRED, maxLength = 10)
+	@Size(min = 2, max = 10)
+	@Schema(description = "昵称", requiredMode = RequiredMode.REQUIRED, minLength = 2, maxLength = 10)
 	private String nickname;
 
 	@NotNull
