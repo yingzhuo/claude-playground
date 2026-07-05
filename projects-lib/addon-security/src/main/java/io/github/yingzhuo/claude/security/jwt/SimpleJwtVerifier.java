@@ -27,13 +27,15 @@ public class SimpleJwtVerifier implements JwtVerifier {
 		try {
 			var decoded = innerVerifier.verify(token);
 
+			var roles = decoded.getClaim("roles").asList(String.class);
+
 			return Auth.builder()
 				.authenticated(true)
 				.userId(decoded.getClaim("id").asString())
 				.username(decoded.getClaim("username").asString())
 				.tokenJti(decoded.getId())
 				.tokenExpiresAt(LocalDateTime.ofInstant(decoded.getExpiresAt().toInstant(), ZoneOffset.UTC))
-				.authorities(List.of())
+				.authorities(roles != null ? roles : List.of())
 				.build();
 
 		} catch (JWTVerificationException e) {

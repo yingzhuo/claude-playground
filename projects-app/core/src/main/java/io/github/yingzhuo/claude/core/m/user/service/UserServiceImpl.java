@@ -5,12 +5,15 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordReques
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
+import io.github.yingzhuo.claude.core.m.user.dao.RoleDao;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
+import io.github.yingzhuo.claude.core.m.user.dao.UserRoleDao;
 import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
 import io.github.yingzhuo.claude.core.m.user.mapstruct.UserMapper;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
+import io.github.yingzhuo.claude.model.role.entity.Role;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import io.github.yingzhuo.claude.utility.UUIDUtils;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -34,12 +38,20 @@ public class UserServiceImpl implements UserService {
 	private final JwtCreator jwtCreator;
 	private final ApplicationEventPublisher eventPublisher;
 	private final UserMapper userMapper;
+	private final RoleDao roleDao;
+	private final UserRoleDao userRoleDao;
 
 	@Nullable
 	private User findByUsername(String username) {
 		var wrapper = new LambdaQueryWrapper<User>()
 			.eq(User::getUsername, username);
 		return userDao.selectOne(wrapper);
+	}
+
+	@Nullable
+	private List<String> loadRoleNames(String userId) {
+		var roleNames = userRoleDao.findRoleNamesByUserId(userId);
+		return roleNames.isEmpty() ? null : roleNames;
 	}
 
 	@Override
@@ -93,6 +105,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		eventPublisher.publishEvent(new UserLoginSuccessEvent(user.getId()));
+		user.setRoles(loadRoleNames(user.getId()));
 
 		var token = jwtCreator.create(user);
 		return LoginVO.builder()
@@ -115,6 +128,15 @@ public class UserServiceImpl implements UserService {
 		user.setCreatedAt(LocalDateTime.now());
 
 		userDao.insert(user);
+		// 分配默认角色 ROLE_USER
+		var defaultRole = roleDao.selectOne(
+			new LambdaQueryWrapper<Role>().eq(Role::getName, "ROLE_USER")
+		);
+		if (defaultRole != null) {
+			userRoleDao.insertUserRole(user.getId(), defaultRole.getId());
+
+		}
+		log.debug("用户注册成功: userId={}", user.getId());
 		return user.getId();
 	}
 
@@ -159,6 +181,7 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException("账户已注销");
 		}
 
+		user.setRoles(loadRoleNames(user.getId()));
 		var token = jwtCreator.create(user);
 		return RefreshTokenVO.builder()
 			.token(token)

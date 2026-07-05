@@ -1,5 +1,6 @@
 package io.github.yingzhuo.claude.core.m.user.service;
 
+import com.auth0.jwt.JWT;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
@@ -49,6 +50,11 @@ class UserServiceImplTest {
 		assertThat(loginVO.getUserId()).isEqualTo(userId);
 		assertThat(loginVO.getUsername()).isEqualTo("test_user");
 		assertThat(loginVO.getToken()).isNotBlank();
+
+			var decoded = JWT.decode(loginVO.getToken());
+			assertThat(decoded.getClaim("roles").asList(String.class))
+				.isNotNull()
+				.containsExactly("ROLE_USER");
 	}
 
 	@Test

@@ -67,4 +67,11 @@ public class Auth implements Authentication {
 		return getUsername();
 	}
 
+	/**
+	 * 获取原始角色名列表（供 {@code @CurrentRoles} 注解使用）
+	 */
+	public @Nullable List<String> getRoles() {
+		return this.authorities;
+	}
+
 }

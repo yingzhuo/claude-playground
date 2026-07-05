@@ -27,7 +27,7 @@ public class SimpleJwtCreator implements JwtCreator {
 				.withJWTId(UUID.randomUUID().toString())
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
-			.withClaim("roles", List.<String>of()) // TODO
+			.withClaim("roles", user.getRoles() != null ? user.getRoles() : List.of())
 			.withExpiresAt(Date.from(LocalDateTime.now().plusHours(expirationInHours).toInstant(ZoneOffset.UTC)))
 			.sign(this.algorithm);
 	}
