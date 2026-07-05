@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "登录请求")
-public class LoginRequestDto {
+public class LoginRequestDTO {
 
 	@NotBlank
 	@Schema(description = "用户名", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)

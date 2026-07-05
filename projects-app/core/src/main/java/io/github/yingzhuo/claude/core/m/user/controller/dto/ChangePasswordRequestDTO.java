@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Schema(description = "修改密码请求")
-public class ChangePasswordRequestDto {
+public class ChangePasswordRequestDTO {
 
 	@NotBlank
 	@Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 128)

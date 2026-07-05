@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "修改个人信息请求")
-public class UpdateProfileRequestDto {
+public class UpdateProfileRequestDTO {
 
 	@Schema(description = "昵称（不传则不修改）")
 	private String nickname;

@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "用户注册请求")
-public class RegisterRequestDto {
+public class RegisterRequestDTO {
 
 	@NotBlank
 	@Size(max = 32)
@@ -38,6 +38,11 @@ public class RegisterRequestDto {
 	@NotBlank
 	@Schema(description = "确认密码", requiredMode = RequiredMode.REQUIRED)
 	private String confirmPassword;
+
+	@NotBlank
+	@Size(min = 2, max = 10)
+	@Schema(description = "昵称", requiredMode = RequiredMode.REQUIRED, minLength = 2, maxLength = 10)
+	private String nickname;
 
 	@NotNull
 	@Schema(description = "性别", requiredMode = RequiredMode.REQUIRED)

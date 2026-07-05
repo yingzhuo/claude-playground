@@ -1,16 +1,13 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
-import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDto;
-import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
+import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
+import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.model.webmvc.R;
-import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,23 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
 	private final UserService userService;
-	private final PasswordEncoder passwordEncoder;
-	private final JwtCreator jwtCreator;
-	private final ApplicationEventPublisher eventPublisher;
 
 	@PostMapping("/login")
-	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token")
-	public R<?> login(@RequestBody @Valid LoginRequestDto request) {
-		var user = userService.findByUsername(request.getUsername());
-
-		if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-			return R.error401("用户名或密码错误");
-		}
-
-		eventPublisher.publishEvent(new UserLoginSuccessEvent(user.getId()));
-
-		var token = jwtCreator.apply(user);
-		return R.ok(token);
+	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token及用户信息")
+	public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO dto) {
+		var vo = userService.login(dto);
+		return R.ok(vo);
 	}
 
 }
