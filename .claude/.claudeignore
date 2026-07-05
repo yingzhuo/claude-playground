@@ -16,17 +16,17 @@
 # --------------------------------------
 # 构建产物
 # --------------------------------------
-*.class
-*.jar
-*.war
-*.zip
-*.tar.gz
-*.tgz
-*.tar
-*.tmp
+**/*.class
+**/*.jar
+**/*.war
+**/*.zip
+**/*.tar.gz
+**/*.tgz
+**/*.tar
+**/*.tmp
 
 # --------------------------------------
-# 开发工具
+# 开发工具 (gradle)
 # --------------------------------------
 .idea/
 .gradle/
@@ -34,6 +34,13 @@ buildSrc/.kotlin/
 .run/
 gradlew
 gradlew.bat
+gradle/wrapper/gradle-wrapper.jar
+
+# --------------------------------------
+# 开发工具 IDEA
+# --------------------------------------
+**/*.iml
+**/*.iws
 
 # --------------------------------------
 # 敏感信息
@@ -73,4 +80,4 @@ hs_err_pid*
 .gitattributes
 .editorconfig
 LICENSE.txt
-**/README.md
+README.md
