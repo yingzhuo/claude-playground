@@ -42,6 +42,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
+	public User getProfile(String userId) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new BusinessException("用户不存在");
+		}
+		return user;
+	}
+
+	@Override
 	@Transactional
 	public void changePassword(String userId, ChangePasswordRequestDTO dto) {
 		var user = userDao.selectById(userId);

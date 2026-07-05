@@ -4,6 +4,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordReques
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
+import io.github.yingzhuo.claude.model.user.entity.User;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
 import io.github.yingzhuo.claude.security.swagger.HiddenParam;
@@ -12,10 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,6 +37,14 @@ public class UserController {
 	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDTO dto, @HiddenParam @CurrentUserId String userId) {
 		userService.updateProfile(userId, dto);
 		return R.ok();
+	}
+
+	@GetMapping("/profile")
+	@Operation(summary = "获取个人信息", description = "获取当前登录用户的个人信息")
+	@MySecurityRequirement
+	public R<User> getProfile(@HiddenParam @CurrentUserId String userId) {
+		var profile = userService.getProfile(userId);
+		return R.ok(profile);
 	}
 
 	@PostMapping("/register")
