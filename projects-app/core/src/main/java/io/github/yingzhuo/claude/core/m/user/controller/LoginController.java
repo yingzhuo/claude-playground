@@ -3,7 +3,11 @@ package io.github.yingzhuo.claude.core.m.user.controller;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
+import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
 import io.github.yingzhuo.claude.model.webmvc.R;
+import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
+import io.github.yingzhuo.claude.security.swagger.HiddenParam;
+import io.github.yingzhuo.claude.security.swagger.MySecurityRequirement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -25,6 +29,14 @@ public class LoginController {
 	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token及用户信息")
 	public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO dto) {
 		var vo = userService.login(dto);
+		return R.ok(vo);
+	}
+
+	@PostMapping("/token/refresh")
+	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token。需在请求头中携带有效的X-Auth-Token或X-Token。")
+	@MySecurityRequirement
+	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId) {
+		var vo = userService.refreshToken(userId);
 		return R.ok(vo);
 	}
 

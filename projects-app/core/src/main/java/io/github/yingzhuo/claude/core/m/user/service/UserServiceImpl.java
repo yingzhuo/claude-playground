@@ -9,6 +9,7 @@ import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
 import io.github.yingzhuo.claude.core.m.user.mapstruct.UserMapper;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
+import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
@@ -145,6 +146,25 @@ public class UserServiceImpl implements UserService {
 		user.setCancelledAt(null);
 		userDao.updateById(user);
 		log.debug("用户账户已恢复（取消注销）: userId={}", userId);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RefreshTokenVO refreshToken(String userId) {
+		var user = userDao.selectById(userId);
+		if (user == null) {
+			throw new BusinessException("用户不存在");
+		}
+		if (user.getCancelledAt() != null) {
+			throw new BusinessException("账户已注销");
+		}
+
+		var token = jwtCreator.create(user);
+		return RefreshTokenVO.builder()
+			.token(token)
+			.userId(user.getId())
+			.username(user.getUsername())
+			.build();
 	}
 
 	@Override
