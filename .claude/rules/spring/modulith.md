@@ -18,3 +18,4 @@ paths: "**/*.java"
     - `xxx.entity` 不需要, 实体类保存在专门的子工程
     - `xxx.task` 定时调度任务
     - `xxx.eventlistener` 事件监听器
+    - `xxx.mapstruct` MapStruct转换器

@@ -39,6 +39,11 @@ public class RegisterRequestDTO {
 	@Schema(description = "确认密码", requiredMode = RequiredMode.REQUIRED)
 	private String confirmPassword;
 
+	@NotBlank
+	@Size(max = 10)
+	@Schema(description = "昵称", requiredMode = RequiredMode.REQUIRED, maxLength = 10)
+	private String nickname;
+
 	@NotNull
 	@Schema(description = "性别", requiredMode = RequiredMode.REQUIRED)
 	private Gender gender;

@@ -23,8 +23,8 @@ public class LoginController {
 
 	@PostMapping("/login")
 	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token及用户信息")
-	public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO request) {
-		var vo = userService.login(request.getUsername(), request.getPassword());
+	public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO dto) {
+		var vo = userService.login(dto);
 		return R.ok(vo);
 	}
 
