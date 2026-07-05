@@ -1,5 +1,6 @@
 package io.github.yingzhuo.claude.model.user.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,6 +13,7 @@ import org.jspecify.annotations.Nullable;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 用户实体
@@ -73,5 +75,13 @@ public class User implements Serializable {
 	@Schema(description = "注销时间（为空表示未注销）")
 	@Nullable
 	private LocalDateTime cancelledAt;
+
+	/**
+	 * 角色列表（非持久化，仅用于 JWT 签发）
+	 */
+	@Schema(description = "角色列表")
+	@Nullable
+	@TableField(exist = false)
+	private List<String> roles;
 
 }
