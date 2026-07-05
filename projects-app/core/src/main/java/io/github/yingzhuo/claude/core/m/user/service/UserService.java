@@ -1,5 +1,6 @@
 package io.github.yingzhuo.claude.core.m.user.service;
 
+import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.model.user.entity.Gender;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import org.jspecify.annotations.Nullable;
@@ -33,6 +34,16 @@ public interface UserService {
 	 * @param dob      出生日期（为 {@code null} 则不修改）
 	 */
 	void updateProfile(String userId, @Nullable String nickname, @Nullable Gender gender, @Nullable LocalDate dob);
+
+	/**
+	 * 用户登录
+	 *
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 登录响应（含 JWT token、用户ID、用户名）
+	 * @throws io.github.yingzhuo.claude.exception.BusinessException 用户名或密码错误
+	 */
+	LoginVO login(String username, String password);
 
 	/**
 	 * 用户注册

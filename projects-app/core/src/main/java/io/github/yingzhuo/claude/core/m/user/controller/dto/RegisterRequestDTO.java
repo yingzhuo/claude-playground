@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "用户注册请求")
-public class RegisterRequestDto {
+public class RegisterRequestDTO {
 
 	@NotBlank
 	@Size(max = 32)

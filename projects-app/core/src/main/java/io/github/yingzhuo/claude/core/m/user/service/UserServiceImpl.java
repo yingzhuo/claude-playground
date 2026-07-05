@@ -2,13 +2,17 @@ package io.github.yingzhuo.claude.core.m.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
+import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
+import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.entity.Gender;
 import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import io.github.yingzhuo.claude.utility.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +28,8 @@ public class UserServiceImpl implements UserService {
 
 	private final UserDao userDao;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtCreator jwtCreator;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -102,6 +108,24 @@ public class UserServiceImpl implements UserService {
 		}
 
 		userDao.updateById(user);
+	}
+
+	@Override
+	@Transactional
+	public LoginVO login(String username, String password) {
+		var user = findByUsername(username);
+		if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+			throw new BusinessException("用户名或密码错误");
+		}
+
+		eventPublisher.publishEvent(new UserLoginSuccessEvent(user.getId()));
+
+		var token = jwtCreator.create(user);
+		return LoginVO.builder()
+			.token(token)
+			.userId(user.getId())
+			.username(user.getUsername())
+			.build();
 	}
 
 	@Override
