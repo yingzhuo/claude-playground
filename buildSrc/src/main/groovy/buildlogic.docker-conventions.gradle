@@ -26,7 +26,7 @@ jib {
 			'-XX:ZFragmentationLimit=10',
 			'-XX:+ExitOnOutOfMemoryError'
 		]
-		ports = ['8080']
+		ports = [providers.gradleProperty('port').getOrElse('8080')]
 		creationTime = 'USE_CURRENT_TIMESTAMP'
 	}
 }

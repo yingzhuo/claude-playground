@@ -8,6 +8,10 @@ plugins {
 
 description = '主程序'
 
+ext {
+	set('port', '8080')
+}
+
 dependencies {
 
 	// 本项目BOM
