@@ -1,17 +1,19 @@
 package io.github.yingzhuo.claude.security.autoconfig;
 
-import io.github.yingzhuo.claude.security.autoconfig.properties.JwtAlgProperties;
+import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.security.jwt.*;
 import io.github.yingzhuo.claude.security.util.PasswordEncoderFactories;
-import io.github.yingzhuo.claude.utility.KeyStoreResource;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.ssl.pem.PemContent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableConfigurationProperties(JwtAlgProperties.class)
+import java.io.IOException;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
+
 @AutoConfiguration
 public class JwtAutoConfiguration {
 
@@ -23,24 +25,25 @@ public class JwtAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public AlgorithmProvider algorithmProvider(JwtAlgProperties props, ResourceLoader resourceLoader) {
-		return AlgorithmProvider.ECDSA256.builder()
-			.keyStoreResource((KeyStoreResource) resourceLoader.getResource(props.getPfxLocation()))
-			.alias(props.getAlias())
-			.keyPassword(props.getKeyPassword())
-			.build();
+	public Algorithm jwtAlgorithm(ResourceLoader resourceLoader) throws IOException {
+		try (var inputStream = resourceLoader.getResource("classpath:META-INF/jwt-ecdsa256.pem").getInputStream()) {
+			var pemContent = PemContent.load(inputStream);
+			var publicKey = pemContent.getCertificates().getFirst().getPublicKey();
+			var privateKey = pemContent.getPrivateKey();
+			return Algorithm.ECDSA256((ECPublicKey) publicKey, (ECPrivateKey) privateKey);
+		}
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JwtCreator jwtCreator(AlgorithmProvider provider, JwtAlgProperties props) {
-		return new SimpleJwtCreator(provider, props.getExpirationInHours());
+	public JwtCreator jwtCreator(Algorithm alg) {
+		return new SimpleJwtCreator(alg, 4);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JwtVerifier jwtVerifier(AlgorithmProvider provider) {
-		return new SimpleJwtVerifier(provider);
+	public JwtVerifier jwtVerifier(Algorithm alg) {
+		return new SimpleJwtVerifier(alg);
 	}
 
 	@Bean
