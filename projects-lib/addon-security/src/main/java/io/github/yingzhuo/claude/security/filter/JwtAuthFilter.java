@@ -1,5 +1,6 @@
 package io.github.yingzhuo.claude.security.filter;
 
+import io.github.yingzhuo.claude.security.jwt.JwtBlacklistChecker;
 import io.github.yingzhuo.claude.security.jwt.JwtVerifier;
 import io.github.yingzhuo.claude.security.jwt.TokenResolver;
 import jakarta.servlet.FilterChain;
@@ -7,7 +8,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.util.StringUtils;
@@ -22,6 +25,9 @@ public class JwtAuthFilter extends AbstractJwtAuthFilter {
 
 	private final TokenResolver tokenResolver;
 	private final JwtVerifier jwtVerifier;
+
+	@Setter
+	private @Nullable JwtBlacklistChecker blacklistChecker;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -43,6 +49,16 @@ public class JwtAuthFilter extends AbstractJwtAuthFilter {
 			var auth = jwtVerifier.verify(token);
 			auth.setToken(token);
 			auth.setDetails(new WebAuthenticationDetails(request));
+
+			// 黑名单校验
+			var jti = auth.getTokenJti();
+			if (jti != null && blacklistChecker != null && blacklistChecker.isBlacklisted(jti)) {
+				log.trace("令牌已被拉黑: jti={}", jti);
+				super.clearSecurityContext();
+				chain.doFilter(request, response);
+				return;
+			}
+
 			super.setAuthentication(auth);
 
 			if (log.isTraceEnabled()) {

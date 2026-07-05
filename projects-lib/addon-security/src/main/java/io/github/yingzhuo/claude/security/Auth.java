@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class Auth implements Authentication {
 	private String username;
 	private @Nullable List<String> authorities;
 	private @Nullable String token;
+	private @Nullable String tokenJti;
+	private @Nullable LocalDateTime tokenExpiresAt;
 	private @Nullable Object details;
 	private boolean authenticated;
 

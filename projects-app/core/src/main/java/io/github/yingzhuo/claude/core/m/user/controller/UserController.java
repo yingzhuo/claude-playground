@@ -1,11 +1,13 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
+import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import io.github.yingzhuo.claude.model.webmvc.R;
+import io.github.yingzhuo.claude.security.Auth;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
 import io.github.yingzhuo.claude.security.swagger.HiddenParam;
 import io.github.yingzhuo.claude.security.swagger.MySecurityRequirement;
@@ -13,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -22,12 +25,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
 	private final UserService userService;
+	private final JwtBlacklistService jwtBlacklistService;
 
 	@PostMapping("/password")
-	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证")
+	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证。修改成功后当前令牌立即失效。")
 	@MySecurityRequirement
 	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDTO dto, @HiddenParam @CurrentUserId String userId) {
 		userService.changePassword(userId, dto);
+		blacklistCurrentToken();
 		return R.ok();
 	}
 
@@ -55,10 +60,18 @@ public class UserController {
 	}
 
 	@PostMapping("/cancel")
-	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态。账户不会立即删除，系统将在注销满 7 天后自动清理。")
+	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态，当前令牌立即失效。账户不会立即删除，系统将在注销满 7 天后自动清理。")
 	@MySecurityRequirement
 	public R<?> cancelAccount(@HiddenParam @CurrentUserId String userId) {
 		userService.cancelAccount(userId);
+		blacklistCurrentToken();
 		return R.ok();
+	}
+
+	private void blacklistCurrentToken() {
+		var auth = (Auth) SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
+		}
 	}
 }
