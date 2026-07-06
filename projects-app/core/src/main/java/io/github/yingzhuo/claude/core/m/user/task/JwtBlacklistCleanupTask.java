@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JwtBlacklistCleanupTask {
 
-    private final JwtBlacklistService jwtBlacklistService;
+	private final JwtBlacklistService jwtBlacklistService;
 
-    @Scheduled(cron = "0 7 * * * ?")  // 每小时的第 7 分钟
-    public void purgeExpired() {
-        var count = jwtBlacklistService.purgeExpired();
-        log.debug("JWT黑名单清理完成，已清理 {} 条过期记录", count);
-    }
+	@Scheduled(cron = "0 7 * * * ?")  // 每小时的第 7 分钟
+	public void purgeExpired() {
+		var count = jwtBlacklistService.purgeExpired();
+		log.debug("JWT黑名单清理完成，已清理 {} 条过期记录", count);
+	}
 }

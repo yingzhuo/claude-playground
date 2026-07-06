@@ -1,21 +1,21 @@
 {
-  "mcpServers": {
-    "mysql-local": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "@benborla29/mcp-server-mysql"
-      ],
-      "env": {
-        "MYSQL_HOST": "localhost",
-        "MYSQL_PORT": "3306",
-        "MYSQL_USER": "claude_mcp",
-        "MYSQL_PASS": "claude_mcp",
-        "MYSQL_DB": "claude_playground",
-        "ALLOW_INSERT_OPERATION": "false",
-        "ALLOW_UPDATE_OPERATION": "false",
-        "ALLOW_DELETE_OPERATION": "false"
-      }
-    }
-  }
+	"mcpServers": {
+		"mysql-local": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@benborla29/mcp-server-mysql"
+			],
+			"env": {
+				"MYSQL_HOST": "localhost",
+				"MYSQL_PORT": "3306",
+				"MYSQL_USER": "claude_mcp",
+				"MYSQL_PASS": "claude_mcp",
+				"MYSQL_DB": "claude_playground",
+				"ALLOW_INSERT_OPERATION": "false",
+				"ALLOW_UPDATE_OPERATION": "false",
+				"ALLOW_DELETE_OPERATION": "false"
+			}
+		}
+	}
 }

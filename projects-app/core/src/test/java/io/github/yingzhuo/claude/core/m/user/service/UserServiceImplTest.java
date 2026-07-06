@@ -51,10 +51,10 @@ class UserServiceImplTest {
 		assertThat(loginVO.getUsername()).isEqualTo("test_user");
 		assertThat(loginVO.getToken()).isNotBlank();
 
-			var decoded = JWT.decode(loginVO.getToken());
-			assertThat(decoded.getClaim("roles").asList(String.class))
-				.isNotNull()
-				.containsExactly("ROLE_USER");
+		var decoded = JWT.decode(loginVO.getToken());
+		assertThat(decoded.getClaim("roles").asList(String.class))
+			.isNotNull()
+			.containsExactly("ROLE_USER");
 	}
 
 	@Test

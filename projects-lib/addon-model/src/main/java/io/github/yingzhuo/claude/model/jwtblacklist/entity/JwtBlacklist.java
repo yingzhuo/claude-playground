@@ -20,28 +20,28 @@ import java.time.LocalDateTime;
 @Schema(description = "JWT黑名单实体")
 public class JwtBlacklist implements Serializable {
 
-    /**
-     * 数据库ID
-     */
-    @Schema(description = "数据库ID")
-    @TableId
-    private String id;
+	/**
+	 * 数据库ID
+	 */
+	@Schema(description = "数据库ID")
+	@TableId
+	private String id;
 
-    /**
-     * JWT jti 声明值
-     */
-    @Schema(description = "JWT jti 声明值")
-    private String tokenJti;
+	/**
+	 * JWT jti 声明值
+	 */
+	@Schema(description = "JWT jti 声明值")
+	private String tokenJti;
 
-    /**
-     * token 过期时间
-     */
-    @Schema(description = "token 过期时间，用于清理")
-    private LocalDateTime expiredAt;
+	/**
+	 * token 过期时间
+	 */
+	@Schema(description = "token 过期时间，用于清理")
+	private LocalDateTime expiredAt;
 
-    /**
-     * 拉黑时间
-     */
-    @Schema(description = "拉黑时间")
-    private LocalDateTime createdAt;
+	/**
+	 * 拉黑时间
+	 */
+	@Schema(description = "拉黑时间")
+	private LocalDateTime createdAt;
 }
