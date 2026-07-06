@@ -8,7 +8,12 @@ endif
 
 .DEFAULT_GOAL := clean
 
-.PHONY: clean purge rebuild-build-logic compile build rebuild check test update-gradle-wrapper docker-build docker-push docker-compose-up docker-compose-down
+.PHONY: \
+clean purge rebuild-build-logic \
+compile build rebuild \
+check test \
+update-gradle-wrapper \
+docker-build docker-push docker-compose-up docker-compose-down docker-remove-dangling
 
 .SILENT:
 
