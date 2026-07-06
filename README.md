@@ -8,12 +8,12 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
     - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade CC
 - deepseek-v4-pro
 
-## 已安装 ClaudeCode 插件
+## 已安装 Skill
 
 - [ponytail](https://github.com/DietrichGebert/ponytail)
 - [superpowers](https://github.com/obra/superpowers)
 
-## 已安装的 ClaudeCode MCP
+## 已安装的 MCP
 
 - @benborla29/mcp-server-mysql: `sudo npm install -g @benborla29/mcp-server-mysql`
 
@@ -34,7 +34,3 @@ claude mcp add mysql-local \
 ## License
 
 - [Apache 2.0](./LICENSE.txt)
-
-## 联系我
-
-- [yingzhuo](mailto:yingzhor@gmail.com)

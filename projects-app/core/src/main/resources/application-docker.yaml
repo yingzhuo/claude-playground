@@ -2,9 +2,6 @@
 # 核心配置
 # ----------------------------------------------------------------------------------------------------------------------
 spring:
-  devtools:
-    restart:
-      enabled: false
   datasource:
     url: "jdbc:mysql://host.docker.internal:3306/claude_playground?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true"
     username: "root"
@@ -17,7 +14,6 @@ decorator:
   datasource:
     p6spy:
       enable-logging: false
-      log-format: "[SQL] %(currentTime) | %(executionTime)ms | %(category) | %(sqlSingleLine)"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # 日志配置
