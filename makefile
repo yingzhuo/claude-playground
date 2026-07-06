@@ -56,3 +56,6 @@ docker-compose-up:
 
 docker-compose-down:
 	docker compose down
+
+docker-remove-dangling:
+	docker image prune -f
