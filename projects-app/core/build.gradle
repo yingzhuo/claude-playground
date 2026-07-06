@@ -17,6 +17,7 @@ dependencies {
 	// 本项目BOM
 	api platform(project(':project-bom'))
 	annotationProcessor platform(project(':project-bom'))
+	developmentOnly platform(project(':project-bom'))
 
 	// 本项目其他子工程
 	api project(':projects-lib:addon-model')
