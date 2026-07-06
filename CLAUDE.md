@@ -53,6 +53,7 @@ claude-playground
 - `make docker-push` — 推送 Docker 镜像到仓库（jib）
 - `make docker-compose-up` — 启动 docker-compose
 - `make docker-compose-down` — 停止 docker-compose
+- `make docker-remove-dangling` - 删除悬空镜像
 
 ## 我不喜欢的写法
 

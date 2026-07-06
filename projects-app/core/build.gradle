@@ -9,7 +9,7 @@ plugins {
 description = '主程序'
 
 ext {
-	set('port', '8080')
+	set('dockerMappingPort', '8080') // docker映射端口
 }
 
 dependencies {

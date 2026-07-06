@@ -4,7 +4,7 @@ plugins {
 
 jib {
 	from {
-		image = 'docker.m.daocloud.io/eclipse-temurin:21-jre'
+		image = dockerJreBaseImage
 	}
 
 	to {
@@ -12,6 +12,19 @@ jib {
 		tags = [
 			"${project.version}",
 			'latest'
+		]
+	}
+
+	extraDirectories {
+		paths {
+			path {
+				from = rootDir
+				includes = ['LICENSE*', 'README*']
+				into = '/'
+			}
+		}
+		permissions = [
+			'/LICENSE.txt': '660'
 		]
 	}
 
@@ -26,7 +39,7 @@ jib {
 			'-XX:ZFragmentationLimit=10',
 			'-XX:+ExitOnOutOfMemoryError'
 		]
-		ports = [providers.gradleProperty('port').getOrElse('8080')]
+		ports = [providers.gradleProperty('dockerMappingPort').getOrElse('8080')]
 		creationTime = 'USE_CURRENT_TIMESTAMP'
 	}
 }

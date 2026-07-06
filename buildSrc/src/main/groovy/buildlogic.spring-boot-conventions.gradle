@@ -56,6 +56,8 @@ tasks.named('bootJar') {
 }
 
 tasks.named('bootBuildImage') {
+	// 采用Google Jib组件完成构建镜像等
+	// SpringBoot Plugin插件构建镜像功能弃用
 	enabled = false
 }
 
