@@ -15,7 +15,12 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 
 ## 已安装的 MCP
 
-- @benborla29/mcp-server-mysql: `sudo npm install -g @benborla29/mcp-server-mysql`
+### @benborla29/mcp-server-mysql
+
+```bash
+# 安装
+sudo npm install -g @benborla29/mcp-server-mysql
+```
 
 ```bash
 claude mcp add mysql-local \
@@ -29,6 +34,22 @@ claude mcp add mysql-local \
   -e ALLOW_DELETE_OPERATION="false" \
   --scope project \
   -- npx @benborla29/mcp-server-mysql
+```
+
+### @modelcontextprotocol/server-redis
+
+```bash
+sudo npm install -g @modelcontextprotocol/server-redis
+```
+
+```bash
+claude mcp add redis-local \
+  -e REDIS_HOST="localhost" \
+  -e REDIS_PORT="6379" \
+  -e REDIS_PASSWORD="redis" \
+  -e REDIS_DB="0" \
+  --scope project \
+  -- npx @modelcontextprotocol/server-redis
 ```
 
 ## License
