@@ -80,4 +80,8 @@ dependencies {
 
 	// mysql JDBC驱动
 	api 'com.mysql:mysql-connector-j'
+
+	// p6spy (SQL展示调试)
+	developmentOnly 'com.github.gavlyukovskiy:p6spy-spring-boot-starter'
+
 }

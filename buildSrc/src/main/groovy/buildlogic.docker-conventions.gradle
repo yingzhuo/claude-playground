@@ -19,7 +19,7 @@ jib {
 		paths {
 			path {
 				from = rootDir
-				includes = ['LICENSE*', 'README*']
+				includes = ['LICENSE.txt']
 				into = '/'
 			}
 		}

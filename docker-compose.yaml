@@ -1,14 +1,13 @@
 services:
 
   app:
-    image: io.github.yingzhuo/claude-playground/core:latest
-    container_name: claude-playground-app
+    image: "io.github.yingzhuo/claude-playground/core:latest"
+    container_name: "claude-playground-core"
     environment: { }
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8080:8080"
     command:
-      - "--spring.profiles.active=dev"
-      - "--spring.datasource.url=jdbc:mysql://host.docker.internal:3306/claude_playground?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true"
-      - "--spring.datasource.username=root"
-      - "--spring.datasource.password=root"
+      - "--spring.profiles.active=docker"
     depends_on: [ ]
