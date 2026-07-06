@@ -29,8 +29,15 @@
 	<logger name="org.apache.ibatis" level="info"/>
 	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="info"/>
 
+	<!-- DAO层 -->
+	<logger name="io.github.yingzhuo.claude.core.m.user.dao" level="debug"/>
+
 	<springProfile name="dev">
 		<include resource="logback-spring-profile/dev.xml"/>
+	</springProfile>
+
+	<springProfile name="docker">
+		<include resource="logback-spring-profile/docker.xml"/>
 	</springProfile>
 
 	<springProfile name="prod">
