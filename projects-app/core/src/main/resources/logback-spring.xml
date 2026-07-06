@@ -27,21 +27,22 @@
 	<logger name="com.baomidou" level="info"/>
 	<logger name="org.mybatis" level="info"/>
 	<logger name="org.apache.ibatis" level="info"/>
-	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="info"/>
+	<logger name="io.lettuce" level="info"/>
+	<logger name="io.netty" level="info"/>
 
 	<!-- DAO层 -->
 	<logger name="io.github.yingzhuo.claude.core.m.user.dao" level="debug"/>
 
-	<springProfile name="dev">
-		<include resource="logback-spring-profile/dev.xml"/>
-	</springProfile>
+	<springProfile name="dev, docker">
+		<appender name="STDOUT" class="ConsoleAppender">
+			<encoder class="PatternLayoutEncoder">
+				<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}]%-5level %logger{72}[%L] - %msg%n</pattern>
+			</encoder>
+		</appender>
 
-	<springProfile name="docker">
-		<include resource="logback-spring-profile/docker.xml"/>
-	</springProfile>
-
-	<springProfile name="prod">
-		<include resource="logback-spring-profile/prod.xml"/>
+		<root level="debug">
+			<appender-ref ref="STDOUT"/>
+		</root>
 	</springProfile>
 
 </configuration>

@@ -74,10 +74,11 @@ hs_err_pid*
 # --------------------------------------
 # 其他
 # --------------------------------------
+*.pid
 .git/
 .gitkeep
 .gitignore
 .gitattributes
 .editorconfig
-LICENSE.txt
-README.md
+**/LICENSE*
+**/README.md

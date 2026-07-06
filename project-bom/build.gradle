@@ -4,9 +4,6 @@ plugins {
 
 description = '物料清单(BOM)'
 
-javaPlatform {
-}
-
 dependencies {
 	constraints {
 		// 通用工具
@@ -23,7 +20,7 @@ dependencies {
 		api 'com.baomidou:mybatis-plus-spring-boot4-starter:3.5.16'
 		api 'com.baomidou:mybatis-plus-jsqlparser:3.5.16'
 
-		// SQL小插件
+		// p6spy (SQL展示调试)
 		api 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:2.0.1'
 
 		// jwt

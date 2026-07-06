@@ -26,6 +26,7 @@ claude-playground
 - SpringModulith 2.1.x: 逻辑模块化治理框架
 - MyBatisPlus 3.5.x: ORM框架
 - Swagger 2.2.x: API文档化工具
+- Jackson 3.x: Json工具
 
 ## 项目结构及具体要求
 

@@ -66,6 +66,10 @@ spring:
         keep-alive: 60s
         queue-capacity: 45
         allow-core-thread-timeout: true
+  banner:
+    location: "classpath:META-INF/banner.txt"
+  pid:
+    file: "claudeplayground-${spring.application.name}-${spring.application.version}.pid"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Actuator
