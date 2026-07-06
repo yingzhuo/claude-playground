@@ -27,6 +27,8 @@
 	<logger name="com.baomidou" level="info"/>
 	<logger name="org.mybatis" level="info"/>
 	<logger name="org.apache.ibatis" level="info"/>
+	<logger name="io.lettuce" level="info"/>
+	<logger name="io.netty" level="info"/>
 
 	<!-- DAO层 -->
 	<logger name="io.github.yingzhuo.claude.core.m.user.dao" level="debug"/>
