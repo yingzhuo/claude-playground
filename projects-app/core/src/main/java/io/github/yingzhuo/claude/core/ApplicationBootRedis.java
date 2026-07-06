@@ -12,7 +12,7 @@ import tools.jackson.databind.json.JsonMapper;
 public class ApplicationBootRedis {
 
 	@Bean
-	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory, JsonMapper mapper) {
 		var template = new RedisTemplate<String, Object>();
 		template.setConnectionFactory(factory);
 
@@ -20,8 +20,7 @@ public class ApplicationBootRedis {
 		template.setKeySerializer(StringRedisSerializer.UTF_8);
 		template.setHashKeySerializer(StringRedisSerializer.UTF_8);
 
-		// value 序列化（Jackson 3.x，带类型信息，支持多态反序列化）
-		var mapper = JsonMapper.builder().build();
+		// value 序列化
 		var valueSerializer = new GenericJacksonJsonRedisSerializer(mapper);
 		template.setValueSerializer(valueSerializer);
 		template.setHashValueSerializer(valueSerializer);
