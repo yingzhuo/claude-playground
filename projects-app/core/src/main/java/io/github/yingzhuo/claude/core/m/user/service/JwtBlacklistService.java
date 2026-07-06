@@ -9,18 +9,18 @@ import java.time.LocalDateTime;
  */
 public interface JwtBlacklistService extends JwtBlacklistChecker {
 
-    /**
-     * 将指定 jti 加入黑名单
-     *
-     * @param jti       JWT 的 jti 声明值
-     * @param expiredAt 该 JWT 的过期时间
-     */
-    void add(String jti, LocalDateTime expiredAt);
+	/**
+	 * 将指定 jti 加入黑名单
+	 *
+	 * @param jti       JWT 的 jti 声明值
+	 * @param expiredAt 该 JWT 的过期时间
+	 */
+	void add(String jti, LocalDateTime expiredAt);
 
-    /**
-     * 清理已过期的黑名单记录
-     *
-     * @return 删除的记录数
-     */
-    int purgeExpired();
+	/**
+	 * 清理已过期的黑名单记录
+	 *
+	 * @return 删除的记录数
+	 */
+	int purgeExpired();
 }

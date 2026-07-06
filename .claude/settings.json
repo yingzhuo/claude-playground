@@ -16,11 +16,18 @@
 			"Bash(git push --force *)"
 		]
 	},
-	"alwaysThinkingEnabled": true,
 	"effortLevel": "medium",
 	"language": "chinese",
 	"theme": "dark",
-	"env": {},
+	"env": {
+		"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+		"CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+		"CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+		"DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+		"CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"
+	},
+	"promptSuggestionEnabled": false,
+	"includeCoAuthoredBy": false,
 	"attribution": {
 		"commit": "",
 		"pr": ""

@@ -17,4 +17,4 @@ paths: "**/*.java"
 ## 访问控制
 
 - 使用 `io.github.yingzhuo.claude.security.annotation` 包下的注解：
-  - `@CurrentUserId` / `@CurrentUsername` / `@CurrentRoles` — 获取安全上下文信息
+    - `@CurrentUserId` / `@CurrentUsername` / `@CurrentRoles` — 获取安全上下文信息

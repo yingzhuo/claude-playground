@@ -24,7 +24,7 @@ public class SimpleJwtCreator implements JwtCreator {
 
 		return JWT.create()
 			.withIssuer(JwtConstants.ISSUER)
-				.withJWTId(UUID.randomUUID().toString())
+			.withJWTId(UUID.randomUUID().toString())
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
 			.withClaim("roles", user.getRoles() != null ? user.getRoles() : List.of())
