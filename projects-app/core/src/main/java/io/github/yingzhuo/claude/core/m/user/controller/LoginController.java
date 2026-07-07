@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,14 +38,12 @@ public class LoginController {
 	@PostMapping("/token/refresh")
 	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token或X-Token。")
 	@MySecurityRequirement
-	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId) {
-		var auth = (Auth) SecurityContextHolder.getContext().getAuthentication();
+	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, Auth auth) {
 		var vo = userService.refreshToken(userId);
 
 		if (auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
 			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
 		}
-
 		return R.ok(vo);
 	}
 
