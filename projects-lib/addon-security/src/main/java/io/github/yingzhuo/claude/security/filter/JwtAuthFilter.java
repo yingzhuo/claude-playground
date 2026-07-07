@@ -71,6 +71,8 @@ public class JwtAuthFilter extends AbstractJwtAuthFilter {
 						.collect(Collectors.joining(",")));
 			}
 
+			chain.doFilter(request, response);
+
 		} catch (JwtVerifier.BadTokenException | AuthenticationException e) {
 			log.debug(e.getMessage(), e);
 			super.clearSecurityContext();

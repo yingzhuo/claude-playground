@@ -2,12 +2,12 @@ package io.github.yingzhuo.claude.core.m.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -31,18 +31,24 @@ public class JwtBlacklistServiceImpl implements JwtBlacklistService {
 		}
 
 		var key = buildKey(jti);
-		var ttlSeconds = Duration.between(now, expiredAt).toSeconds();
-		redisTemplate.opsForValue().set(key, expiredAt.toString(), ttlSeconds, TimeUnit.SECONDS);
-		log.debug("JWT 已加入 Redis 黑名单: jti={}, ttl={}s", jti, ttlSeconds);
+		var duration = Duration.between(now, expiredAt);
+		redisTemplate.opsForValue()
+			.set(key, expiredAt.toString(), duration);
+		log.debug("JWT 已加入 Redis 黑名单: jti={}, ttl={}", jti, duration);
 	}
 
 	@Override
 	public boolean isBlacklisted(String jti) {
 		var key = buildKey(jti);
-		var exists = Boolean.TRUE.equals(redisTemplate.hasKey(key));
-		if (exists) {
-			log.trace("Redis 黑名单命中: jti={}", jti);
+		try {
+			var exists = Boolean.TRUE.equals(redisTemplate.hasKey(key));
+			if (exists) {
+				log.trace("Redis 黑名单命中: jti={}", jti);
+			}
+			return exists;
+		} catch (DataAccessException e) {
+			log.warn("Redis 不可用，跳过黑名单校验: jti={}", jti, e);
+			return false;
 		}
-		return exists;
 	}
 }

@@ -12,7 +12,7 @@
 	<import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
 
 	<!-- log精细配置 -->
-	<logger name="io.github.yingzhuo.claude" level="debug"/>
+	<logger name="io.github.yingzhuo.claude" level="trace"/>
 	<logger name="org.springframework" level="info"/>
 	<logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="debug"/>
 	<logger name="org.springframework.boot.context.ApplicationPidFileWriter" level="off"/>
