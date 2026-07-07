@@ -21,13 +21,10 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(javaVersionInt)
 		implementation = JvmImplementation.VENDOR_SPECIFIC
-		//vendor = JvmVendorSpec.ORACLE 不再限制整体团队使用JDK的实现厂商
 	}
 
-	if (providers.gradleProperty('buildWithSourcesAndJavadoc').getOrElse('false') as boolean) {
-		withSourcesJar()
-		withJavadocJar()
-	}
+	//withSourcesJar()
+	//withJavadocJar()
 }
 
 compileJava {

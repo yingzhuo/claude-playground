@@ -4,7 +4,7 @@ plugins {
 
 jib {
 	from {
-		image = dockerJreBaseImage
+		image = 'docker.m.daocloud.io/eclipse-temurin:21-jre'
 	}
 
 	to {

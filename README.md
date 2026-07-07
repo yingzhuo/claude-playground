@@ -4,8 +4,8 @@ Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 
 ## 开发环境
 
-- Claude Code 2.1.201
-    - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade CC
+- ClaudeCode v2.1.202
+    - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade.
 - deepseek-v4-pro
 
 ## 已安装 Skill
@@ -39,6 +39,7 @@ claude mcp add mysql-local \
 ### @modelcontextprotocol/server-redis
 
 ```bash
+# 安装
 sudo npm install -g @modelcontextprotocol/server-redis
 ```
 
