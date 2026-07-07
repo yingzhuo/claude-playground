@@ -8,16 +8,14 @@ ext {
 	// https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html
 }
 
-subprojects {
+allprojects {
+	group = 'io.github.yingzhuo'
+	version = '0.1.0'
+
 	configurations.configureEach {
 		resolutionStrategy {
 			cacheChangingModulesFor 24, 'hours'
 			cacheDynamicVersionsFor 24, 'hours'
 		}
 	}
-}
-
-allprojects {
-	group = 'io.github.yingzhuo'
-	version = '0.1.0'
 }
