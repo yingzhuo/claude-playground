@@ -1,1 +1,2 @@
 io.github.yingzhuo.claude.security.autoconfig.JwtAutoConfiguration
+io.github.yingzhuo.claude.security.autoconfig.JwtMvcAutoConfig
