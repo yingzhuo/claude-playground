@@ -4,7 +4,6 @@ import io.github.yingzhuo.claude.security.ex.SecurityExceptionHandler;
 import io.github.yingzhuo.claude.security.util.RequestMatcherFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,9 +31,8 @@ public class ApplicationBootSecurity {
 	}
 
 	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer(Environment env) {
-		var dev = env.matchesProfiles("dev");
-		return web -> web.debug(dev);
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return customizer -> customizer.debug(false);
 	}
 
 	@Bean

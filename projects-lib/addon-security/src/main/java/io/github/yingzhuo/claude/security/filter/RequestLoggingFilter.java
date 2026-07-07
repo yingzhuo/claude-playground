@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Slf4j
+@Deprecated(forRemoval = true)
 public class RequestLoggingFilter extends OncePerRequestFilter {
 
 	@Override

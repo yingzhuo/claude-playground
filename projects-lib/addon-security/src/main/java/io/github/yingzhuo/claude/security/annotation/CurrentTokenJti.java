@@ -7,6 +7,6 @@ import java.lang.annotation.*;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@CurrentSecurityContext(expression = "authentication.roles")
-public @interface CurrentRoles {
+@CurrentSecurityContext(expression = "authentication.tokenJti")
+public @interface CurrentTokenJti {
 }
