@@ -3,6 +3,7 @@ package io.github.yingzhuo.claude.security.autoconfig;
 import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.security.jwt.*;
 import io.github.yingzhuo.claude.security.util.PasswordEncoderFactories;
+import io.github.yingzhuo.claude.utility.UUIDUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.ssl.pem.PemContent;
@@ -36,8 +37,14 @@ public class JwtAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JwtCreator jwtCreator(Algorithm alg) {
-		return new SimpleJwtCreator(alg, 4);
+	public JwtIdGenerator jwtIdGenerator() {
+		return UUIDUtils::randomUUIDv7;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public JwtCreator jwtCreator(Algorithm alg, JwtIdGenerator idGen) {
+		return new SimpleJwtCreator(alg, idGen, 4);
 	}
 
 	@Bean

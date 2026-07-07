@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class SimpleJwtCreator implements JwtCreator {
 
 	private final Algorithm algorithm;
+	private final JwtIdGenerator idGenerator;
 	private final long expirationInHours;
 
 	@Override
@@ -24,7 +24,7 @@ public class SimpleJwtCreator implements JwtCreator {
 
 		return JWT.create()
 			.withIssuer(JwtConstants.ISSUER)
-			.withJWTId(UUID.randomUUID().toString())
+			.withJWTId(idGenerator.get())
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())
 			.withClaim("roles", user.getRoles() != null ? user.getRoles() : List.of())
