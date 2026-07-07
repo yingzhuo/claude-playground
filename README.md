@@ -43,10 +43,11 @@ sudo npm install -g @modelcontextprotocol/server-redis
 ```
 
 ```bash
-claude mcp add redis-local \
+claude mcp add redis-local \                                                                                                                                                                                                                     1 ↵
   -e REDIS_HOST="localhost" \
   -e REDIS_PORT="6379" \
-  -e REDIS_PASSWORD="redis" \
+  -e REDIS_USERNAME="mcp" \
+  -e REDIS_PASSWORD="mcppass" \
   -e REDIS_DB="0" \
   --scope project \
   -- npx @modelcontextprotocol/server-redis

@@ -26,7 +26,8 @@
       "env": {
         "REDIS_HOST": "localhost",
         "REDIS_PORT": "6379",
-        "REDIS_PASSWORD": "redis",
+        "REDIS_USERNAME": "mcp",
+        "REDIS_PASSWORD": "mcppass",
         "REDIS_DB": "0"
       }
     }
