@@ -18,7 +18,7 @@ public class SimpleJwtVerifier implements JwtVerifier {
 	public SimpleJwtVerifier(Algorithm algorithm) {
 		Assert.notNull(algorithm, "algorithm must not be null");
 		this.innerVerifier = JWT.require(algorithm)
-			.withIssuer(JwtConstants.ISSUER)
+			//.withIssuer(JwtConstants.ISSUER)
 			.build();
 	}
 

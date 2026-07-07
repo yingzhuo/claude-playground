@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Schema(description = "登录请求")
 public class LoginRequestDTO {
 
-	@NotBlank
+	@NotBlank(message = "用户名不可为空")
 	@Schema(description = "用户名", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 32)
 	private String username;
 
-	@NotBlank
+	@NotBlank(message = "密码不可为空")
 	@Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 64)
 	private String password;
 

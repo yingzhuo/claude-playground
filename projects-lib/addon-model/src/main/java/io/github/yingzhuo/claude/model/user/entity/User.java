@@ -3,6 +3,7 @@ package io.github.yingzhuo.claude.model.user.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 @TableName("t_user")
 @Schema(description = "用户实体")
+@JsonIgnoreProperties(value = "password")
 public class User implements Serializable {
 
 	/**
