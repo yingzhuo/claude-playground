@@ -70,7 +70,7 @@ public class UserController {
 
 	private void blacklistCurrentToken() {
 		var auth = (Auth) SecurityContextHolder.getContext().getAuthentication();
-		if (auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
 			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
 		}
 	}
