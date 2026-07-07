@@ -19,7 +19,7 @@ public class AuthHandlerMethodArgumentResolver implements HandlerMethodArgumentR
 	@Override
 	public @Nullable Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer, NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
 		var authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authentication instanceof Auth ? (Auth) authentication : null;
+		return authentication instanceof Auth ? authentication : null;
 	}
 
 }

@@ -11,8 +11,7 @@ public interface TokenResolver {
 		return new DefaultTokenResolver();
 	}
 
-	@Nullable
-	String resolve(WebRequest request);
+	@Nullable String resolve(WebRequest request);
 
 	class DefaultTokenResolver implements TokenResolver {
 

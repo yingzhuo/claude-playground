@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -64,8 +65,19 @@ public class Auth implements Authentication {
 	/**
 	 * 获取原始角色名列表（供 {@code @CurrentRoles} 注解使用）
 	 */
-	public @Nullable List<String> getRoles() {
-		return this.authorities;
+	public List<String> getRoles() {
+		return this.authorities != null ? this.authorities : List.of();
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringCreator(this)
+			.append("id", getUserId())
+			.append("username", getUsername())
+			.append("authorities", getAuthorities())
+			.append("token", getToken())
+			.append("tokenId", getTokenJti())
+			.toString();
 	}
 
 }
