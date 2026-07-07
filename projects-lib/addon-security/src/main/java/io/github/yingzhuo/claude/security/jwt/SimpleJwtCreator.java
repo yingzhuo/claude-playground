@@ -23,7 +23,7 @@ public class SimpleJwtCreator implements JwtCreator {
 		Assert.notNull(user, "User must not be null");
 
 		return JWT.create()
-			.withIssuer(JwtConstants.ISSUER)
+			//.withIssuer(JwtConstants.ISSUER)
 			.withJWTId(idGenerator.get())
 			.withClaim("id", user.getId())
 			.withClaim("username", user.getUsername())

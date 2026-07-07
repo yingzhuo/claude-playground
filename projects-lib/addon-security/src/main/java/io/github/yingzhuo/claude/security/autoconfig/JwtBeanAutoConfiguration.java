@@ -6,12 +6,11 @@ import io.github.yingzhuo.claude.security.util.PasswordEncoderFactories;
 import io.github.yingzhuo.claude.utility.UUIDUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.ssl.pem.PemContent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.io.IOException;
+import java.security.KeyStore;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 
@@ -26,12 +25,19 @@ public class JwtAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public Algorithm jwtAlgorithm(ResourceLoader resourceLoader) throws IOException {
-		try (var inputStream = resourceLoader.getResource("classpath:META-INF/jwt-ecdsa256.pem").getInputStream()) {
-			var pemContent = PemContent.load(inputStream);
-			var publicKey = pemContent.getCertificates().getFirst().getPublicKey();
-			var privateKey = pemContent.getPrivateKey();
-			return Algorithm.ECDSA256((ECPublicKey) publicKey, (ECPrivateKey) privateKey);
+	public Algorithm jwtAlgorithm(ResourceLoader resourceLoader) throws Exception {
+		var storepass = "123456".toCharArray();
+		var keypass = "123456".toCharArray();
+		var alias = "ecdsa384";
+
+		try (var inputStream = resourceLoader.getResource("classpath:META-INF/claude-playground.pfx").getInputStream()) {
+			var store = KeyStore.getInstance("PKCS12");
+			store.load(inputStream, storepass);
+
+			var certificate = store.getCertificateChain(alias)[0];
+			var publicKey = (ECPublicKey) certificate.getPublicKey();
+			var privateKey = (ECPrivateKey) store.getKey(alias, keypass);
+			return Algorithm.ECDSA384(publicKey, privateKey);
 		}
 	}
 
