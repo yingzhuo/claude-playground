@@ -104,6 +104,10 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException("用户名或密码错误");
 		}
 
+		if (!user.isEnabled()) {
+			throw new BusinessException("账户已被禁用");
+		}
+
 		eventPublisher.publishEvent(new UserLoginSuccessEvent(user.getId()));
 		user.setRoles(loadRoleNames(user.getId()));
 
@@ -125,6 +129,7 @@ public class UserServiceImpl implements UserService {
 		var user = userMapper.toEntity(dto);
 		user.setId(UUIDUtils.randomUUIDv7());
 		user.setPassword(passwordEncoder.encode(dto.getPassword()));
+		user.setEnabled(true);
 		user.setCreatedAt(LocalDateTime.now());
 
 		userDao.insert(user);

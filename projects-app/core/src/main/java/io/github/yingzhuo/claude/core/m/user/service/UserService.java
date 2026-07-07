@@ -45,7 +45,7 @@ public interface UserService {
 	 *
 	 * @param dto 登录请求
 	 * @return 登录响应（含 JWT token、用户ID、用户名）
-	 * @throws BusinessException 用户名或密码错误
+	 * @throws BusinessException 用户名或密码错误，或账户已被禁用
 	 */
 	LoginVO login(LoginRequestDTO dto);
 

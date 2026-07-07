@@ -13,6 +13,7 @@ public interface UserMapper {
 	@Mapping(target = "createdAt", ignore = true)
 	@Mapping(target = "cancelledAt", ignore = true)
 	@Mapping(target = "roles", ignore = true)
+	@Mapping(target = "enabled", ignore = true)
 	User toEntity(RegisterRequestDTO dto);
 
 	@Mapping(target = "id", ignore = true)
@@ -21,6 +22,7 @@ public interface UserMapper {
 	@Mapping(target = "createdAt", ignore = true)
 	@Mapping(target = "cancelledAt", ignore = true)
 	@Mapping(target = "roles", ignore = true)
+	@Mapping(target = "enabled", ignore = true)
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void applyProfileUpdate(@MappingTarget User user, UpdateProfileRequestDTO dto);
 }

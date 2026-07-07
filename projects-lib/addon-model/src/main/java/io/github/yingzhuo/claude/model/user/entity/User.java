@@ -66,6 +66,12 @@ public class User implements Serializable {
 	private Gender gender;
 
 	/**
+	 * 启用状态（true=启用，false=禁用）
+	 */
+	@Schema(description = "启用状态（true=启用，false=禁用）")
+	private boolean enabled;
+
+	/**
 	 * 记录创建时间
 	 */
 	@Schema(description = "记录创建时间")
