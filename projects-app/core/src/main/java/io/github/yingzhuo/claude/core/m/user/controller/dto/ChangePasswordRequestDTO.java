@@ -10,12 +10,12 @@ import lombok.Data;
 @Schema(description = "修改密码请求")
 public class ChangePasswordRequestDTO {
 
-	@NotBlank
+	@NotBlank(message = "旧密码不可为空")
 	@Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 128)
 	private String oldPassword;
 
-	@NotBlank
-	@Size(min = 8, max = 32)
+	@NotBlank(message = "新密码不可为空")
+	@Size(min = 8, max = 32, message = "新密码长度必须在 {min}-{max} 位之间")
 	@PasswordStrength
 	@Schema(description = "新密码 (8-32位，必须包含字母、数字和特殊字符)", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 8, maxLength = 32)
 	private String newPassword;

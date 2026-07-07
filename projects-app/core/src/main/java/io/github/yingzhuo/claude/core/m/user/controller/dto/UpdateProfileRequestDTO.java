@@ -25,7 +25,7 @@ public class UpdateProfileRequestDTO {
 	private Gender gender;
 
 	@Nullable
-	@PastOrPresent
+	@PastOrPresent(message = "出生日期不可晚于今天")
 	@Schema(description = "出生日期（不传则不修改）")
 	private LocalDate dob;
 }
