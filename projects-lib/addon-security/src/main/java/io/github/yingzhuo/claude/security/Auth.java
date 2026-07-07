@@ -28,13 +28,7 @@ public class Auth implements Authentication {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (authorities == null) {
-			return List.of();
-		} else {
-			return authorities.stream()
-				.map(SimpleGrantedAuthority::new)
-				.toList();
-		}
+		return authorities == null ? List.of() : authorities.stream().map(SimpleGrantedAuthority::new).toList();
 	}
 
 	@Override
