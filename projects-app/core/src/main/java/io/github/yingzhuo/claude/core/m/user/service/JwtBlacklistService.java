@@ -17,10 +17,4 @@ public interface JwtBlacklistService extends JwtBlacklistChecker {
 	 */
 	void add(String jti, LocalDateTime expiredAt);
 
-	/**
-	 * 清理已过期的黑名单记录
-	 *
-	 * @return 删除的记录数
-	 */
-	int purgeExpired();
 }
