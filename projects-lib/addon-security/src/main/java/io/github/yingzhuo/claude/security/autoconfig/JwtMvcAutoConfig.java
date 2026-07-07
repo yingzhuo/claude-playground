@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-@AutoConfigureAfter(JwtAutoConfiguration.class)
+@AutoConfigureAfter(JwtBeanAutoConfiguration.class)
 public class JwtMvcAutoConfig implements WebMvcConfigurer {
 
 	@Override

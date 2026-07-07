@@ -15,7 +15,7 @@ import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 
 @AutoConfiguration
-public class JwtAutoConfiguration {
+public class JwtBeanAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
