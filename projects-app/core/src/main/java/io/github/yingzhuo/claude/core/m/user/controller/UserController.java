@@ -40,7 +40,7 @@ public class UserController {
 	}
 
 	@PostMapping("/profile")
-	@Operation(summary = "修改个人信息", description = "修改当前登录用户的性别和出生日期，仅更新传入的字段")
+	@Operation(summary = "修改个人信息", description = "修改当前登录用户的昵称、性别、出生日期、电子邮件地址或头像地址，仅更新传入的字段")
 	@MySecurityRequirement
 	public R<?> updateProfile(@RequestBody @Valid UpdateProfileRequestDTO dto, @HiddenParam @CurrentUserId String userId) {
 		userService.updateProfile(userId, dto);

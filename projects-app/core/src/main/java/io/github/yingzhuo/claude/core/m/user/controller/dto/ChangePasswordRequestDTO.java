@@ -11,6 +11,7 @@ import lombok.Data;
 public class ChangePasswordRequestDTO {
 
 	@NotBlank(message = "旧密码不可为空")
+	@Size(max = 128, message = "旧密码长度不能超过 {max} 位")
 	@Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED, minLength = 1, maxLength = 128)
 	private String oldPassword;
 
