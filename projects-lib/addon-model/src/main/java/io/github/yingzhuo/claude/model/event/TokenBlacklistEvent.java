@@ -6,9 +6,6 @@ import java.time.LocalDateTime;
 
 /**
  * JWT 黑名单事件
- * <p>
- * 当需要将 JWT 加入黑名单时发布此事件。
- * </p>
  */
 @Schema(description = "JWT 黑名单事件")
 public record TokenBlacklistEvent(
