@@ -18,14 +18,13 @@ import java.util.List;
 
 /**
  * 用户实体
- *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("t_user")
 @Schema(description = "用户实体")
-@JsonIgnoreProperties(value = "password")
+@JsonIgnoreProperties({"password", "enabled"})
 public class User implements Serializable {
 
 	/**
