@@ -7,7 +7,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequest
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
-import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.model.user.User;
 
 public interface UserService {
 

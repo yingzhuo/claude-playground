@@ -1,7 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.github.yingzhuo.claude.model.role.entity.Role;
+import io.github.yingzhuo.claude.model.user.Role;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

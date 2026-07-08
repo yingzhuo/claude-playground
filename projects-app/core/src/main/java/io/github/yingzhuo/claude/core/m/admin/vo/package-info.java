@@ -1,4 +1,4 @@
 @NullMarked
-package io.github.yingzhuo.claude.model.role.entity;
+package io.github.yingzhuo.claude.core.m.admin.vo;
 
 import org.jspecify.annotations.NullMarked;

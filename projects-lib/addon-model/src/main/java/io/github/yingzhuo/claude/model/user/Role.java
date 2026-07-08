@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.model.role.entity;
+package io.github.yingzhuo.claude.model.user;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

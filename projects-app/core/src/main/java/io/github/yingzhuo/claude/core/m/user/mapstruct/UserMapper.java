@@ -2,7 +2,7 @@ package io.github.yingzhuo.claude.core.m.user.mapstruct;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
-import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.model.user.User;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
