@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
+import io.github.yingzhuo.claude.core.m.user.eventlistener.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
@@ -14,6 +15,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "用户认证", description = "登录相关接口")
 public class LoginController {
 
+	private final ApplicationEventPublisher eventPublisher;
 	private final UserService userService;
 	private final JwtBlacklistService jwtBlacklistService;
 
@@ -38,13 +42,23 @@ public class LoginController {
 	@PostMapping("/token/refresh")
 	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token或X-Token。")
 	@MySecurityRequirement
-	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, Auth auth) {
+	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
 		var vo = userService.refreshToken(userId);
 
-		if (auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
 			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
 		}
 		return R.ok(vo);
+	}
+
+	@PostMapping("/logout")
+	@Operation(summary = "登出", description = "将当前令牌加入黑名单，使其立即失效")
+	@MySecurityRequirement
+	public R<?> logout(@HiddenParam @Nullable Auth auth) {
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+			eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
+		}
+		return R.ok();
 	}
 
 }

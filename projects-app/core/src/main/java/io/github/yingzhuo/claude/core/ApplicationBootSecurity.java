@@ -68,6 +68,7 @@ public class ApplicationBootSecurity {
 					.requestMatchers(GET, "/user/profile").authenticated()
 					.requestMatchers(POST, "/user/profile").authenticated()
 					.requestMatchers(POST, "/user/token/refresh").authenticated()
+					.requestMatchers("/user/logout").permitAll()
 					.anyRequest().permitAll()
 			)
 			.build();

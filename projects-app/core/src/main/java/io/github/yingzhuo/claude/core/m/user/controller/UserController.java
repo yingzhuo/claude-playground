@@ -3,7 +3,7 @@ package io.github.yingzhuo.claude.core.m.user.controller;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.ChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
-import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
+import io.github.yingzhuo.claude.core.m.user.eventlistener.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.model.user.entity.User;
 import io.github.yingzhuo.claude.model.webmvc.R;
@@ -15,7 +15,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.jspecify.annotations.Nullable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -24,15 +25,17 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "用户信息", description = "用户信息相关接口")
 public class UserController {
 
+	private final ApplicationEventPublisher eventPublisher;
 	private final UserService userService;
-	private final JwtBlacklistService jwtBlacklistService;
 
 	@PostMapping("/password")
 	@Operation(summary = "修改密码", description = "用户修改自己的密码，需要提供旧密码进行验证。修改成功后当前令牌立即失效。")
 	@MySecurityRequirement
-	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDTO dto, @HiddenParam @CurrentUserId String userId) {
+	public R<?> changePassword(@RequestBody @Valid ChangePasswordRequestDTO dto, @HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
 		userService.changePassword(userId, dto);
-		blacklistCurrentToken();
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+			eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
+		}
 		return R.ok();
 	}
 
@@ -62,16 +65,12 @@ public class UserController {
 	@PostMapping("/cancel")
 	@Operation(summary = "注销账户", description = "将当前登录用户标记为已注销状态，当前令牌立即失效。账户不会立即删除，系统将在注销满 7 天后自动清理。")
 	@MySecurityRequirement
-	public R<?> cancelAccount(@HiddenParam @CurrentUserId String userId) {
+	public R<?> cancelAccount(@HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
 		userService.cancelAccount(userId);
-		blacklistCurrentToken();
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+			eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
+		}
 		return R.ok();
 	}
 
-	private void blacklistCurrentToken() {
-		var auth = (Auth) SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
-			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
-		}
-	}
 }
