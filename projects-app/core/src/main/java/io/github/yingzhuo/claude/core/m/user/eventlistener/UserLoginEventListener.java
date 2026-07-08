@@ -34,7 +34,7 @@ public class UserLoginEventListener {
 	@EventListener
 	@Transactional
 	public void handleUserLoginSuccess(UserLoginSuccessEvent event) {
-		userService.reactivateAccount(event.getUserId());
-		log.debug("用户登录后已清除注销标记: userId={}", event.getUserId());
+		userService.reactivateAccount(event.userId());
+		log.debug("用户登录后已清除注销标记: userId={}", event.userId());
 	}
 }
