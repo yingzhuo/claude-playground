@@ -59,6 +59,20 @@ public class User implements Serializable {
 	private LocalDate dob;
 
 	/**
+	 * 电子邮件地址
+	 */
+	@Schema(description = "电子邮件地址", maxLength = 50)
+	@Nullable
+	private String email;
+
+	/**
+	 * 头像地址
+	 */
+	@Schema(description = "头像地址", maxLength = 300)
+	@Nullable
+	private String avatarUrl;
+
+	/**
 	 * 性别
 	 */
 	@Schema(description = "性别（MALE / FEMALE / UNKNOWN）")
