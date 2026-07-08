@@ -35,6 +35,7 @@ public class SimpleJwtVerifier implements JwtVerifier {
 				.tokenJti(decoded.getId())
 				.tokenExpiresAt(LocalDateTime.ofInstant(decoded.getExpiresAt().toInstant(), ZoneOffset.UTC))
 				.authorities(roles != null ? roles : List.of())
+				.loginKind(decoded.getClaim("loginKind").asString())
 				.build();
 
 		} catch (JWTVerificationException e) {

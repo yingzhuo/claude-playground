@@ -1,17 +1,12 @@
 package io.github.yingzhuo.claude.security.jwt;
 
+import io.github.yingzhuo.claude.model.admin.Admin;
 import io.github.yingzhuo.claude.model.user.User;
 
-import java.util.function.Function;
-
-@FunctionalInterface
-public interface JwtCreator extends Function<User, String> {
+public interface JwtCreator {
 
 	String create(User user);
 
-	@Override
-	default String apply(User user) {
-		return create(user);
-	}
+	String create(Admin admin);
 
 }

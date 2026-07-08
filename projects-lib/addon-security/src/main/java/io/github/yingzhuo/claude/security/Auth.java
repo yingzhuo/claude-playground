@@ -24,6 +24,7 @@ public class Auth implements Authentication {
 	private @Nullable String token;
 	private @Nullable String tokenJti;
 	private @Nullable LocalDateTime tokenExpiresAt;
+	private @Nullable String loginKind;
 	private @Nullable Object details;
 	private boolean authenticated;
 

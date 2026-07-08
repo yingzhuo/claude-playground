@@ -2,12 +2,14 @@ package io.github.yingzhuo.claude.security.autoconfig;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import io.github.yingzhuo.claude.security.jwt.*;
-import io.github.yingzhuo.claude.security.util.PasswordEncoderFactories;
 import io.github.yingzhuo.claude.utility.UUIDUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.KeyStore;
@@ -20,7 +22,9 @@ public class JwtBeanAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDefault();
+		var encoder = (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		encoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
+		return encoder;
 	}
 
 	@Bean
