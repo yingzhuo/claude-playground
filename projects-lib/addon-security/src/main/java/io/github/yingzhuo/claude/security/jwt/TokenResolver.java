@@ -4,7 +4,6 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
-@FunctionalInterface
 public interface TokenResolver {
 
 	static TokenResolver getDefault() {
