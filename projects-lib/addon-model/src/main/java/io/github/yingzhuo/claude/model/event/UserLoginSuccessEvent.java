@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.core.m.user.eventlistener;
+package io.github.yingzhuo.claude.model.event;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

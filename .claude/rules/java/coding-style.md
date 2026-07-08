@@ -50,6 +50,7 @@ paths: "**/*.java"
 ## POJO
 
 - DTO/VO/BO 禁止使用 Record
+- Event 等简单不可变数据载体可以使用 Record
 - 使用 Lombok 元注解
 
 ## Entity

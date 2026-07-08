@@ -1,7 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
-import io.github.yingzhuo.claude.core.m.user.eventlistener.TokenBlacklistEvent;
+import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;

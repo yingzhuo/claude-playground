@@ -19,3 +19,11 @@ paths: "**/*.java"
     - `xxx.task` 定时调度任务
     - `xxx.eventlistener` 事件监听器
     - `xxx.mapstruct` MapStruct转换器
+
+## Event 规范
+
+- Event 类统一放在 `addon-model` 模块的 `io.github.yingzhuo.claude.model.event` 包下
+- Event 和 EventListener 必须成对命名：
+    - `XxxEvent` — 事件类
+    - `XxxEventListener` — 事件监听器（放在各业务模块的 `eventlistener` 包下）
+- 简单不可变 Event 优先使用 Record

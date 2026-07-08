@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.eventlistener;
 
 import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
+import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,6 @@ public class TokenBlacklistEventListener {
 	@EventListener
 	@Transactional
 	public void handleTokenBlacklist(TokenBlacklistEvent event) {
-		jwtBlacklistService.add(event.getJti(), event.getExpiredAt());
+		jwtBlacklistService.add(event.jti(), event.expiredAt());
 	}
 }

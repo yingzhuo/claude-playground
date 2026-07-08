@@ -8,7 +8,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequest
 import io.github.yingzhuo.claude.core.m.user.dao.RoleDao;
 import io.github.yingzhuo.claude.core.m.user.dao.UserDao;
 import io.github.yingzhuo.claude.core.m.user.dao.UserRoleDao;
-import io.github.yingzhuo.claude.core.m.user.eventlistener.UserLoginSuccessEvent;
+import io.github.yingzhuo.claude.model.event.UserLoginSuccessEvent;
 import io.github.yingzhuo.claude.core.m.user.mapstruct.UserMapper;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;

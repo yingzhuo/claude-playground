@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.user.eventlistener;
 
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
+import io.github.yingzhuo.claude.model.event.UserLoginSuccessEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
