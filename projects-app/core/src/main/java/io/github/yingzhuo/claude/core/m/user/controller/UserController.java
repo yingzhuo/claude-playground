@@ -5,7 +5,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
-import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.model.user.User;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.Auth;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;

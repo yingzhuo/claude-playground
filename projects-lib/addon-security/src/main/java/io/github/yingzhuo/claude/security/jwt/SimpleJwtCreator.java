@@ -2,7 +2,7 @@ package io.github.yingzhuo.claude.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 

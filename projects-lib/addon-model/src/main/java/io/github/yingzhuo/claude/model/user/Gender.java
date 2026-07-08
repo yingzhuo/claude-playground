@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.model.user.entity;
+package io.github.yingzhuo.claude.model.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

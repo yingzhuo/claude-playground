@@ -1,4 +1,4 @@
-package io.github.yingzhuo.claude.model.role.entity;
+package io.github.yingzhuo.claude.model.user;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;

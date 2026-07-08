@@ -1,6 +1,6 @@
 package io.github.yingzhuo.claude.security.jwt;
 
-import io.github.yingzhuo.claude.model.user.entity.User;
+import io.github.yingzhuo.claude.model.user.User;
 
 import java.util.function.Function;
 

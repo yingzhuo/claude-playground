@@ -2,7 +2,7 @@ package io.github.yingzhuo.claude.core.m.user.controller.dto;
 
 import io.github.yingzhuo.claude.jsr380.PasswordMatch;
 import io.github.yingzhuo.claude.jsr380.PasswordStrength;
-import io.github.yingzhuo.claude.model.user.entity.Gender;
+import io.github.yingzhuo.claude.model.user.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Email;
