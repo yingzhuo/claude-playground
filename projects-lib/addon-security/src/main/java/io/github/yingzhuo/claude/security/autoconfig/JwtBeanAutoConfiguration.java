@@ -54,7 +54,7 @@ public class JwtBeanAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public TokenResolver tokenResolver() {
-		return TokenResolver.getDefault();
+		return new HeaderTokenResolver("X-Auth-Token");
 	}
 
 }
