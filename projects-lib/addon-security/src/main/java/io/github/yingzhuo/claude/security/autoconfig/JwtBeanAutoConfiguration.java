@@ -6,15 +6,10 @@ import io.github.yingzhuo.claude.utility.UUIDUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.security.KeyStore;
-import java.security.interfaces.ECPrivateKey;
-import java.security.interfaces.ECPublicKey;
 
 @AutoConfiguration
 public class JwtBeanAutoConfiguration {
@@ -28,21 +23,14 @@ public class JwtBeanAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
-	public Algorithm jwtAlgorithm(ResourceLoader resourceLoader) throws Exception {
-		var storepass = "123456".toCharArray();
-		var keypass = "123456".toCharArray();
-		var alias = "ecdsa384";
-
-		try (var inputStream = resourceLoader.getResource("classpath:META-INF/claude-playground.pfx").getInputStream()) {
-			var store = KeyStore.getInstance("PKCS12");
-			store.load(inputStream, storepass);
-
-			var certificate = store.getCertificateChain(alias)[0];
-			var publicKey = (ECPublicKey) certificate.getPublicKey();
-			var privateKey = (ECPrivateKey) store.getKey(alias, keypass);
-			return Algorithm.ECDSA384(publicKey, privateKey);
-		}
+	@ConditionalOnMissingBean(Algorithm.class)
+	public AlgorithmFactoryBean algorithmFactoryBean() {
+		return AlgorithmFactoryBean.builder()
+			.storeLocation("classpath:META-INF/claude-playground.pfx")
+			.storepass("123456")
+			.alias("ecdsa384")
+			.keypass("123456")
+			.build();
 	}
 
 	@Bean
