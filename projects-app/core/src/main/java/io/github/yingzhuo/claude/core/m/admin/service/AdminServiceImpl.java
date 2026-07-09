@@ -2,12 +2,14 @@ package io.github.yingzhuo.claude.core.m.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.admin.Admin;
+import io.github.yingzhuo.claude.model.event.UserDeletedEvent;
 import io.github.yingzhuo.claude.model.event.UserEnabledEvent;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import lombok.RequiredArgsConstructor;
@@ -77,5 +79,16 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	public void setUserEnabled(SetUserEnabledRequestDTO dto) {
 		eventPublisher.publishEvent(new UserEnabledEvent(dto.getUserId(), dto.isEnabled()));
+	}
+
+	@Override
+	@Transactional
+	public void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto) {
+		var admin = adminDao.selectById(currentUserId);
+		if (admin == null || !passwordEncoder.matches(dto.getPassword(), admin.getPassword())) {
+			throw new BusinessException("密码错误");
+		}
+
+		eventPublisher.publishEvent(new UserDeletedEvent(dto.getUserId()));
 	}
 }

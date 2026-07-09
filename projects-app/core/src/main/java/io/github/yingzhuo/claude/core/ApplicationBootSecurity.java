@@ -66,6 +66,7 @@ public class ApplicationBootSecurity {
 					.requestMatchers("/user/login").permitAll()
 					.requestMatchers("/user/**").hasRole("USER")
 					.requestMatchers("/admin/login").permitAll()
+					.requestMatchers("/admin/user/delete").hasRole("SUPER")
 					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.anyRequest().permitAll()
 			)

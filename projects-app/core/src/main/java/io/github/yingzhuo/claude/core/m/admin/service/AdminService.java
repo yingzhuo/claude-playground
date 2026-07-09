@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.admin.service;
 
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
@@ -39,4 +40,16 @@ public interface AdminService {
 	 * @param dto 请求
 	 */
 	void setUserEnabled(SetUserEnabledRequestDTO dto);
+
+	/**
+	 * 删除用户
+	 * <p>
+	 * 仅超级管理员可用（安全层 hasRole("SUPER") 控制）。
+	 * </p>
+	 *
+	 * @param currentUserId     当前操作的管理员ID
+	 * @param dto               请求
+	 * @throws BusinessException 密码错误
+	 */
+	void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto);
 }
