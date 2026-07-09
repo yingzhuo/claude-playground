@@ -37,6 +37,7 @@ claude-playground
 \--- Project ':projects-lib'
      +--- Project ':projects-lib:addon-common' - 通用工具及杂项
      +--- Project ':projects-lib:addon-model' - 模型
+     +--- Project ':projects-lib:addon-redis' - Redis扩展
      \--- Project ':projects-lib:addon-security' - 安全相关组件
 ```
 
