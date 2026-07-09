@@ -2,6 +2,7 @@ package io.github.yingzhuo.claude.core.m.admin.service;
 
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 
@@ -31,4 +32,11 @@ public interface AdminService {
 	 * @throws BusinessException 密码不一致、无权限或管理员不存在
 	 */
 	void changePassword(String currentUserId, java.util.List<String> currentRoles, AdminChangePasswordRequestDTO dto);
+
+	/**
+	 * 设置用户启用/禁用状态
+	 *
+	 * @param dto 请求
+	 */
+	void setUserEnabled(SetUserEnabledRequestDTO dto);
 }

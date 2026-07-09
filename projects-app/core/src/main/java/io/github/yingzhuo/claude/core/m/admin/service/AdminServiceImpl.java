@@ -3,13 +3,16 @@ package io.github.yingzhuo.claude.core.m.admin.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.admin.Admin;
+import io.github.yingzhuo.claude.model.event.UserEnabledEvent;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
 	private final AdminDao adminDao;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional
@@ -67,5 +71,11 @@ public class AdminServiceImpl implements AdminService {
 		targetAdmin.setPassword(passwordEncoder.encode(dto.getNewPassword()));
 		adminDao.updateById(targetAdmin);
 		log.debug("管理员密码已修改: adminId={}", targetAdminId);
+	}
+
+	@Override
+	@Transactional
+	public void setUserEnabled(SetUserEnabledRequestDTO dto) {
+		eventPublisher.publishEvent(new UserEnabledEvent(dto.getUserId(), dto.isEnabled()));
 	}
 }

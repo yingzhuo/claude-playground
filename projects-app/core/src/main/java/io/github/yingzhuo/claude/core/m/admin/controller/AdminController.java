@@ -2,6 +2,7 @@ package io.github.yingzhuo.claude.core.m.admin.controller;
 
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.service.AdminService;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
 import io.github.yingzhuo.claude.model.webmvc.R;
@@ -39,6 +40,14 @@ public class AdminController {
 	@Operation(summary = "修改管理员密码", description = "超级管理员可修改任何管理员的密码，普通管理员只能修改自己的密码")
 	public R<?> changePassword(@RequestBody @Valid AdminChangePasswordRequestDTO dto, @HiddenParam @CurrentUserId String currentUserId, @HiddenParam @Nullable Auth auth) {
 		adminService.changePassword(currentUserId, auth != null ? auth.getRoles() : java.util.List.of(), dto);
+		return R.ok();
+	}
+
+	@PostMapping("/user/enabled")
+	@MySecurityRequirement
+	@Operation(summary = "设置用户启用/禁用状态", description = "启用或禁用指定用户的账户")
+	public R<?> setUserEnabled(@RequestBody @Valid SetUserEnabledRequestDTO dto) {
+		adminService.setUserEnabled(dto);
 		return R.ok();
 	}
 
