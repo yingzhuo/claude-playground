@@ -17,7 +17,6 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 
 @EnableMethodSecurity(securedEnabled = true)
 @Configuration
@@ -63,12 +62,11 @@ public class ApplicationBootSecurity {
 			.authorizeHttpRequests(c ->
 				c.requestMatchers("/error").permitAll()
 					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health", "/actuator/beans", "/actuator/env").permitAll()
-					.requestMatchers("/actuator/shutdown").denyAll()
-					.requestMatchers("/user/password", "/user/cancel").authenticated()
-					.requestMatchers(GET, "/user/profile").authenticated()
-					.requestMatchers(POST, "/user/profile").authenticated()
-					.requestMatchers(POST, "/user/token/refresh").authenticated()
-					.requestMatchers("/user/logout").permitAll()
+					.requestMatchers("/actuator/shutdown", "/actuator/restart").denyAll()
+					.requestMatchers("/user/login").permitAll()
+					.requestMatchers("/user/**").hasRole("USER")
+					.requestMatchers("/admin/login").permitAll()
+					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.anyRequest().permitAll()
 			)
 			.build();

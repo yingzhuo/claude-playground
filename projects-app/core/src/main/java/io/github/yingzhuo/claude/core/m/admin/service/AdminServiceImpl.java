@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -43,5 +45,27 @@ public class AdminServiceImpl implements AdminService {
 			.adminId(admin.getId())
 			.username(admin.getUsername())
 			.build();
+	}
+
+	@Override
+	@Transactional
+	public void changePassword(String currentUserId, List<String> currentRoles, AdminChangePasswordRequestDTO dto) {
+		if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+			throw new BusinessException("两次输入的密码不一致");
+		}
+
+		var targetAdminId = dto.getAdminId() != null ? dto.getAdminId() : currentUserId;
+		if (!targetAdminId.equals(currentUserId) && !currentRoles.contains("ROLE_SUPER")) {
+			throw new BusinessException("无权修改其他管理员的密码");
+		}
+
+		var targetAdmin = adminDao.selectById(targetAdminId);
+		if (targetAdmin == null) {
+			throw new BusinessException("管理员不存在");
+		}
+
+		targetAdmin.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+		adminDao.updateById(targetAdmin);
+		log.debug("管理员密码已修改: adminId={}", targetAdminId);
 	}
 }
