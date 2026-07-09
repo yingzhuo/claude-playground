@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
@@ -14,13 +15,15 @@ import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 
 @Builder
-public class AlgorithmFactoryBean implements FactoryBean<Algorithm>, ResourceLoaderAware {
+public class AlgorithmFactoryBean implements FactoryBean<Algorithm>, ResourceLoaderAware, InitializingBean {
 
 	private @Setter ResourceLoader resourceLoader;
+	private @Nullable String storeType;
 	private String storeLocation;
 	private String storepass;
 	private String alias;
-	private @Nullable String keypass = "";
+	private @Nullable String keypass;
+	private @Nullable AlgKind algKind;
 
 	@Override
 	public @Nullable Algorithm getObject() throws Exception {
@@ -28,18 +31,34 @@ public class AlgorithmFactoryBean implements FactoryBean<Algorithm>, ResourceLoa
 		Assert.hasText(storepass, "storepass is required");
 		Assert.hasText(alias, "alias is required");
 
-		if (keypass == null) {
-			keypass = "";
-		}
 
 		try (var inputStream = resourceLoader.getResource(storeLocation).getInputStream()) {
-			var store = KeyStore.getInstance("PKCS12");
+			var store = KeyStore.getInstance(this.storeType);
 			store.load(inputStream, storepass.toCharArray());
 
 			var certificate = store.getCertificateChain(alias)[0];
 			var publicKey = (ECPublicKey) certificate.getPublicKey();
 			var privateKey = (ECPrivateKey) store.getKey(alias, keypass.toCharArray());
-			return Algorithm.ECDSA384(publicKey, privateKey);
+
+			return switch (algKind) {
+				case ECDSA384 -> Algorithm.ECDSA384(publicKey, privateKey);
+				default -> throw new UnsupportedOperationException("'" + algKind.name() + "' not supported yet.");
+			};
+		}
+	}
+
+	@Override
+	public void afterPropertiesSet() {
+		if (keypass == null) {
+			keypass = "";
+		}
+
+		if (storeType == null) {
+			storeType = "PKCS12";
+		}
+
+		if (algKind == null) {
+			algKind = AlgKind.ECDSA384;
 		}
 	}
 
@@ -47,4 +66,9 @@ public class AlgorithmFactoryBean implements FactoryBean<Algorithm>, ResourceLoa
 	public Class<?> getObjectType() {
 		return Algorithm.class;
 	}
+
+	public enum AlgKind {
+		ECDSA384
+	}
+
 }
