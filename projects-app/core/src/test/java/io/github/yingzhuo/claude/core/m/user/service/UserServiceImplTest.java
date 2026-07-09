@@ -7,6 +7,7 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.Gender;
+import io.github.yingzhuo.claude.model.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -199,6 +200,59 @@ class UserServiceImplTest {
 		assertThatThrownBy(() -> userService.refreshToken(userId))
 			.isInstanceOf(BusinessException.class)
 			.hasMessage("账户已注销");
+	}
+
+	@Test
+	void should_get_profile_successfully() {
+		var registerDTO = RegisterRequestDTO.builder()
+			.username("profile_get_user")
+			.password("Passw0rd!")
+			.confirmPassword("Passw0rd!")
+			.nickname("测试")
+			.gender(Gender.MALE)
+			.build();
+
+		var userId = userService.register(registerDTO);
+		var profile = userService.getProfile(userId);
+
+		assertThat(profile).isNotNull();
+		assertThat(profile.getId()).isEqualTo(userId);
+		assertThat(profile.getUsername()).isEqualTo("profile_get_user");
+		assertThat(profile.getNickname()).isEqualTo("测试");
+		assertThat(profile.getGender()).isEqualTo(Gender.MALE);
+	}
+
+	@Test
+	void should_update_profile_with_email_and_avatar_url() {
+		var registerDTO = RegisterRequestDTO.builder()
+			.username("profile_email_user")
+			.password("Passw0rd!")
+			.confirmPassword("Passw0rd!")
+			.nickname("测试")
+			.gender(Gender.MALE)
+			.build();
+
+		var userId = userService.register(registerDTO);
+
+		var updateDTO = new UpdateProfileRequestDTO();
+		updateDTO.setNickname("新昵称");
+		updateDTO.setEmail("test@example.com");
+		updateDTO.setAvatarUrl("https://example.com/avatar.png");
+
+		userService.updateProfile(userId, updateDTO);
+
+		// re-register to verify update — user already exists, so register would fail
+		// instead, verify via JWT claims after re-login
+		var loginVO = userService.login(LoginRequestDTO.builder()
+			.username("profile_email_user")
+			.password("Passw0rd!")
+			.build());
+
+		assertThat(loginVO.getUsername()).isEqualTo("profile_email_user");
+		// getProfile to verify email and avatarUrl
+		var profile = userService.getProfile(userId);
+		assertThat(profile.getEmail()).isEqualTo("test@example.com");
+		assertThat(profile.getAvatarUrl()).isEqualTo("https://example.com/avatar.png");
 	}
 
 	@Test

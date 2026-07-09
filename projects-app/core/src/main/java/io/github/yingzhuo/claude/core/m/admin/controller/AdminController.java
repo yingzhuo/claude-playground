@@ -1,6 +1,7 @@
 package io.github.yingzhuo.claude.core.m.admin.controller;
 
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.service.AdminService;
@@ -48,6 +49,14 @@ public class AdminController {
 	@Operation(summary = "设置用户启用/禁用状态", description = "启用或禁用指定用户的账户")
 	public R<?> setUserEnabled(@RequestBody @Valid SetUserEnabledRequestDTO dto) {
 		adminService.setUserEnabled(dto);
+		return R.ok();
+	}
+
+	@PostMapping("/user/delete")
+	@MySecurityRequirement
+	@Operation(summary = "删除用户", description = "物理删除指定用户的账户（仅超级管理员可用）")
+	public R<?> deleteUser(@RequestBody @Valid AdminDeleteUserRequestDTO dto, @HiddenParam @CurrentUserId String currentUserId) {
+		adminService.deleteUser(currentUserId, dto);
 		return R.ok();
 	}
 
