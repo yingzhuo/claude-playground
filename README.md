@@ -2,9 +2,17 @@
 
 Java应用程序骨架。请参考[CLAUDE.md](./CLAUDE.md)。
 
+# ⚠️风险提示⚠️
+
+工信部已发布风险提示，指出AI编程工具 Claude Code 存在严重安全后门隐患。<br>
+根据工业和信息化部网络安全威胁和漏洞信息共享平台（NVDB）于2026年7月8日发布的紧急通报，具体情况如下
+
+- ‌风险详情‌：美国 Anthropic 公司开发的 Claude Code 被监测出内置监控机制，可在未经用户同意的情况下，向远程服务器回传用户地域、身份标识、设备唯一标识及部分代码片段等敏感信息。
+- ‌受影响版本‌：‌`2.1.91` 至 `2.1.196` 版本 。
+
 ## 开发环境
 
-- ClaudeCode v2.1.202
+- ClaudeCode v2.1.205
     - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade.
 - deepseek-v4-pro
 
