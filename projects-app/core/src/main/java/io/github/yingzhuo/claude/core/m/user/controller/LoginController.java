@@ -1,11 +1,11 @@
 package io.github.yingzhuo.claude.core.m.user.controller;
 
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
-import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.core.m.user.service.JwtBlacklistService;
 import io.github.yingzhuo.claude.core.m.user.service.UserService;
 import io.github.yingzhuo.claude.core.m.user.vo.LoginVO;
 import io.github.yingzhuo.claude.core.m.user.vo.RefreshTokenVO;
+import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.Auth;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
@@ -40,7 +40,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/token/refresh")
-	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token或X-Token。")
+	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token")
 	@MySecurityRequirement
 	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
 		var vo = userService.refreshToken(userId);
