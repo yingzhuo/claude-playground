@@ -37,6 +37,5 @@ include ':project-bom'
 include ':projects-app:core'
 include ':projects-lib:addon-common'
 include ':projects-lib:addon-model'
+include ':projects-lib:addon-redis'
 include ':projects-lib:addon-security'
-
-include 'projects-lib:addon-redis'

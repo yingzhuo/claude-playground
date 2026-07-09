@@ -23,8 +23,8 @@ dependencies {
 	// 本项目其他子工程
 	api project(':projects-lib:addon-model')
 	api project(':projects-lib:addon-common')
-	api project(':projects-lib:addon-security')
 	api project(':projects-lib:addon-redis')
+	api project(':projects-lib:addon-security')
 
 	// spring-boot
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
