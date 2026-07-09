@@ -6,6 +6,7 @@ import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDT
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.service.AdminService;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
+import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.Auth;
 import io.github.yingzhuo.claude.security.annotation.CurrentUserId;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "管理员认证", description = "管理员登录相关接口")
 public class AdminController {
 
+	private final ApplicationEventPublisher eventPublisher;
 	private final AdminService adminService;
 
 	@PostMapping("/login")
@@ -34,6 +37,16 @@ public class AdminController {
 	public R<AdminLoginVO> login(@RequestBody @Valid AdminLoginRequestDTO dto) {
 		var vo = adminService.login(dto);
 		return R.ok(vo);
+	}
+
+	@PostMapping("/logout")
+	@Operation(summary = "登出", description = "将当前令牌加入黑名单，使其立即失效")
+	@MySecurityRequirement
+	public R<?> logout(@HiddenParam @Nullable Auth auth) {
+		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+			eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
+		}
+		return R.ok();
 	}
 
 	@PostMapping("/password")
