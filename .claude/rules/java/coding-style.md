@@ -14,7 +14,7 @@ paths: "**/*.java"
 - 遵循 Google Java Style Guide（google-java-format）
 - 缩进 4 空格，行宽 100，禁止 tab，禁止尾随空格
 - 导入顺序：static → java → javax → org → com → 其他
-- 标记型接口用 `@FunctionalInterface`
+- 标记型接口不要使用 `@FunctionalInterface`
 
 ## 依赖
 

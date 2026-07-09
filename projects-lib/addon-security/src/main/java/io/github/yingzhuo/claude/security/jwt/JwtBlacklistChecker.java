@@ -3,7 +3,6 @@ package io.github.yingzhuo.claude.security.jwt;
 /**
  * JWT 黑名单检查器
  */
-@FunctionalInterface
 public interface JwtBlacklistChecker {
 
 	/**
