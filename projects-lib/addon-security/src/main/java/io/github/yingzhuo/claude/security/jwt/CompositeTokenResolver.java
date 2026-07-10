@@ -31,9 +31,6 @@ public class CompositeTokenResolver implements TokenResolver {
 	public CompositeTokenResolver(List<TokenResolver> delegates) {
 		Assert.notEmpty(delegates, "delegates must not be empty");
 		Assert.noNullElements(delegates, "delegates must not contain null elements");
-		for (var delegate : delegates) {
-			Assert.notNull(delegate, "delegate must not be null");
-		}
 		this.delegates = List.copyOf(delegates);
 	}
 
