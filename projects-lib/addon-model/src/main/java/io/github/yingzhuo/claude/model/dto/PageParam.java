@@ -26,7 +26,7 @@ public abstract class PageParam {
 	private int pageNumber = 1;
 
 	@Min(value = 10, message = "每页条目数最小为{value}")
-	@Max(value = 500, message = "每页条目数最小为{value}")
+	@Max(value = 500, message = "每页条目数最大为{value}")
 	@Builder.Default
 	@Schema(description = "每页条目数", minimum = "10", maximum = "500", defaultValue = "10")
 	private int pageSize = 10;

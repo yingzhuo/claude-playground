@@ -31,7 +31,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
 	private final AdminDao adminDao;
-	private final UserDao userDao;
+	private final UserDao adminUserDao;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
 	private final ApplicationEventPublisher eventPublisher;
@@ -101,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
 	public UserListPageVO listUsers(UserListRequestDTO dto) {
 		var wrapper = buildUserQueryWrapper(dto.getSearchKey());
 		var page = new Page<User>(dto.getPageNumber(), dto.getPageSize());
-		var result = userDao.selectPage(page, wrapper);
+		var result = adminUserDao.selectPage(page, wrapper);
 
 		return UserListPageVO.builder()
 			.pageNumber(result.getCurrent())
