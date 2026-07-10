@@ -25,17 +25,6 @@ paths: "**/*.java"
 - 禁止在源文件中添加版权声明或许可证头部注释
 - 合规信息统一放在根目录 `LICENSE.txt`
 
-## 文档注释
-
-- 所有 public/protected 方法必须写 JavaDoc，含 `@param` 和 `@return`
-- JavaDoc 描述外部可见行为，而非内部实现
-- 禁止记录修改历史、作者、日期（用 git）
-- Controller 方法例外，改用 `@Operation`（见 swagger 规范）
-- Controller Advice 方法需要 JavaDoc，说明触发条件、异常类型和响应结构
-- 功能简单的 private 方法无需 JavaDoc
-- `@Bean` 方法需 JavaDoc 说明用途和配置来源
-- Service 接口方法必须 JavaDoc，实现类可用 `{@inheritDoc}` 复用
-
 ## 命名
 
 - 类名 UpperCamelCase，方法/变量 lowerCamelCase

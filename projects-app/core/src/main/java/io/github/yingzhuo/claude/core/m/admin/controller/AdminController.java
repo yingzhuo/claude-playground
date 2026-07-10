@@ -4,8 +4,10 @@ import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePassword
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.UserListRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.service.AdminService;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
+import io.github.yingzhuo.claude.core.m.admin.vo.UserListPageVO;
 import io.github.yingzhuo.claude.model.event.TokenBlacklistEvent;
 import io.github.yingzhuo.claude.model.webmvc.R;
 import io.github.yingzhuo.claude.security.Auth;
@@ -18,6 +20,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +75,14 @@ public class AdminController {
 	public R<?> deleteUser(@RequestBody @Valid AdminDeleteUserRequestDTO dto, @HiddenParam @CurrentUserId String currentUserId) {
 		adminService.deleteUser(currentUserId, dto);
 		return R.ok();
+	}
+
+	@GetMapping("/user/ls")
+	@MySecurityRequirement
+	@Operation(summary = "分页查询用户列表", description = "分页获取用户列表，支持按用户名模糊搜索")
+	public R<UserListPageVO> listUsers(@ModelAttribute @Valid UserListRequestDTO dto) {
+		var vo = adminService.listUsers(dto);
+		return R.ok(vo);
 	}
 
 }

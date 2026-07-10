@@ -4,6 +4,7 @@ import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePassword
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.UserListRequestDTO;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
@@ -191,5 +192,104 @@ class AdminServiceImplTest {
 		assertThatThrownBy(() -> adminService.deleteUser("test-admin-id", deleteDTO))
 			.isInstanceOf(BusinessException.class)
 			.hasMessage("密码错误");
+	}
+
+	// --- listUsers ---
+
+	@Test
+	void should_list_users_with_default_pagination() {
+		registerUser("ls_user_alpha");
+		registerUser("ls_user_beta");
+
+		var dto = UserListRequestDTO.builder().build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getPageNumber()).isEqualTo(1);
+		assertThat(result.getPageSize()).isEqualTo(10);
+		assertThat(result.getTotal()).isGreaterThanOrEqualTo(2);
+		assertThat(result.getTotalPages()).isGreaterThanOrEqualTo(1);
+		assertThat(result.getItems()).isNotEmpty();
+	}
+
+	@Test
+	void should_list_users_with_custom_page_size() {
+		for (int i = 0; i < 15; i++) {
+			registerUser("ls_page_size_" + i);
+		}
+
+		var dto = UserListRequestDTO.builder().pageSize(10).pageNumber(1).build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getPageSize()).isEqualTo(10);
+		assertThat(result.getItems()).hasSize(10);
+		assertThat(result.getTotalPages()).isGreaterThanOrEqualTo(2);
+	}
+
+	@Test
+	void should_list_users_filtered_by_search_key() {
+		registerUser("ls_search_abc");
+		registerUser("ls_search_def");
+		registerUser("other_user");
+
+		var dto = UserListRequestDTO.builder().searchKey("ls_search").build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getItems())
+			.extracting("username")
+			.allMatch(u -> ((String) u).contains("ls_search"));
+	}
+
+	@Test
+	void should_return_empty_list_when_search_key_no_match() {
+		var dto = UserListRequestDTO.builder().searchKey("__non_existent_user_xyz__").build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getItems()).isEmpty();
+		assertThat(result.getTotal()).isZero();
+	}
+
+	@Test
+	void should_return_all_users_when_search_key_is_null() {
+		registerUser("ls_null_key_a");
+		registerUser("ls_null_key_b");
+
+		var dto = UserListRequestDTO.builder().searchKey(null).build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getItems()).isNotEmpty();
+	}
+
+	@Test
+	void should_return_all_users_when_search_key_is_blank() {
+		registerUser("ls_blank_key_a");
+		registerUser("ls_blank_key_b");
+
+		var dto = UserListRequestDTO.builder().searchKey("  ").build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getItems()).isNotEmpty();
+	}
+
+	@Test
+	void should_list_users_on_second_page() {
+		for (int i = 0; i < 15; i++) {
+			registerUser("ls_page2_" + i);
+		}
+
+		var dto = UserListRequestDTO.builder().pageNumber(2).pageSize(10).build();
+		var result = adminService.listUsers(dto);
+
+		assertThat(result.getPageNumber()).isEqualTo(2);
+		assertThat(result.getItems()).isNotEmpty();
+	}
+
+	private void registerUser(String username) {
+		userService.register(RegisterRequestDTO.builder()
+			.username(username)
+			.password("Passw0rd!")
+			.confirmPassword("Passw0rd!")
+			.nickname("测试")
+			.gender(Gender.MALE)
+			.build());
 	}
 }

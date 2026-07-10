@@ -9,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JWT 黑名单事件监听器
- * <p>
- * 监听 {@link TokenBlacklistEvent}，将 JWT 加入黑名单。
- * </p>
  */
 @Component
 @RequiredArgsConstructor

@@ -1,10 +1,8 @@
 package io.github.yingzhuo.claude.core.m.admin.service;
 
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.*;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
+import io.github.yingzhuo.claude.core.m.admin.vo.UserListPageVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 
 /**
@@ -52,4 +50,12 @@ public interface AdminService {
 	 * @throws BusinessException 密码错误
 	 */
 	void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto);
+
+	/**
+	 * 分页查询用户列表
+	 *
+	 * @param dto 分页查询请求
+	 * @return 分页结果
+	 */
+	UserListPageVO listUsers(UserListRequestDTO dto);
 }

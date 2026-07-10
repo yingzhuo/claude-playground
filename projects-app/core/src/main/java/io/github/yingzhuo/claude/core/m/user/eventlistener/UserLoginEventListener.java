@@ -24,9 +24,6 @@ public class UserLoginEventListener {
 
 	/**
 	 * 处理用户登录成功事件
-	 * <p>
-	 * 如果用户之前已注销（{@code cancelledAt} 非空），则将其恢复为正常状态。
-	 * </p>
 	 *
 	 * @param event 用户登录成功事件
 	 */
