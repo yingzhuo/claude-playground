@@ -117,7 +117,7 @@ public class AdminServiceImpl implements AdminService {
 			return new LambdaQueryWrapper<>();
 		}
 		return new LambdaQueryWrapper<User>()
-			.like(User::getUsername, MyBatisUtils.escapeLike(searchKey.trim()));
+			.likeRight(User::getUsername, MyBatisUtils.escapeLike(searchKey.trim()));
 	}
 
 }
