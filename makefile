@@ -11,7 +11,7 @@ endif
 .PHONY: \
 clean purge rebuild-build-logic \
 compile build rebuild \
-check test \
+test \
 update-gradle-wrapper \
 docker-build docker-push docker-compose-up docker-compose-down docker-remove-dangling
 
@@ -40,9 +40,6 @@ build:
 	$(GRADLEW) 'build' -x 'test' -x 'check'
 
 rebuild: clean build
-
-check:
-	$(GRADLEW) 'check'
 
 test:
 	$(GRADLEW) 'test'

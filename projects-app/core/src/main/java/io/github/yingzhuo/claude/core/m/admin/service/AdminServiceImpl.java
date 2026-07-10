@@ -1,19 +1,22 @@
 package io.github.yingzhuo.claude.core.m.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.*;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
+import io.github.yingzhuo.claude.core.m.admin.dao.UserDao;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
+import io.github.yingzhuo.claude.core.m.admin.vo.UserListItemVO;
+import io.github.yingzhuo.claude.core.m.admin.vo.UserListPageVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.admin.Admin;
 import io.github.yingzhuo.claude.model.event.UserDeletedEvent;
 import io.github.yingzhuo.claude.model.event.UserEnabledEvent;
+import io.github.yingzhuo.claude.model.user.User;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,6 +32,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
 	private final AdminDao adminDao;
+	private final UserDao adminUserDao;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
 	private final ApplicationEventPublisher eventPublisher;
@@ -90,5 +95,49 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		eventPublisher.publishEvent(new UserDeletedEvent(dto.getUserId()));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserListPageVO listUsers(UserListRequestDTO dto) {
+		var wrapper = buildUserQueryWrapper(dto.getSearchKey());
+		var page = new Page<User>(dto.getPageNumber(), dto.getPageSize());
+		var result = adminUserDao.selectPage(page, wrapper);
+
+		var items = result.getRecords().stream()
+			.map(this::toUserListItemVO)
+			.collect(Collectors.toList());
+
+		return UserListPageVO.builder()
+			.pageNumber(result.getCurrent())
+			.pageSize(result.getSize())
+			.total(result.getTotal())
+			.totalPages(result.getPages())
+			.items(items)
+			.build();
+	}
+
+	@Nullable
+	private LambdaQueryWrapper<User> buildUserQueryWrapper(@Nullable String searchKey) {
+		if (searchKey == null || searchKey.isBlank()) {
+			return null;
+		}
+		return new LambdaQueryWrapper<User>()
+			.like(User::getUsername, searchKey.trim());
+	}
+
+	private UserListItemVO toUserListItemVO(User user) {
+		return UserListItemVO.builder()
+			.id(user.getId())
+			.username(user.getUsername())
+			.nickname(user.getNickname())
+			.dob(user.getDob())
+			.email(user.getEmail())
+			.avatarUrl(user.getAvatarUrl())
+			.gender(user.getGender())
+			.enabled(user.isEnabled())
+			.createdAt(user.getCreatedAt())
+			.cancelledAt(user.getCancelledAt())
+			.build();
 	}
 }
