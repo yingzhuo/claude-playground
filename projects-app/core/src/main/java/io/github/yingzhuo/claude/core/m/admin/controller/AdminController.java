@@ -1,10 +1,6 @@
 package io.github.yingzhuo.claude.core.m.admin.controller;
 
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.UserListRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.*;
 import io.github.yingzhuo.claude.core.m.admin.service.AdminService;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
 import io.github.yingzhuo.claude.core.m.admin.vo.UserListPageVO;
@@ -20,12 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController

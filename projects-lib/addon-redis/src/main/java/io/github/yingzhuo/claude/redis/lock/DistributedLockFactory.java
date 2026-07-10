@@ -33,7 +33,7 @@ public class DistributedLockFactory {
 	/**
 	 * 创建分布式锁（指定过期时间）
 	 *
-	 * @param name       锁名称
+	 * @param name        锁名称
 	 * @param expireAfter 锁自动过期时间
 	 * @return 分布式锁实例
 	 */
