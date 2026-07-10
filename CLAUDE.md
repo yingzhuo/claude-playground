@@ -49,7 +49,6 @@ claude-playground
 - `make build` — 打包（跳过测试和检查）
 - `make rebuild` — 清理并重新构建
 - `make test` — 运行测试
-- `make check` — 代码风格检查
 - `make update-gradle-wrapper` — 刷新 Gradle Wrapper
 - `make docker-build` — 构建 Docker 镜像（jibDockerBuild）
 - `make docker-push` — 推送 Docker 镜像到仓库（jib）
