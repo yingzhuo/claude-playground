@@ -14,6 +14,7 @@ import io.github.yingzhuo.claude.model.event.UserDeletedEvent;
 import io.github.yingzhuo.claude.model.event.UserEnabledEvent;
 import io.github.yingzhuo.claude.model.user.User;
 import io.github.yingzhuo.claude.security.jwt.JwtCreator;
+import io.github.yingzhuo.claude.utility.MyBatisUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
@@ -32,7 +33,7 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
 
 	private final AdminDao adminDao;
-	private final UserDao adminUserDao;
+	private final UserDao userDao;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
 	private final ApplicationEventPublisher eventPublisher;
@@ -102,7 +103,7 @@ public class AdminServiceImpl implements AdminService {
 	public UserListPageVO listUsers(UserListRequestDTO dto) {
 		var wrapper = buildUserQueryWrapper(dto.getSearchKey());
 		var page = new Page<User>(dto.getPageNumber(), dto.getPageSize());
-		var result = adminUserDao.selectPage(page, wrapper);
+		var result = userDao.selectPage(page, wrapper);
 
 		var items = result.getRecords().stream()
 			.map(this::toUserListItemVO)
@@ -117,13 +118,12 @@ public class AdminServiceImpl implements AdminService {
 			.build();
 	}
 
-	@Nullable
 	private LambdaQueryWrapper<User> buildUserQueryWrapper(@Nullable String searchKey) {
 		if (searchKey == null || searchKey.isBlank()) {
-			return null;
+			return new LambdaQueryWrapper<>();
 		}
 		return new LambdaQueryWrapper<User>()
-			.like(User::getUsername, searchKey.trim());
+			.like(User::getUsername, MyBatisUtils.escapeLike(searchKey.trim()));
 	}
 
 	private UserListItemVO toUserListItemVO(User user) {
