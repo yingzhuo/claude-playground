@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
-
 /**
  * 分页请求参数基类
  */
@@ -19,7 +17,7 @@ import java.io.Serializable;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @Schema(description = "分页请求参数基类")
-public abstract class PageParam implements Serializable {
+public abstract class PageParam {
 
 	@Min(value = 1, message = "页码最小为{value}")
 	@Max(value = 10000, message = "页码最大为{value}")

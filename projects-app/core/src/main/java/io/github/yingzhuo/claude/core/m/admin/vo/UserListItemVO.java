@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@Deprecated(forRemoval = true)
 @Schema(description = "用户列表项")
 public class UserListItemVO {
 
