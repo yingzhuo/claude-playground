@@ -6,7 +6,6 @@ import io.github.yingzhuo.claude.core.m.admin.controller.dto.*;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.admin.dao.UserDao;
 import io.github.yingzhuo.claude.core.m.admin.vo.AdminLoginVO;
-import io.github.yingzhuo.claude.core.m.admin.vo.UserListItemVO;
 import io.github.yingzhuo.claude.core.m.admin.vo.UserListPageVO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.admin.Admin;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -33,7 +31,7 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
 
 	private final AdminDao adminDao;
-	private final UserDao userDao;
+	private final UserDao adminUserDao;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtCreator jwtCreator;
 	private final ApplicationEventPublisher eventPublisher;
@@ -103,18 +101,14 @@ public class AdminServiceImpl implements AdminService {
 	public UserListPageVO listUsers(UserListRequestDTO dto) {
 		var wrapper = buildUserQueryWrapper(dto.getSearchKey());
 		var page = new Page<User>(dto.getPageNumber(), dto.getPageSize());
-		var result = userDao.selectPage(page, wrapper);
-
-		var items = result.getRecords().stream()
-			.map(this::toUserListItemVO)
-			.collect(Collectors.toList());
+		var result = adminUserDao.selectPage(page, wrapper);
 
 		return UserListPageVO.builder()
 			.pageNumber(result.getCurrent())
 			.pageSize(result.getSize())
 			.total(result.getTotal())
 			.totalPages(result.getPages())
-			.items(items)
+			.items(result.getRecords())
 			.build();
 	}
 
@@ -123,21 +117,7 @@ public class AdminServiceImpl implements AdminService {
 			return new LambdaQueryWrapper<>();
 		}
 		return new LambdaQueryWrapper<User>()
-			.like(User::getUsername, MyBatisUtils.escapeLike(searchKey.trim()));
+			.likeRight(User::getUsername, MyBatisUtils.escapeLike(searchKey.trim()));
 	}
 
-	private UserListItemVO toUserListItemVO(User user) {
-		return UserListItemVO.builder()
-			.id(user.getId())
-			.username(user.getUsername())
-			.nickname(user.getNickname())
-			.dob(user.getDob())
-			.email(user.getEmail())
-			.avatarUrl(user.getAvatarUrl())
-			.gender(user.getGender())
-			.enabled(user.isEnabled())
-			.createdAt(user.getCreatedAt())
-			.cancelledAt(user.getCancelledAt())
-			.build();
-	}
 }

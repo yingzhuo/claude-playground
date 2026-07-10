@@ -61,7 +61,8 @@ public class ApplicationBootSecurity {
 			)
 			.authorizeHttpRequests(c ->
 				c.requestMatchers("/error").permitAll()
-					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health", "/actuator/beans", "/actuator/env").permitAll()
+					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health",
+						"/actuator/beans", "/actuator/env", "/actuator/prometheus").permitAll()
 					.requestMatchers("/actuator/shutdown", "/actuator/restart").denyAll()
 					.requestMatchers("/user/login").permitAll()
 					.requestMatchers("/user/register").permitAll()

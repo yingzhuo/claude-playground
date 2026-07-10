@@ -88,4 +88,6 @@ dependencies {
 	// p6spy (SQL展示调试)
 	developmentOnly 'com.github.gavlyukovskiy:p6spy-spring-boot-starter'
 
+	// micrometer
+	api 'io.micrometer:micrometer-registry-prometheus'
 }

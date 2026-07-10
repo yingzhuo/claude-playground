@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @TableName("t_user")
 @Schema(description = "用户实体")
-@JsonIgnoreProperties({"password", "enabled"})
+@JsonIgnoreProperties({"password", "roles"})
 public class User implements Serializable {
 
 	/**
