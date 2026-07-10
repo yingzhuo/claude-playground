@@ -1,10 +1,6 @@
 package io.github.yingzhuo.claude.core.m.admin.service;
 
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminChangePasswordRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminDeleteUserRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.AdminLoginRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.SetUserEnabledRequestDTO;
-import io.github.yingzhuo.claude.core.m.admin.controller.dto.UserListRequestDTO;
+import io.github.yingzhuo.claude.core.m.admin.controller.dto.*;
 import io.github.yingzhuo.claude.core.m.admin.dao.AdminDao;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.LoginRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;

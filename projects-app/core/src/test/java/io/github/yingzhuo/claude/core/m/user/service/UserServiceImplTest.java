@@ -7,7 +7,6 @@ import io.github.yingzhuo.claude.core.m.user.controller.dto.RegisterRequestDTO;
 import io.github.yingzhuo.claude.core.m.user.controller.dto.UpdateProfileRequestDTO;
 import io.github.yingzhuo.claude.exception.BusinessException;
 import io.github.yingzhuo.claude.model.user.Gender;
-import io.github.yingzhuo.claude.model.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

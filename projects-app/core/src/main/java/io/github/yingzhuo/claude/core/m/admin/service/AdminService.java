@@ -45,8 +45,8 @@ public interface AdminService {
 	 * 仅超级管理员可用（安全层 hasRole("SUPER") 控制）。
 	 * </p>
 	 *
-	 * @param currentUserId     当前操作的管理员ID
-	 * @param dto               请求
+	 * @param currentUserId 当前操作的管理员ID
+	 * @param dto           请求
 	 * @throws BusinessException 密码错误
 	 */
 	void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto);
