@@ -13,6 +13,12 @@ dependencies {
 	// mybatis-plus (BOM)
 	api platform('com.baomidou:mybatis-plus-bom:3.5.17')
 
+	// BouncyCastle
+	api platform('org.bouncycastle:bc-jdk18on-bom:1.85')
+
+	// Hutool
+	api platform('cn.hutool:hutool-bom:5.8.47')
+
 	constraints {
 		// 通用工具
 		api 'com.google.guava:guava:33.6.0-jre'
