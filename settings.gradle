@@ -4,9 +4,7 @@ pluginManagement {
 		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		gradlePluginPortal()
 		mavenCentral()
-		maven { url = 'https://repo.spring.io/release' }
-		maven { url = 'https://repo.spring.io/milestone' }
-		maven { url = 'https://repo.spring.io/snapshot' }
+		google()
 	}
 }
 
@@ -22,10 +20,6 @@ dependencyResolutionManagement {
 		mavenLocal()
 		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		mavenCentral()
-		gradlePluginPortal()
-		maven { url = 'https://repo.spring.io/release' }
-		maven { url = 'https://repo.spring.io/milestone' }
-		maven { url = 'https://repo.spring.io/snapshot' }
 	}
 
 	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
