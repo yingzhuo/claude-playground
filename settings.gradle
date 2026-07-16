@@ -33,6 +33,7 @@ dependencyResolutionManagement {
 
 rootProject.name = 'claude-playground'
 
+includeBuild './build-logic'
 include ':project-bom'
 include ':projects-app:core'
 include ':projects-lib:addon-common'

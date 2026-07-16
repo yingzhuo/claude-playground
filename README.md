@@ -19,7 +19,7 @@
 
 ## 开发环境
 
-- ClaudeCode v2.1.210
+- ClaudeCode v2.1.211
     - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade.
 - deepseek-v4-pro
 
