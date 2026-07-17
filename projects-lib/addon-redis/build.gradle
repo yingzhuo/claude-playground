@@ -1,6 +1,5 @@
 plugins {
 	id 'buildlogic.java-conventions'
-	id 'buildlogic.check-conventions'
 }
 
 description = 'Redis扩展'

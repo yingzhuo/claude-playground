@@ -27,8 +27,6 @@ dependencyResolutionManagement {
 
 rootProject.name = 'claude-playground'
 
-includeBuild 'build-logic'
-
 include ':project-bom'
 
 ['projects-app', 'projects-lib'].each {

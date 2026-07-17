@@ -9,7 +9,7 @@ endif
 .DEFAULT_GOAL := clean
 
 .PHONY: \
-clean purge rebuild-build-logic \
+clean purge rebuild-buildSrc \
 compile build rebuild \
 test \
 update-gradle-wrapper \
@@ -21,17 +21,17 @@ clean:
 	$(GRADLEW) 'clean' -q
 
 purge:
-	$(GRADLEW) 'clean' ':build-logic:clean' -q
+	$(GRADLEW) 'clean' ':buildSrc:clean' -q
 ifeq ($(OS), Windows_NT)
 	if exist $(MAKEFILE_PATH)\.gradle rmdir /s /q $(MAKEFILE_PATH)\.gradle
-	if exist $(MAKEFILE_PATH)\build-logic\.gradle rmdir /s /q $(MAKEFILE_PATH)\build-logic\.gradle
+	if exist $(MAKEFILE_PATH)\buildSrc\.gradle rmdir /s /q $(MAKEFILE_PATH)\buildSrc\.gradle
 else
 	rm -rf $(MAKEFILE_PATH)/.gradle
-	rm -rf $(MAKEFILE_PATH)/build-logic/.gradle
+	rm -rf $(MAKEFILE_PATH)/buildSrc/.gradle
 endif
 
 rebuild-build-logic:
-	$(GRADLEW) ':build-logic:clean' ':build-logic:jar' -q
+	$(GRADLEW) ':buildSrc:clean' ':buildSrc:jar' -q
 
 compile:
 	$(GRADLEW) 'classes'
