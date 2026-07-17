@@ -4,9 +4,7 @@ pluginManagement {
 		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		gradlePluginPortal()
 		mavenCentral()
-		maven { url = 'https://repo.spring.io/release' }
-		maven { url = 'https://repo.spring.io/milestone' }
-		maven { url = 'https://repo.spring.io/snapshot' }
+		google()
 	}
 }
 
@@ -22,10 +20,6 @@ dependencyResolutionManagement {
 		mavenLocal()
 		maven { url = 'https://maven.aliyun.com/repository/public/' }
 		mavenCentral()
-		gradlePluginPortal()
-		maven { url = 'https://repo.spring.io/release' }
-		maven { url = 'https://repo.spring.io/milestone' }
-		maven { url = 'https://repo.spring.io/snapshot' }
 	}
 
 	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
@@ -33,10 +27,12 @@ dependencyResolutionManagement {
 
 rootProject.name = 'claude-playground'
 
-includeBuild './build-logic'
 include ':project-bom'
-include ':projects-app:core'
-include ':projects-lib:addon-common'
-include ':projects-lib:addon-model'
-include ':projects-lib:addon-redis'
-include ':projects-lib:addon-security'
+
+['projects-app', 'projects-lib'].each {
+	file(it).eachDir { projectDir ->
+		if (projectDir.directory && new File(projectDir, 'build.gradle').exists()) {
+			include ":$it:${projectDir.name}"
+		}
+	}
+}
