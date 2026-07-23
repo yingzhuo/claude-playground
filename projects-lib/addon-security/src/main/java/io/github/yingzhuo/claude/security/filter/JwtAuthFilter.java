@@ -23,64 +23,64 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends AbstractJwtAuthFilter {
 
-	private final TokenResolver tokenResolver;
-	private final JwtVerifier jwtVerifier;
+    private final TokenResolver tokenResolver;
+    private final JwtVerifier jwtVerifier;
 
-	@Setter
-	private @Nullable JwtBlacklistChecker blacklistChecker;
+    @Setter
+    private @Nullable JwtBlacklistChecker blacklistChecker;
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-		if (!super.authenticationIsRequired()) {
-			chain.doFilter(request, response);
-			return;
-		}
+        if (!super.authenticationIsRequired()) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-		try {
-			var token = tokenResolver.resolve(new ServletWebRequest(request, response));
-			if (!StringUtils.hasText(token)) {
-				chain.doFilter(request, response);
-				return;
-			}
+        try {
+            var token = tokenResolver.resolve(new ServletWebRequest(request, response));
+            if (!StringUtils.hasText(token)) {
+                chain.doFilter(request, response);
+                return;
+            }
 
-			log.trace("解析出令牌: {}", token);
+            log.trace("解析出令牌: {}", token);
 
-			var auth = jwtVerifier.verify(token);
-			auth.setToken(token);
-			auth.setDetails(new WebAuthenticationDetails(request));
+            var auth = jwtVerifier.verify(token);
+            auth.setToken(token);
+            auth.setDetails(new WebAuthenticationDetails(request));
 
-			// 黑名单校验
-			var jti = auth.getTokenJti();
-			if (jti != null && blacklistChecker != null && blacklistChecker.isBlacklisted(jti)) {
-				log.trace("令牌已被拉黑: jti={}", jti);
-				super.clearSecurityContext();
-				chain.doFilter(request, response);
-				return;
-			}
+            // 黑名单校验
+            var jti = auth.getTokenJti();
+            if (jti != null && blacklistChecker != null && blacklistChecker.isBlacklisted(jti)) {
+                log.trace("令牌已被拉黑: jti={}", jti);
+                super.clearSecurityContext();
+                chain.doFilter(request, response);
+                return;
+            }
 
-			super.setAuthentication(auth);
+            super.setAuthentication(auth);
 
-			if (log.isTraceEnabled()) {
-				log.trace("认证成功 id: {}", auth.getUserId());
-				log.trace("认证成功 username: {}", auth.getUsername());
-				log.trace("认证成功 authorities: {}",
-					auth.getAuthorities()
-						.stream()
-						.map(Object::toString)
-						.collect(Collectors.joining(",")));
-			}
+            if (log.isTraceEnabled()) {
+                log.trace("认证成功 id: {}", auth.getUserId());
+                log.trace("认证成功 username: {}", auth.getUsername());
+                log.trace("认证成功 authorities: {}",
+                        auth.getAuthorities()
+                                .stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(",")));
+            }
 
-			chain.doFilter(request, response);
+            chain.doFilter(request, response);
 
-		} catch (JwtVerifier.BadTokenException | AuthenticationException e) {
-			log.debug(e.getMessage(), e);
-			super.clearSecurityContext();
-			chain.doFilter(request, response);
-		} catch (ServletException | IOException e) {
-			log.debug(e.getMessage(), e);
-			throw e;
-		}
-	}
+        } catch (JwtVerifier.BadTokenException | AuthenticationException e) {
+            log.debug(e.getMessage(), e);
+            super.clearSecurityContext();
+            chain.doFilter(request, response);
+        } catch (ServletException | IOException e) {
+            log.debug(e.getMessage(), e);
+            throw e;
+        }
+    }
 
 }

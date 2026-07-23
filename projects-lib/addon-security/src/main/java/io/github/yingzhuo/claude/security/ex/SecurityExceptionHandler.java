@@ -20,35 +20,35 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class SecurityExceptionHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
 
-	private static final String UNAUTHORIZED_MESSAGE = "未认证";
-	private static final String FORBIDDEN_MESSAGE = "权限不足";
+    private static final String UNAUTHORIZED_MESSAGE = "未认证";
+    private static final String FORBIDDEN_MESSAGE = "权限不足";
 
-	private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-	                     AuthenticationException authException) {
-		log.warn("认证失败: {}", authException.getMessage());
-		writeJsonResponse(response, HttpStatus.UNAUTHORIZED, R.error401(UNAUTHORIZED_MESSAGE));
-	}
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) {
+        log.warn("认证失败: {}", authException.getMessage());
+        writeJsonResponse(response, HttpStatus.UNAUTHORIZED, R.error401(UNAUTHORIZED_MESSAGE));
+    }
 
-	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response,
-	                   AccessDeniedException accessDeniedException) {
-		log.warn("授权失败: {}", accessDeniedException.getMessage());
-		writeJsonResponse(response, HttpStatus.FORBIDDEN, R.error403(FORBIDDEN_MESSAGE));
-	}
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+                       AccessDeniedException accessDeniedException) {
+        log.warn("授权失败: {}", accessDeniedException.getMessage());
+        writeJsonResponse(response, HttpStatus.FORBIDDEN, R.error403(FORBIDDEN_MESSAGE));
+    }
 
-	private void writeJsonResponse(HttpServletResponse response, HttpStatus status, R<Void> body) {
-		response.setStatus(status.value());
-		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-		try {
-			objectMapper.writeValue(response.getOutputStream(), body);
-			response.flushBuffer();
-		} catch (IOException e) {
-			log.error("写入认证/授权错误响应失败", e);
-		}
-	}
+    private void writeJsonResponse(HttpServletResponse response, HttpStatus status, R<Void> body) {
+        response.setStatus(status.value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        try {
+            objectMapper.writeValue(response.getOutputStream(), body);
+            response.flushBuffer();
+        } catch (IOException e) {
+            log.error("写入认证/授权错误响应失败", e);
+        }
+    }
 
 }

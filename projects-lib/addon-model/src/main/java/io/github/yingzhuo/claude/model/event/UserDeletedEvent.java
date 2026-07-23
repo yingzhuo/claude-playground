@@ -7,6 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(description = "用户删除事件")
 public record UserDeletedEvent(
-	@Schema(description = "用户ID") String userId
+        @Schema(description = "用户ID") String userId
 ) {
 }

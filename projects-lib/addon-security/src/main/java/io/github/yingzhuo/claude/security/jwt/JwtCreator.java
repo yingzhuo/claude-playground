@@ -5,8 +5,8 @@ import io.github.yingzhuo.claude.model.user.User;
 
 public interface JwtCreator {
 
-	String create(User user);
+    String create(User user);
 
-	String create(Admin admin);
+    String create(Admin admin);
 
 }

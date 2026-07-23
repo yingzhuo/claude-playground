@@ -11,11 +11,11 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SecurityScheme(
-	name = "AuthHeader",
-	type = SecuritySchemeType.APIKEY,
-	in = SecuritySchemeIn.HEADER,
-	paramName = "X-Auth-Token",
-	description = "自定义请求头鉴权"
+        name = "AuthHeader",
+        type = SecuritySchemeType.APIKEY,
+        in = SecuritySchemeIn.HEADER,
+        paramName = "X-Auth-Token",
+        description = "自定义请求头鉴权"
 )
 public @interface MySecurityScheme {
 }

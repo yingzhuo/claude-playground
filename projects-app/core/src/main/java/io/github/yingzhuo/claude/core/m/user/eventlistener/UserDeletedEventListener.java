@@ -16,21 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserDeletedEventListener {
 
-	private final UserDao userDao;
+    private final UserDao userDao;
 
-	/**
-	 * 处理用户删除事件
-	 *
-	 * @param event 用户删除事件
-	 */
-	@EventListener
-	@Transactional
-	public void handleUserDeleted(UserDeletedEvent event) {
-		var deleted = userDao.deleteById(event.userId());
-		if (deleted > 0) {
-			log.debug("用户已删除: userId={}", event.userId());
-		} else {
-			log.warn("用户不存在，无法删除: userId={}", event.userId());
-		}
-	}
+    /**
+     * 处理用户删除事件
+     *
+     * @param event 用户删除事件
+     */
+    @EventListener
+    @Transactional
+    public void handleUserDeleted(UserDeletedEvent event) {
+        var deleted = userDao.deleteById(event.userId());
+        if (deleted > 0) {
+            log.debug("用户已删除: userId={}", event.userId());
+        } else {
+            log.warn("用户不存在，无法删除: userId={}", event.userId());
+        }
+    }
 }

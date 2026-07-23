@@ -18,9 +18,9 @@ import java.io.Serializable;
 @Schema(description = "用户角色关联实体")
 public class UserRoleRef implements Serializable {
 
-	@Schema(description = "用户ID")
-	private String userId;
+    @Schema(description = "用户ID")
+    private String userId;
 
-	@Schema(description = "角色ID")
-	private String roleId;
+    @Schema(description = "角色ID")
+    private String roleId;
 }

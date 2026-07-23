@@ -21,20 +21,20 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @RequiredArgsConstructor
 public class UserLoginEventListener {
 
-	private final UserService userService;
-	private final MeterRegistry meterRegistry;
+    private final UserService userService;
+    private final MeterRegistry meterRegistry;
 
-	/**
-	 * 处理用户登录成功事件
-	 *
-	 * @param event 用户登录成功事件
-	 */
-	@Async
-	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-	public void handleUserLoginSuccess(UserLoginSuccessEvent event) {
-		meterRegistry.counter("user.login.total", "kind", "user_login").increment();
-		userService.reactivateAccount(event.userId());
-		log.debug("用户登录后已清除注销标记: userId={}", event.userId());
-	}
+    /**
+     * 处理用户登录成功事件
+     *
+     * @param event 用户登录成功事件
+     */
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleUserLoginSuccess(UserLoginSuccessEvent event) {
+        meterRegistry.counter("user.login.total", "kind", "user_login").increment();
+        userService.reactivateAccount(event.userId());
+        log.debug("用户登录后已清除注销标记: userId={}", event.userId());
+    }
 
 }

@@ -9,19 +9,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "性别枚举")
 public enum Gender {
 
-	/**
-	 * 男性
-	 */
-	MALE,
+    /**
+     * 男性
+     */
+    MALE,
 
-	/**
-	 * 女性
-	 */
-	FEMALE,
+    /**
+     * 女性
+     */
+    FEMALE,
 
-	/**
-	 * 未知
-	 */
-	UNKNOWN
+    /**
+     * 未知
+     */
+    UNKNOWN
 
 }

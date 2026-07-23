@@ -17,9 +17,9 @@ import org.jspecify.annotations.Nullable;
 @Schema(description = "用户列表查询请求")
 public class UserListRequestDTO extends PageParam {
 
-	@Nullable
-	@Schema(description = "搜索关键字(按用户名前缀搜索)", minLength = 1, maxLength = 20)
-	@Size(min = 1, max = 20, message = "搜索关键字长度最小{min}最大{max}")
-	private String searchKey;
+    @Nullable
+    @Schema(description = "搜索关键字(按用户名前缀搜索)", minLength = 1, maxLength = 20)
+    @Size(min = 1, max = 20, message = "搜索关键字长度最小{min}最大{max}")
+    private String searchKey;
 
 }

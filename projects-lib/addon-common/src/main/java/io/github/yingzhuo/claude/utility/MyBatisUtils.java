@@ -7,11 +7,11 @@ import org.springframework.util.Assert;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MyBatisUtils {
 
-	public static String escapeLike(String s) {
-		Assert.notNull(s, "s is null");
-		return s.replace("/", "//")
-			.replace("%", "/%")
-			.replace("_", "/_");
-	}
+    public static String escapeLike(String s) {
+        Assert.notNull(s, "s is null");
+        return s.replace("/", "//")
+                .replace("%", "/%")
+                .replace("_", "/_");
+    }
 
 }

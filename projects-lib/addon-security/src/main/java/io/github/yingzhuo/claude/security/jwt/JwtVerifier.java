@@ -4,9 +4,9 @@ import io.github.yingzhuo.claude.security.Auth;
 
 public interface JwtVerifier {
 
-	Auth verify(String token) throws BadTokenException;
+    Auth verify(String token) throws BadTokenException;
 
-	class BadTokenException extends Exception {
-	}
+    class BadTokenException extends Exception {
+    }
 
 }

@@ -20,19 +20,19 @@ import java.util.List;
 @Schema(description = "分页结果基类")
 public abstract class PageResult<T> {
 
-	@Schema(description = "当前页码")
-	private long pageNumber;
+    @Schema(description = "当前页码")
+    private long pageNumber;
 
-	@Schema(description = "每页条目数")
-	private long pageSize;
+    @Schema(description = "每页条目数")
+    private long pageSize;
 
-	@Schema(description = "总条目数")
-	private long total;
+    @Schema(description = "总条目数")
+    private long total;
 
-	@Schema(description = "总页数")
-	private long totalPages;
+    @Schema(description = "总页数")
+    private long totalPages;
 
-	@Schema(description = "数据列表")
-	private List<T> items;
+    @Schema(description = "数据列表")
+    private List<T> items;
 
 }

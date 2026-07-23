@@ -8,21 +8,21 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "password", ignore = true)
-	@Mapping(target = "createdAt", ignore = true)
-	@Mapping(target = "cancelledAt", ignore = true)
-	@Mapping(target = "roles", ignore = true)
-	@Mapping(target = "enabled", ignore = true)
-	User toEntity(RegisterRequestDTO dto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "cancelledAt", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "enabled", ignore = true)
+    User toEntity(RegisterRequestDTO dto);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "username", ignore = true)
-	@Mapping(target = "password", ignore = true)
-	@Mapping(target = "createdAt", ignore = true)
-	@Mapping(target = "cancelledAt", ignore = true)
-	@Mapping(target = "roles", ignore = true)
-	@Mapping(target = "enabled", ignore = true)
-	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-	void applyProfileUpdate(@MappingTarget User user, UpdateProfileRequestDTO dto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "username", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "cancelledAt", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "enabled", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void applyProfileUpdate(@MappingTarget User user, UpdateProfileRequestDTO dto);
 }

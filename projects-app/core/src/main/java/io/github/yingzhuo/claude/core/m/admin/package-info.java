@@ -1,7 +1,7 @@
 @NullMarked
 @ApplicationModule(
-	displayName = "管理员",
-	type = ApplicationModule.Type.CLOSED
+        displayName = "管理员",
+        type = ApplicationModule.Type.CLOSED
 )
 package io.github.yingzhuo.claude.core.m.admin;
 

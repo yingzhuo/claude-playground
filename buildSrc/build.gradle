@@ -1,14 +1,21 @@
 plugins {
-	id 'groovy-gradle-plugin'
+    id 'groovy-gradle-plugin'
 }
 
 var file = file('../gradle.properties')
 if (file.exists() && file.isFile()) {
-	var props = new Properties()
+    var props = new Properties()
 
-	file.withDataInputStream { stream ->
-		props.load(stream)
-	}
+    file.withDataInputStream { stream ->
+        props.load(stream)
+    }
 
-	props.forEach(ext::set)
+    props.forEach(ext::set)
+}
+
+dependencies {
+    implementation(libs.spring.boot.gradle.plugin)
+    implementation(libs.dependency.management.plugin) // 实际上这个插件我没有使用,但决定暂时不删除
+    implementation(libs.jib.gradle.plugin)
+    implementation(libs.git.properties.plugin)
 }

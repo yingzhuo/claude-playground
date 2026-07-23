@@ -18,67 +18,67 @@ import java.util.List;
 @Setter
 public class Auth implements Authentication {
 
-	private String userId;
-	private String username;
-	private @Nullable List<String> authorities;
-	private @Nullable String token;
-	private @Nullable String tokenJti;
-	private @Nullable LocalDateTime tokenExpiresAt;
-	private @Nullable String loginKind;
-	private @Nullable Object details;
-	private boolean authenticated;
+    private String userId;
+    private String username;
+    private @Nullable List<String> authorities;
+    private @Nullable String token;
+    private @Nullable String tokenJti;
+    private @Nullable LocalDateTime tokenExpiresAt;
+    private @Nullable String loginKind;
+    private @Nullable Object details;
+    private boolean authenticated;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities == null ? List.of() : authorities.stream().map(SimpleGrantedAuthority::new).toList();
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities == null ? List.of() : authorities.stream().map(SimpleGrantedAuthority::new).toList();
+    }
 
-	@Override
-	public @Nullable Object getCredentials() {
-		return getToken();
-	}
+    @Override
+    public @Nullable Object getCredentials() {
+        return getToken();
+    }
 
-	@Override
-	public @Nullable Object getDetails() {
-		return details;
-	}
+    @Override
+    public @Nullable Object getDetails() {
+        return details;
+    }
 
-	@Override
-	public @Nullable Object getPrincipal() {
-		return getUserId();
-	}
+    @Override
+    public @Nullable Object getPrincipal() {
+        return getUserId();
+    }
 
-	@Override
-	public boolean isAuthenticated() {
-		return authenticated;
-	}
+    @Override
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
 
-	@Override
-	public void setAuthenticated(boolean isAuthenticated) {
-		this.authenticated = isAuthenticated;
-	}
+    @Override
+    public void setAuthenticated(boolean isAuthenticated) {
+        this.authenticated = isAuthenticated;
+    }
 
-	@Override
-	public String getName() {
-		return getUsername();
-	}
+    @Override
+    public String getName() {
+        return getUsername();
+    }
 
-	/**
-	 * 获取原始角色名列表（供 {@code @CurrentRoles} 注解使用）
-	 */
-	public List<String> getRoles() {
-		return this.authorities != null ? this.authorities : List.of();
-	}
+    /**
+     * 获取原始角色名列表（供 {@code @CurrentRoles} 注解使用）
+     */
+    public List<String> getRoles() {
+        return this.authorities != null ? this.authorities : List.of();
+    }
 
-	@Override
-	public String toString() {
-		return new ToStringCreator(this)
-			.append("id", getUserId())
-			.append("username", getUsername())
-			.append("authorities", getAuthorities())
-			.append("token", getToken())
-			.append("tokenId", getTokenJti())
-			.toString();
-	}
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("id", getUserId())
+                .append("username", getUsername())
+                .append("authorities", getAuthorities())
+                .append("token", getToken())
+                .append("tokenId", getTokenJti())
+                .toString();
+    }
 
 }

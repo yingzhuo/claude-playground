@@ -8,14 +8,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "管理员角色")
 public enum AdminRole {
 
-	/**
-	 * 普通管理员
-	 */
-	NORMAL,
+    /**
+     * 普通管理员
+     */
+    NORMAL,
 
-	/**
-	 * 超级管理员
-	 */
-	SUPER
+    /**
+     * 超级管理员
+     */
+    SUPER
 
 }

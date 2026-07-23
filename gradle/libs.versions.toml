@@ -1,0 +1,19 @@
+# Version Catalogs
+#  https://docs.gradle.org/current/userguide/version_catalogs.html
+[versions]
+spring-boot-version = "4.1.0"
+
+[libraries]
+spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot-version" }
+spring-moduilth-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "2.1.0" }
+mybatis-plus-bom = { module = "com.baomidou:mybatis-plus-bom", version = "3.5.17" }
+bouncycastle-bom = { module = "org.bouncycastle:bc-jdk18on-bom", version = "1.85" }
+hutool-bom = { module = "cn.hutool:hutool-bom", version = "5.8.47" }
+
+# Plugin Artifacts (for buildSrc dependencies)
+dependency-management-plugin = "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.7"
+spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot-version" }
+jib-gradle-plugin = "com.google.cloud.tools:jib-gradle-plugin:3.5.4"
+git-properties-plugin = "com.gorylenko.gradle-git-properties:gradle-git-properties:4.0.1"
+
+[bundles]
