@@ -22,59 +22,59 @@ import static org.springframework.http.HttpMethod.GET;
 @Configuration
 public class ApplicationBootSecurity {
 
-	@Bean
-	public HttpFirewall httpFirewall() {
-		var bean = new StrictHttpFirewall();
-		bean.setAllowSemicolon(true);
-		return bean;
-	}
+    @Bean
+    public HttpFirewall httpFirewall() {
+        var bean = new StrictHttpFirewall();
+        bean.setAllowSemicolon(true);
+        return bean;
+    }
 
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return customizer -> customizer.debug(false);
-	}
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return customizer -> customizer.debug(false);
+    }
 
-	@Bean
-	public SecurityFilterChain securityFilterChainDefault(HttpSecurity http, ObjectMapper objectMapper) {
-		var exceptionHandler = new SecurityExceptionHandler(objectMapper);
+    @Bean
+    public SecurityFilterChain securityFilterChainDefault(HttpSecurity http, ObjectMapper objectMapper) {
+        var exceptionHandler = new SecurityExceptionHandler(objectMapper);
 
-		return http
-			.securityMatcher(RequestMatcherFactories.createDefault())
-			.anonymous(Customizer.withDefaults())
-			.sessionManagement(c ->
-				c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			)
-			.cors(Customizer.withDefaults())
-			.csrf(AbstractHttpConfigurer::disable)
-			.httpBasic(AbstractHttpConfigurer::disable)
-			.jee(AbstractHttpConfigurer::disable)
-			.formLogin(AbstractHttpConfigurer::disable)
-			.logout(AbstractHttpConfigurer::disable)
-			.passwordManagement(AbstractHttpConfigurer::disable)
-			.rememberMe(AbstractHttpConfigurer::disable)
-			.requestCache(RequestCacheConfigurer::disable)
-			.headers(Customizer.withDefaults())
-			.cors(Customizer.withDefaults())
-			.exceptionHandling(c ->
-				c.authenticationEntryPoint(exceptionHandler)
-					.accessDeniedHandler(exceptionHandler)
-			)
-			.authorizeHttpRequests(c ->
-				c.requestMatchers("/error").permitAll()
-					.requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health",
-						"/actuator/beans", "/actuator/env", "/actuator/prometheus").permitAll()
-					.requestMatchers("/actuator/shutdown", "/actuator/restart").denyAll()
-					.requestMatchers("/user/login").permitAll()
-					.requestMatchers("/user/register").permitAll()
-					.requestMatchers("/user/logout").permitAll()
-					.requestMatchers("/user/**").hasRole("USER")
-					.requestMatchers("/admin/login").permitAll()
-					.requestMatchers("/admin/user/delete").hasRole("SUPER")
-					.requestMatchers("/admin/logout").permitAll()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().permitAll()
-			)
-			.build();
-	}
+        return http
+                .securityMatcher(RequestMatcherFactories.createDefault())
+                .anonymous(Customizer.withDefaults())
+                .sessionManagement(c ->
+                        c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .jee(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable)
+                .passwordManagement(AbstractHttpConfigurer::disable)
+                .rememberMe(AbstractHttpConfigurer::disable)
+                .requestCache(RequestCacheConfigurer::disable)
+                .headers(Customizer.withDefaults())
+                .cors(Customizer.withDefaults())
+                .exceptionHandling(c ->
+                        c.authenticationEntryPoint(exceptionHandler)
+                                .accessDeniedHandler(exceptionHandler)
+                )
+                .authorizeHttpRequests(c ->
+                        c.requestMatchers("/error").permitAll()
+                                .requestMatchers(GET, "/actuator", "/actuator/info", "/actuator/health",
+                                        "/actuator/beans", "/actuator/env", "/actuator/prometheus").permitAll()
+                                .requestMatchers("/actuator/shutdown", "/actuator/restart").denyAll()
+                                .requestMatchers("/user/login").permitAll()
+                                .requestMatchers("/user/register").permitAll()
+                                .requestMatchers("/user/logout").permitAll()
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/admin/login").permitAll()
+                                .requestMatchers("/admin/user/delete").hasRole("SUPER")
+                                .requestMatchers("/admin/logout").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .anyRequest().permitAll()
+                )
+                .build();
+    }
 
 }

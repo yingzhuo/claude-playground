@@ -1,21 +1,26 @@
 plugins {
-	id 'buildlogic.root-project-conventions'
+    id 'base'
 }
 
 ext {
-	// SpringBoot BOM 版本微调
-	// https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
-	// https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html
+    // SpringBoot BOM 版本微调
+    // https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
+    // https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html
 }
 
 allprojects {
-	group = 'io.github.yingzhuo'
-	version = '0.1.0'
+    group = 'io.github.yingzhuo'
+    version = '0.1.1'
 
-	configurations.configureEach {
-		resolutionStrategy {
-			cacheChangingModulesFor 24, 'hours'
-			cacheDynamicVersionsFor 24, 'hours'
-		}
-	}
+    configurations.configureEach {
+        resolutionStrategy {
+            cacheChangingModulesFor 24, 'hours'
+            cacheDynamicVersionsFor 24, 'hours'
+        }
+    }
+}
+
+tasks.named('wrapper') {
+    distributionUrl = 'https://mirrors.cloud.tencent.com/gradle/gradle-9.6.1-bin.zip'
+    validateDistributionUrl = false
 }

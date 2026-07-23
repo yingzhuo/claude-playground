@@ -10,8 +10,8 @@ import org.springframework.modulith.Modulith;
 @RequiredArgsConstructor
 public class ApplicationBoot {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApplicationBoot.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ApplicationBoot.class, args);
+    }
 
 }

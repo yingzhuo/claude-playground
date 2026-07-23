@@ -19,16 +19,16 @@ import java.io.Serializable;
 @Schema(description = "角色实体")
 public class Role implements Serializable {
 
-	/**
-	 * 数据库ID
-	 */
-	@Schema(description = "数据库ID")
-	@TableId
-	private String id;
+    /**
+     * 数据库ID
+     */
+    @Schema(description = "数据库ID")
+    @TableId
+    private String id;
 
-	/**
-	 * 角色名
-	 */
-	@Schema(description = "角色名")
-	private String name;
+    /**
+     * 角色名
+     */
+    @Schema(description = "角色名")
+    private String name;
 }

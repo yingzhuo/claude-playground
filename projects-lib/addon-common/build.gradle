@@ -1,37 +1,37 @@
 plugins {
-	id 'buildlogic.java-conventions'
+    id 'buildlogic.java-conventions'
 }
 
 description = '通用工具及杂项'
 
 dependencies {
 
-	// 本项目BOM
-	api platform(project(':project-bom'))
-	annotationProcessor platform(project(':project-bom'))
+    // 本项目BOM (包含重要第三方项目的BOM, 如spring-boot)
+    api platform(project(':project-bom'))
+    annotationProcessor platform(project(':project-bom'))
 
-	// spring-boot & spring
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
-	compileOnly 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.springframework.boot:spring-boot-starter-logging'
-	compileOnly 'org.springframework.boot:spring-boot-starter-validation'
-	compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // spring-boot & spring
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.springframework.boot:spring-boot-starter-logging'
+    compileOnly 'org.springframework.boot:spring-boot-starter-validation'
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-	// tools
-	api 'com.google.guava:guava'
-	api 'com.fasterxml.uuid:java-uuid-generator'
+    // tools
+    api 'com.google.guava:guava'
+    api 'com.fasterxml.uuid:java-uuid-generator'
 
-	// lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// mapstruct
-	compileOnly 'org.mapstruct:mapstruct'
-	annotationProcessor 'org.mapstruct:mapstruct-processor'
+    // mapstruct
+    compileOnly 'org.mapstruct:mapstruct'
+    annotationProcessor 'org.mapstruct:mapstruct-processor'
 
-	// slf4j
-	api 'org.slf4j:slf4j-api'
+    // slf4j
+    api 'org.slf4j:slf4j-api'
 }

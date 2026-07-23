@@ -23,35 +23,35 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties("password")
 public class Admin implements Serializable {
 
-	/**
-	 * 数据库ID
-	 */
-	@Schema(description = "数据库ID")
-	@TableId
-	private String id;
+    /**
+     * 数据库ID
+     */
+    @Schema(description = "数据库ID")
+    @TableId
+    private String id;
 
-	/**
-	 * 用户名
-	 */
-	@Schema(description = "用户名", maxLength = 20)
-	private String username;
+    /**
+     * 用户名
+     */
+    @Schema(description = "用户名", maxLength = 20)
+    private String username;
 
-	/**
-	 * 密码
-	 */
-	@Schema(description = "密码", maxLength = 100)
-	private String password;
+    /**
+     * 密码
+     */
+    @Schema(description = "密码", maxLength = 100)
+    private String password;
 
-	/**
-	 * 角色
-	 */
-	@Schema(description = "角色（NORMAL / SUPER）")
-	private AdminRole role;
+    /**
+     * 角色
+     */
+    @Schema(description = "角色（NORMAL / SUPER）")
+    private AdminRole role;
 
-	/**
-	 * 最后登录时间
-	 */
-	@Schema(description = "最后登录时间")
-	@Nullable
-	private LocalDateTime lastLoginTime;
+    /**
+     * 最后登录时间
+     */
+    @Schema(description = "最后登录时间")
+    @Nullable
+    private LocalDateTime lastLoginTime;
 }

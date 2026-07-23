@@ -10,10 +10,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class LogbackProperties {
 
-	@NotBlank
-	private String logHome;
+    @NotBlank
+    private String logHome;
 
-	@NotBlank
-	private String logName;
+    @NotBlank
+    private String logName;
 
 }

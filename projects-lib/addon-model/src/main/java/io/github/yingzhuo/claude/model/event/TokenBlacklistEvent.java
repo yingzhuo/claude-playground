@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 @Schema(description = "JWT 黑名单事件")
 public record TokenBlacklistEvent(
-	@Schema(description = "JWT jti 声明值") String jti,
-	@Schema(description = "JWT 过期时间") LocalDateTime expiredAt
+        @Schema(description = "JWT jti 声明值") String jti,
+        @Schema(description = "JWT 过期时间") LocalDateTime expiredAt
 ) {
 }

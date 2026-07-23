@@ -18,19 +18,19 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserAccountPurgeTask {
 
-	private final UserService userService;
+    private final UserService userService;
 
-	/**
-	 * 清理已过注销等待期的用户账户。
-	 * <p>
-	 * 查询条件：{@code cancelledAt IS NOT NULL AND cancelledAt &lt; now() - 7 days}
-	 * </p>
-	 */
-	@Scheduled(initialDelay = 60_000, fixedRate = 7_200_000)
-	public void purgeCancelledAccounts() {
-		var count = userService.purgeCancelledAccounts();
-		if (count > 0) {
-			log.debug("清理已注销用户 {} 个", count);
-		}
-	}
+    /**
+     * 清理已过注销等待期的用户账户。
+     * <p>
+     * 查询条件：{@code cancelledAt IS NOT NULL AND cancelledAt &lt; now() - 7 days}
+     * </p>
+     */
+    @Scheduled(initialDelay = 60_000, fixedRate = 7_200_000)
+    public void purgeCancelledAccounts() {
+        var count = userService.purgeCancelledAccounts();
+        if (count > 0) {
+            log.debug("清理已注销用户 {} 个", count);
+        }
+    }
 }

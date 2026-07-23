@@ -18,9 +18,9 @@ import java.time.Duration;
 @ConditionalOnBean(StringRedisTemplate.class)
 public class RedisLockAutoConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public DistributedLockFactory distributedLockFactory(StringRedisTemplate redisTemplate) {
-		return new DistributedLockFactory(redisTemplate, Duration.ofSeconds(30));
-	}
+    @Bean
+    @ConditionalOnMissingBean
+    public DistributedLockFactory distributedLockFactory(StringRedisTemplate redisTemplate) {
+        return new DistributedLockFactory(redisTemplate, Duration.ofSeconds(30));
+    }
 }

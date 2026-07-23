@@ -17,12 +17,6 @@
     - 对于安装上述受影响版本的开发终端，‌立即卸载‌或升级至已清除后门代码的最新安全版本。
     - 加强核心业务网段内开发工具的外联权限管控与流量监测，防止敏感数据违规外传。
 
-## 开发环境
-
-- ClaudeCode v2.1.211
-    - `sudo npm install -g @anthropic-ai/claude-code@latest` to upgrade.
-- deepseek-v4-pro
-
 ## 已安装 Skill
 
 - [ponytail](https://github.com/DietrichGebert/ponytail)

@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 public class ApplicationBootMyBatis {
 
-	@Bean
-	public MybatisPlusInterceptor mybatisPlusInterceptor() {
-		var interceptor = new MybatisPlusInterceptor();
-		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-		return interceptor;
-	}
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        var interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+    }
 
 }

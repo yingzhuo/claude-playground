@@ -10,52 +10,52 @@ import io.github.yingzhuo.claude.exception.BusinessException;
  */
 public interface AdminService {
 
-	/**
-	 * 管理员登录
-	 *
-	 * @param dto 登录请求
-	 * @return 登录响应（含 JWT token、管理员ID、用户名）
-	 * @throws BusinessException 用户名或密码错误
-	 */
-	AdminLoginVO login(AdminLoginRequestDTO dto);
+    /**
+     * 管理员登录
+     *
+     * @param dto 登录请求
+     * @return 登录响应（含 JWT token、管理员ID、用户名）
+     * @throws BusinessException 用户名或密码错误
+     */
+    AdminLoginVO login(AdminLoginRequestDTO dto);
 
-	/**
-	 * 修改管理员密码
-	 * <p>
-	 * 超级管理员可修改任何管理员的密码（含自身），普通管理员只能修改自身的密码。
-	 * </p>
-	 *
-	 * @param currentUserId 当前操作的管理员ID
-	 * @param currentRoles  当前操作的管理员角色列表
-	 * @param dto           修改密码请求
-	 * @throws BusinessException 密码不一致、无权限或管理员不存在
-	 */
-	void changePassword(String currentUserId, java.util.List<String> currentRoles, AdminChangePasswordRequestDTO dto);
+    /**
+     * 修改管理员密码
+     * <p>
+     * 超级管理员可修改任何管理员的密码（含自身），普通管理员只能修改自身的密码。
+     * </p>
+     *
+     * @param currentUserId 当前操作的管理员ID
+     * @param currentRoles  当前操作的管理员角色列表
+     * @param dto           修改密码请求
+     * @throws BusinessException 密码不一致、无权限或管理员不存在
+     */
+    void changePassword(String currentUserId, java.util.List<String> currentRoles, AdminChangePasswordRequestDTO dto);
 
-	/**
-	 * 设置用户启用/禁用状态
-	 *
-	 * @param dto 请求
-	 */
-	void setUserEnabled(SetUserEnabledRequestDTO dto);
+    /**
+     * 设置用户启用/禁用状态
+     *
+     * @param dto 请求
+     */
+    void setUserEnabled(SetUserEnabledRequestDTO dto);
 
-	/**
-	 * 删除用户
-	 * <p>
-	 * 仅超级管理员可用（安全层 hasRole("SUPER") 控制）。
-	 * </p>
-	 *
-	 * @param currentUserId 当前操作的管理员ID
-	 * @param dto           请求
-	 * @throws BusinessException 密码错误
-	 */
-	void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto);
+    /**
+     * 删除用户
+     * <p>
+     * 仅超级管理员可用（安全层 hasRole("SUPER") 控制）。
+     * </p>
+     *
+     * @param currentUserId 当前操作的管理员ID
+     * @param dto           请求
+     * @throws BusinessException 密码错误
+     */
+    void deleteUser(String currentUserId, AdminDeleteUserRequestDTO dto);
 
-	/**
-	 * 分页查询用户列表
-	 *
-	 * @param dto 分页查询请求
-	 * @return 分页结果
-	 */
-	UserListPageVO listUsers(UserListRequestDTO dto);
+    /**
+     * 分页查询用户列表
+     *
+     * @param dto 分页查询请求
+     * @return 分页结果
+     */
+    UserListPageVO listUsers(UserListRequestDTO dto);
 }

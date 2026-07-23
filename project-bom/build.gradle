@@ -1,42 +1,40 @@
 plugins {
-	id 'java-platform'
+    id 'java-platform'
 }
 
-description = '物料清单(BOM)'
+description = '物料清单'
 
 javaPlatform {
-	allowDependencies()
+    allowDependencies()
 }
 
 dependencies {
 
-	// mybatis-plus (BOM)
-	api platform('com.baomidou:mybatis-plus-bom:3.5.17')
+    // BOM(s)
+    api platform(libs.spring.boot.bom)
+    api platform(libs.spring.moduilth.bom)
+    api platform(libs.mybatis.plus.bom)
+    api platform(libs.bouncycastle.bom)
+    api platform(libs.hutool.bom)
 
-	// BouncyCastle
-	api platform('org.bouncycastle:bc-jdk18on-bom:1.85')
+    constraints {
+        // 通用工具
+        api 'com.google.guava:guava:33.6.0-jre'
 
-	// Hutool
-	api platform('cn.hutool:hutool-bom:5.8.47')
+        // mapstruct
+        api 'org.mapstruct:mapstruct:1.6.3'
+        api 'org.mapstruct:mapstruct-processor:1.6.3'
 
-	constraints {
-		// 通用工具
-		api 'com.google.guava:guava:33.6.0-jre'
+        // swagger
+        api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 
-		// mapstruct
-		api 'org.mapstruct:mapstruct:1.6.3'
-		api 'org.mapstruct:mapstruct-processor:1.6.3'
+        // p6spy (SQL展示调试)
+        api 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:2.0.1'
 
-		// swagger
-		api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
+        // jwt
+        api 'com.auth0:java-jwt:4.6.0'
 
-		// p6spy (SQL展示调试)
-		api 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:2.0.1'
-
-		// jwt
-		api 'com.auth0:java-jwt:4.6.0'
-
-		// uuid
-		api 'com.fasterxml.uuid:java-uuid-generator:5.2.0'
-	}
+        // uuid
+        api 'com.fasterxml.uuid:java-uuid-generator:5.2.0'
+    }
 }

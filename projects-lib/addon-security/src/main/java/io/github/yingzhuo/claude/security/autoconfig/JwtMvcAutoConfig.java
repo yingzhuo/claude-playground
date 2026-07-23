@@ -10,9 +10,9 @@ import java.util.List;
 @AutoConfigureAfter(JwtBeanAutoConfiguration.class)
 public class JwtMvcAutoConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(new AuthHandlerMethodArgumentResolver());
-	}
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new AuthHandlerMethodArgumentResolver());
+    }
 
 }

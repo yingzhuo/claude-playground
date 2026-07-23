@@ -1,8 +1,0 @@
-plugins {
-	id 'base'
-}
-
-tasks.named('wrapper') {
-	distributionUrl = 'https://mirrors.cloud.tencent.com/gradle/gradle-8.14.5-bin.zip'
-	validateDistributionUrl = false
-}

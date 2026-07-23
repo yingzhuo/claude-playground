@@ -28,37 +28,37 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "用户认证", description = "登录相关接口")
 public class LoginController {
 
-	private final ApplicationEventPublisher eventPublisher;
-	private final UserService userService;
-	private final JwtBlacklistService jwtBlacklistService;
+    private final ApplicationEventPublisher eventPublisher;
+    private final UserService userService;
+    private final JwtBlacklistService jwtBlacklistService;
 
-	@PostMapping("/login")
-	@Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token及用户信息")
-	public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO dto) {
-		var vo = userService.login(dto);
-		return R.ok(vo);
-	}
+    @PostMapping("/login")
+    @Operation(summary = "用户登录", description = "使用用户名和密码进行登录，返回JWT token及用户信息")
+    public R<LoginVO> login(@RequestBody @Valid LoginRequestDTO dto) {
+        var vo = userService.login(dto);
+        return R.ok(vo);
+    }
 
-	@PostMapping("/token/refresh")
-	@Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token")
-	@MySecurityRequirement
-	public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
-		var vo = userService.refreshToken(userId);
+    @PostMapping("/token/refresh")
+    @Operation(summary = "刷新JWT令牌", description = "使用当前有效的JWT token换取新的token，旧token立即失效。需在请求头中携带有效的X-Auth-Token")
+    @MySecurityRequirement
+    public R<RefreshTokenVO> refresh(@HiddenParam @CurrentUserId String userId, @HiddenParam @Nullable Auth auth) {
+        var vo = userService.refreshToken(userId);
 
-		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
-			jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
-		}
-		return R.ok(vo);
-	}
+        if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+            jwtBlacklistService.add(auth.getTokenJti(), auth.getTokenExpiresAt());
+        }
+        return R.ok(vo);
+    }
 
-	@PostMapping("/logout")
-	@Operation(summary = "登出", description = "将当前令牌加入黑名单，使其立即失效")
-	@MySecurityRequirement
-	public R<?> logout(@HiddenParam @Nullable Auth auth) {
-		if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
-			eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
-		}
-		return R.ok();
-	}
+    @PostMapping("/logout")
+    @Operation(summary = "登出", description = "将当前令牌加入黑名单，使其立即失效")
+    @MySecurityRequirement
+    public R<?> logout(@HiddenParam @Nullable Auth auth) {
+        if (auth != null && auth.getTokenJti() != null && auth.getTokenExpiresAt() != null) {
+            eventPublisher.publishEvent(new TokenBlacklistEvent(auth.getTokenJti(), auth.getTokenExpiresAt()));
+        }
+        return R.ok();
+    }
 
 }

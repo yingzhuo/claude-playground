@@ -10,30 +10,30 @@ import org.springframework.web.context.request.WebRequest;
  */
 public class HeaderTokenResolver implements TokenResolver {
 
-	private final String headerName;
-	private final String prefix;
+    private final String headerName;
+    private final String prefix;
 
-	public HeaderTokenResolver(String headerName, @Nullable String prefix) {
-		Assert.hasText(headerName, "header name must not be empty");
-		this.prefix = prefix != null ? prefix : "";
-		this.headerName = headerName;
-	}
+    public HeaderTokenResolver(String headerName, @Nullable String prefix) {
+        Assert.hasText(headerName, "header name must not be empty");
+        this.prefix = prefix != null ? prefix : "";
+        this.headerName = headerName;
+    }
 
-	public HeaderTokenResolver(String headerName) {
-		this(headerName, null);
-	}
+    public HeaderTokenResolver(String headerName) {
+        this(headerName, null);
+    }
 
-	@Override
-	public @Nullable String resolve(WebRequest request) {
-		var headValue = request.getHeader(headerName);
-		if (StringUtils.hasText(headValue)) {
-			var trimmed = headValue.trim();
-			if (prefix.isEmpty() || trimmed.startsWith(prefix)) {
-				return prefix.isEmpty() ? trimmed : trimmed.substring(prefix.length());
-			}
-		}
+    @Override
+    public @Nullable String resolve(WebRequest request) {
+        var headValue = request.getHeader(headerName);
+        if (StringUtils.hasText(headValue)) {
+            var trimmed = headValue.trim();
+            if (prefix.isEmpty() || trimmed.startsWith(prefix)) {
+                return prefix.isEmpty() ? trimmed : trimmed.substring(prefix.length());
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

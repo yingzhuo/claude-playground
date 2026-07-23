@@ -11,15 +11,15 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 public class AuthHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-	@Override
-	public boolean supportsParameter(MethodParameter parameter) {
-		return parameter.getParameterType().isAssignableFrom(Auth.class);
-	}
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        return parameter.getParameterType().isAssignableFrom(Auth.class);
+    }
 
-	@Override
-	public @Nullable Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer, NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
-		var authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authentication instanceof Auth ? authentication : null;
-	}
+    @Override
+    public @Nullable Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer, NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication instanceof Auth ? authentication : null;
+    }
 
 }

@@ -13,34 +13,34 @@ import java.util.List;
 
 public class SimpleJwtVerifier implements JwtVerifier {
 
-	private final JWTVerifier innerVerifier;
+    private final JWTVerifier innerVerifier;
 
-	public SimpleJwtVerifier(Algorithm algorithm) {
-		Assert.notNull(algorithm, "algorithm must not be null");
-		this.innerVerifier = JWT.require(algorithm)
-			.build();
-	}
+    public SimpleJwtVerifier(Algorithm algorithm) {
+        Assert.notNull(algorithm, "algorithm must not be null");
+        this.innerVerifier = JWT.require(algorithm)
+                .build();
+    }
 
-	@Override
-	public Auth verify(String token) throws BadTokenException {
-		try {
-			var decoded = innerVerifier.verify(token);
+    @Override
+    public Auth verify(String token) throws BadTokenException {
+        try {
+            var decoded = innerVerifier.verify(token);
 
-			var roles = decoded.getClaim("roles").asList(String.class);
+            var roles = decoded.getClaim("roles").asList(String.class);
 
-			return Auth.builder()
-				.authenticated(true)
-				.userId(decoded.getClaim("id").asString())
-				.username(decoded.getClaim("username").asString())
-				.tokenJti(decoded.getId())
-				.tokenExpiresAt(LocalDateTime.ofInstant(decoded.getExpiresAt().toInstant(), ZoneOffset.UTC))
-				.authorities(roles != null ? roles : List.of())
-				.loginKind(decoded.getClaim("loginKind").asString())
-				.build();
+            return Auth.builder()
+                    .authenticated(true)
+                    .userId(decoded.getClaim("id").asString())
+                    .username(decoded.getClaim("username").asString())
+                    .tokenJti(decoded.getId())
+                    .tokenExpiresAt(LocalDateTime.ofInstant(decoded.getExpiresAt().toInstant(), ZoneOffset.UTC))
+                    .authorities(roles != null ? roles : List.of())
+                    .loginKind(decoded.getClaim("loginKind").asString())
+                    .build();
 
-		} catch (JWTVerificationException e) {
-			throw new BadTokenException();
-		}
-	}
+        } catch (JWTVerificationException e) {
+            throw new BadTokenException();
+        }
+    }
 
 }

@@ -8,9 +8,9 @@ import tools.jackson.databind.json.JsonMapper;
 @Configuration
 public class ApplicationBootJackson3 implements JsonMapperBuilderCustomizer {
 
-	@Override
-	public void customize(JsonMapper.Builder builder) {
-		builder.configure(SerializationFeature.INDENT_OUTPUT, true);
-	}
+    @Override
+    public void customize(JsonMapper.Builder builder) {
+        builder.configure(SerializationFeature.INDENT_OUTPUT, true);
+    }
 
 }

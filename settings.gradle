@@ -1,28 +1,21 @@
 pluginManagement {
-	repositories {
-		mavenLocal()
-		maven { url = 'https://maven.aliyun.com/repository/public/' }
-		gradlePluginPortal()
-		mavenCentral()
-		google()
-	}
-}
-
-plugins {
-	id 'io.spring.dependency-management' version "$dependencyManagementPluginVersion" apply false
-	id 'org.springframework.boot' version "$springBootVersion" apply false
-	id 'com.gorylenko.gradle-git-properties' version "$gitPluginVersion" apply false
-	id 'com.google.cloud.tools.jib' version "$jibPluginVersion" apply false
+    repositories {
+        mavenLocal()
+        maven { url = 'https://maven.aliyun.com/repository/public/' }
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
 }
 
 dependencyResolutionManagement {
-	repositories {
-		mavenLocal()
-		maven { url = 'https://maven.aliyun.com/repository/public/' }
-		mavenCentral()
-	}
+    repositories {
+        mavenLocal()
+        maven { url = 'https://maven.aliyun.com/repository/public/' }
+        mavenCentral()
+    }
 
-	repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 }
 
 rootProject.name = 'claude-playground'
@@ -30,9 +23,9 @@ rootProject.name = 'claude-playground'
 include ':project-bom'
 
 ['projects-app', 'projects-lib'].each {
-	file(it).eachDir { projectDir ->
-		if (projectDir.directory && new File(projectDir, 'build.gradle').exists()) {
-			include ":$it:${projectDir.name}"
-		}
-	}
+    file(it).eachDir { projectDir ->
+        if (projectDir.directory && new File(projectDir, 'build.gradle').exists()) {
+            include ":$it:${projectDir.name}"
+        }
+    }
 }

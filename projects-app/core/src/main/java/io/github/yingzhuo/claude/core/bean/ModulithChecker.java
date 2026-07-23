@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(prefix = "claude-playground", name = "check-modules", havingValue = "true", matchIfMissing = true)
 public class ModulithChecker implements ApplicationRunner {
 
-	@Override
-	public void run(ApplicationArguments args) {
-		ApplicationModules.of(ApplicationBoot.class).verify();
-	}
+    @Override
+    public void run(ApplicationArguments args) {
+        ApplicationModules.of(ApplicationBoot.class).verify();
+    }
 
 }

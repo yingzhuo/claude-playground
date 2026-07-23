@@ -11,9 +11,9 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PasswordStrengthValidator.class)
 public @interface PasswordStrength {
 
-	String message() default "密码必须包含字母、数字和特殊字符";
+    String message() default "密码必须包含字母、数字和特殊字符";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

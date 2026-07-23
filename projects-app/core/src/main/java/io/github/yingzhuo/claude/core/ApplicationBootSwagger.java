@@ -12,20 +12,20 @@ import org.springframework.context.annotation.Configuration;
 @MySecurityScheme
 public class ApplicationBootSwagger {
 
-	@ApplicationName
-	private String applicationName;
+    @ApplicationName
+    private String applicationName;
 
-	@ApplicationVersion
-	private String applicationVersion;
+    @ApplicationVersion
+    private String applicationVersion;
 
-	@Bean
-	public OpenAPI customOpenAPI() {
-		return new OpenAPI()
-			.info(new Info()
-				.title(applicationName)
-				.description("Claude Playground")
-				.version("v" + applicationVersion)
-			);
-	}
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title(applicationName)
+                        .description("Claude Playground")
+                        .version("v" + applicationVersion)
+                );
+    }
 
 }
