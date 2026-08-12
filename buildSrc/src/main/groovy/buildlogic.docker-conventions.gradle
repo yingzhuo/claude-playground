@@ -1,45 +1,45 @@
 plugins {
-    id 'com.google.cloud.tools.jib'
+	id 'com.google.cloud.tools.jib'
 }
 
 jib {
-    from {
-        image = 'docker.m.daocloud.io/eclipse-temurin:21-jre'
-    }
+	from {
+		image = 'docker.m.daocloud.io/eclipse-temurin:21-jre'
+	}
 
-    to {
-        image = "${project.group}/${rootProject.name}/${project.name}:${project.version}"
-        tags = [
-                "${project.version}",
-                'latest'
-        ]
-    }
+	to {
+		image = "${project.group}/${rootProject.name}/${project.name}:${project.version}"
+		tags = [
+			"${project.version}",
+			'latest'
+		]
+	}
 
-    extraDirectories {
-        paths {
-            path {
-                from = rootDir
-                includes = ['LICENSE.txt']
-                into = '/'
-            }
-        }
-        permissions = [
-                '/LICENSE.txt': '660'
-        ]
-    }
+	extraDirectories {
+		paths {
+			path {
+				from = rootDir
+				includes = ['LICENSE.txt']
+				into = '/'
+			}
+		}
+		permissions = [
+			'/LICENSE.txt': '660'
+		]
+	}
 
-    container {
-        jvmFlags = [
-                '-Dfile.encoding=UTF-8',
-                '-Duser.timezone=Asia/Shanghai',
-                '-Duser.language=zh',
-                '-Duser.country=CN',
-                '-XX:+UseZGC',
-                '-XX:ZCollectionInterval=30',
-                '-XX:ZFragmentationLimit=10',
-                '-XX:+ExitOnOutOfMemoryError'
-        ]
-        ports = [providers.gradleProperty('dockerMappingPort').getOrElse('8080')]
-        creationTime = 'USE_CURRENT_TIMESTAMP'
-    }
+	container {
+		jvmFlags = [
+			'-Dfile.encoding=UTF-8',
+			'-Duser.timezone=Asia/Shanghai',
+			'-Duser.language=zh',
+			'-Duser.country=CN',
+			'-XX:+UseZGC',
+			'-XX:ZCollectionInterval=30',
+			'-XX:ZFragmentationLimit=10',
+			'-XX:+ExitOnOutOfMemoryError'
+		]
+		ports = [providers.gradleProperty('dockerMappingPort').getOrElse('8080')]
+		creationTime = 'USE_CURRENT_TIMESTAMP'
+	}
 }
