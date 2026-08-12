@@ -10,7 +10,7 @@ ext {
 
 allprojects {
     group = 'io.github.yingzhuo'
-    version = '0.1.1'
+    version = '0.1.2'
 
     configurations.configureEach {
         resolutionStrategy {
@@ -21,6 +21,5 @@ allprojects {
 }
 
 tasks.named('wrapper') {
-    distributionUrl = 'https://mirrors.cloud.tencent.com/gradle/gradle-9.6.1-bin.zip'
-    validateDistributionUrl = false
+    distributionUrl = 'https://mirrors.cloud.tencent.com/gradle/gradle-9.7.0-bin.zip'
 }

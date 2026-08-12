@@ -1,79 +1,79 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id 'java'
-    id 'java-library'
+	id 'java'
+	id 'java-library'
 }
 
 java {
-    var javaVersionInt = jdkVersion as Integer
-    sourceCompatibility = JavaVersion.toVersion(javaVersionInt)
-    targetCompatibility = JavaVersion.toVersion(javaVersionInt)
+	var javaVersionInt = jdkVersion as Integer
+	sourceCompatibility = JavaVersion.toVersion(javaVersionInt)
+	targetCompatibility = JavaVersion.toVersion(javaVersionInt)
 
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(javaVersionInt)
-        implementation = JvmImplementation.VENDOR_SPECIFIC
-    }
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(javaVersionInt)
+		implementation = JvmImplementation.VENDOR_SPECIFIC
+	}
 
-    //withSourcesJar()
-    //withJavadocJar()
+	//withSourcesJar()
+	//withJavadocJar()
 }
 
 compileJava {
-    options.compilerArgs += [
-            '-Xlint:unchecked',
-            '-Xlint:cast',
-            '-Xlint:rawtypes',
-            '-Xlint:overloads',
-            '-Xlint:divzero',
-            '-Xlint:finally',
-            '-Xlint:static',
-            '-Werror'
-    ]
+	options.compilerArgs += [
+		'-Xlint:unchecked',
+		'-Xlint:cast',
+		'-Xlint:rawtypes',
+		'-Xlint:overloads',
+		'-Xlint:divzero',
+		'-Xlint:finally',
+		'-Xlint:static',
+		'-Werror'
+	]
 }
 
 jar {
-    enabled = true
-    archiveFileName = "${project.name}-${project.version}.jar"
+	enabled = true
+	archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 javadoc {
-    failOnError = false
+	failOnError = false
 
-    options {
-        locale = defaultLocale
-        encoding = defaultEncoding
-    }
+	options {
+		locale = defaultLocale
+		encoding = defaultEncoding
+	}
 }
 
 var replaceTokenMap = [
-        'APP_GROUP'         : project.group,
-        'APP_NAME'          : project.name,
-        'APP_VERSION'       : project.version,
-        'APP_GRADLE_VERSION': gradle.gradleVersion
+	'APP_GROUP'         : project.group,
+	'APP_NAME'          : project.name,
+	'APP_VERSION'       : project.version,
+	'APP_GRADLE_VERSION': gradle.gradleVersion
 ]
 
 processResources {
-    exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
+	exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
 
-    from('src/main/java') {
-        include('**/*.pem', '**/*.pfx', '**/*.p12', '**/*.properties')
-    }
+	from('src/main/java') {
+		include('**/*.pem', '**/*.pfx', '**/*.p12', '**/*.properties')
+	}
 
-    from('src/main/resources') {
-        include('**/*.yaml', '**/*.yml', '**/*.properties', '**/*.xml', '**/banner.txt')
-        filter(ReplaceTokens, 'tokens': replaceTokenMap)
-        filteringCharset = defaultEncoding
-    }
+	from('src/main/resources') {
+		include('**/*.yaml', '**/*.yml', '**/*.properties', '**/*.xml', '**/banner.txt')
+		filter(ReplaceTokens, 'tokens': replaceTokenMap)
+		filteringCharset = defaultEncoding
+	}
 
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 processTestResources {
-    exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	exclude('**/.DS_Store', '**/.gitkeep', '.gitignore')
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
 }
